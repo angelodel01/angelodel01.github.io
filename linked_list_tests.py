@@ -53,14 +53,22 @@ class TestList(unittest.TestCase):
 
     def test_remove_01(self):
         with self.assertRaises(IndexError):
+            print ('made it')
             remove(Pair(1, Pair(2, None)), 6)
 
     def test_remove_02(self):
         with self.assertRaises(IndexError):
             remove(None, -1)
 
-
     def test_remove_03(self):
+        with self.assertRaises(IndexError):
+            remove(Pair(1, None), -20)
+
+    def test_remove_04(self):
+        with self.assertRaises(IndexError):
+            remove(None, 0)
+
+    def test_remove_05(self):
         self.assertEqual(remove(Pair(3, Pair(5, Pair(2, None))), 1), (5, Pair(3, Pair(2, None))))
 
 

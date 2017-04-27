@@ -6,7 +6,6 @@ class Pair:
     def __eq__(self, other):
         return type(other) == type(self) and self.first == other.first and self.rest == other.rest
 
-
     def __repr__(self):
         return "Pair(%r, %r)" %(self.first, self.rest)
 

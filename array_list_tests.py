@@ -27,8 +27,9 @@ class TestList(unittest.TestCase):
         lst = List()
         lst.values = test_gen([1, 2, 3], 7)
         lst.size = 3
-        with self.assertRaises(IndexError):
-            add(lst, 12, 'b')
+        self.assertRaises(IndexError, add, lst, 12, 'b')
+        '''with self.assertRaises(IndexError):
+            add(lst, 12, 'b')'''
 
 
     def test_add_03(self):
@@ -63,15 +64,17 @@ class TestList(unittest.TestCase):
         lst = List()
         lst.values = test_gen([1, 2, 3], 7)
         lst.size = 3
-        with self.assertRaises(IndexError):
-            get(lst, -1)
+        self.assertRaises(IndexError, get, lst, -1)
+        '''with self.assertRaises(IndexError):
+            get(lst, -1)'''
 
     def test_get_04(self):
         lst = List()
         lst.values = test_gen([1, 2, 3], 7)
         lst.size = 3
-        with self.assertRaises(IndexError):
-            get(lst, 12)
+        self.assertRaises(IndexError, get, lst, 12)
+        '''with self.assertRaises(IndexError):
+            get(lst, 12)'''
 
     def test_get_05(self):
         lst = List()
@@ -84,8 +87,9 @@ class TestList(unittest.TestCase):
         lst = List()
         lst.values = test_gen(['a', 'b', 'c'], 7)
         lst.size = 3
-        with self.assertRaises(IndexError):
-            set(lst, 14, 'a')
+        self.assertRaises(IndexError, set, lst, 14, 'a')
+        '''with self.assertRaises(IndexError):
+            set(lst, 14, 'a')'''
 
     def test_set_02(self):
         lst = List()
@@ -104,8 +108,9 @@ class TestList(unittest.TestCase):
         lst = List()
         lst.values = test_gen([1, 2, 3, 4], 6) 
         lst.size = 4
-        with self.assertRaises(IndexError):
-            remove(lst, 7)
+        self.assertRaises(IndexError, remove, lst, 7)
+        '''with self.assertRaises(IndexError):
+            remove(lst, 7)'''
 
     def test_remove_0(self):
         lst = List()
@@ -119,8 +124,3 @@ class TestList(unittest.TestCase):
 
 if (__name__ == '__main__'):
     unittest.main()
-
-
-
-
-

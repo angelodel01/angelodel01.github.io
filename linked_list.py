@@ -48,7 +48,7 @@ def add(AnyList, index, value):
 # AnyList -> int
 #this function takes a list of items and returns the amount of items in the list
 def sup_length(AnyList, count):
-    if AnyList == None:
+    if AnyList == None or AnyList == empty_list():
         return count
 
     else:
@@ -65,7 +65,7 @@ def length(AnyList):
 # AnyList int -> int
 #this function takes a list of items and an index and returns the item in the list at that index
 def sup_get(AnyList, index, count):
-    if AnyList == None:
+    if AnyList == None or AnyList == empty_list():
         raise IndexError('index out of range')
     else:
         if count == index:
@@ -86,7 +86,7 @@ def get(AnyList, index):
 # AnyList int anytype -> AnyList
 #this function takes a list of items an index and a value of any type and returns a new list where at the given index the value will be put there
 def sup_set(AnyList, index, value, count):
-    if index > count and AnyList == None:
+    if index > count and (AnyList == None or AnyList == empty_list()):
         raise IndexError('index out of range')
 
     elif index == count:
@@ -116,7 +116,7 @@ def sup_remove(AnyList, index):
 
 def remove(AnyList, index):
     #print ('list :', AnyList, 'idx :', index)
-    if AnyList == None or index < 0:
+    if (AnyList == None and AnyList == empty_list()) or index < 0:
         raise IndexError
     return (get(AnyList, index), sup_remove(AnyList, index))
 

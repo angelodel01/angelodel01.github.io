@@ -25,7 +25,7 @@ def empty_list():
 # AnyList int value-> AnyList
 #this function takes an index as an int an AnyList and a value and places that value at the index in the AnyList
 def sup_add(AnyList, index, value, count):
-    if AnyList == None and index == 0:
+    if (AnyList == None or AnyList == empty_list()) and index == 0:
         return Pair(value, None)
 
     elif AnyList.rest == None and index > count:

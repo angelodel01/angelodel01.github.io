@@ -6,6 +6,12 @@ def test_gen(lst, numofnones):
 
 
 class TestList(unittest.TestCase):
+    def test_repr(self):
+        answer = List()
+        answer.values = test_gen(['a'], 9)
+        answer.size = 1
+        self.assertEqual(repr(answer),"List(1, ['a', None, None, None, None, None, None, None, None, None])")
+
     def test_empty_list_01(self):
         self.assertEqual(empty_list(), List())
 

@@ -107,17 +107,17 @@ def set(AnyList, index, value):
 #value can be any data type
 # AnyList int anytype -> AnyList
 #this function takes a list of items an index that designates an item to be removed and returns a tuple of the item removed and the resulting list
-def sup_remove(AnyList, index, count):
-    if AnyList == None and count < index:
-        raise IndexError('index out of range')
+def sup_remove(AnyList, index):
 
+    if 0 == index:
+        return AnyList.rest
     else:
-        if count == index:
-            return AnyList.rest
-        else:
-            count += 1
-            return Pair(AnyList.first, sup_remove(AnyList.rest, index, count))
+        return Pair(AnyList.first, sup_remove(AnyList.rest, index - 1))
 
 def remove(AnyList, index):
-    return (get(AnyList, index), sup_remove(AnyList, index, 0))
+    #print ('list :', AnyList, 'idx :', index)
+    if AnyList == None or index < 0:
+        raise IndexError
+    return (get(AnyList, index), sup_remove(AnyList, index))
+
 

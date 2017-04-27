@@ -34,14 +34,14 @@ class TestList(unittest.TestCase):
         answer.size = 5
         self.assertEqual(add(lst, 1, 'abc'), answer)
 
-    '''def test_add_04(self):
+    def test_add_04(self):
         lst = List()
         lst.values = [1, 2, 3, 5, 6, 7, 8, 9, 10]
         lst.size = 10
         answer = List()
         answer.values = [1, 2, 3, 'abc', 5, 6, 7, 8, 9, 10, None, None, None, None, None, None, None, None, None, None]
         answer.size = 11
-        self.assertEqual(add(lst, 3, 'abc'), answer)'''
+        self.assertEqual(add(lst, 3, 'abc'), answer)
 
     def test_length_01(self):
         lst = List()

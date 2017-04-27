@@ -26,7 +26,9 @@ def sup_add(lst, idx, val):
     new_lst = List()
     if lst.size == lst.capacity:
         new_lst.capacity = lst.capacity*2
-        new_lst.values = [None]*lst.capacity
+        new_lst.values = [None]*new_lst.capacity
+        lst.capacity *= 2 
+        lst.values += [None]*10
 
     for i in range(0, lst.size + 1, 1):
         if idx > i:
@@ -106,7 +108,6 @@ def remove(lst, idx):
                 new_list.size += 1
         new_list.size -= 1
         return (lst.values[idx], new_list)
-
 
 
 

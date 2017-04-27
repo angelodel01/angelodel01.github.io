@@ -15,7 +15,6 @@ class TestList(unittest.TestCase):
 
 
 
-
     def test_empty_list_01(self):
         self.assertEqual(empty_list(), None)
 

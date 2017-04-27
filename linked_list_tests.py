@@ -1,20 +1,21 @@
 import unittest
 from linked_list import *
 
+
+
 class TestList(unittest.TestCase):
-    # Note that this test doesn't assert anything! It just verifies your
-    #  class and function definitions.
-    def test_interface(self):
-        temp_list = empty_list()
-        temp_list = add(temp_list, 0, "Hello!")
-        length(temp_list)
-        get(temp_list, 0)
-        temp_list = set(temp_list, 0, "Bye!")
-        remove(temp_list, 0)
+    def test_Pair_01(self):
+        self.assertEqual(Pair(2, None).first, 2)
+
+    def test_Pair_02(self):
+        self.assertEqual(Pair(2, None).rest, None)
 
     def test_repr_01(self):
         self.assertEqual(repr(Pair(2, None)), 'Pair(2, None)')
-    
+
+
+
+
     def test_empty_list_01(self):
         self.assertEqual(empty_list(), None)
 
@@ -55,7 +56,17 @@ class TestList(unittest.TestCase):
             remove(Pair(1, Pair(2, None)), 6)
 
     def test_remove_02(self):
+        with self.assertRaises(IndexError):
+            remove(None, -1)
+
+
+    def test_remove_03(self):
         self.assertEqual(remove(Pair(3, Pair(5, Pair(2, None))), 1), (5, Pair(3, Pair(2, None))))
 
-if __name__ == '__main__':
+
+
+if (__name__ == '__main__'):
     unittest.main()
+
+
+

@@ -50,7 +50,7 @@ def add(lst, idx, val):
         lst.size += 1
         return lst
 
-    elif idx < 0 or idx > lst.capacity:
+    elif idx < 0 or idx > lst.size - 1:
         #print ('gate1')
         raise IndexError('index out of range')
 
@@ -72,7 +72,7 @@ def length(lst):
 #List index-> AnyType
 #this function takes a List and an index and returns the object at that index within the list
 def get(lst, idx):
-    if idx < 0 or idx > lst.capacity:
+    if idx < 0 or idx > lst.size - 1:
         raise IndexError('index out of range')
     else:
         return lst.values[idx]
@@ -80,7 +80,7 @@ def get(lst, idx):
 #List index anytype -> List
 #this function takes a List an index and an object of any type and returns a new list with the index replaced with the new object
 def set(lst, idx, val):
-    if idx < 0 or idx > lst.capacity:
+    if idx < 0 or idx > lst.size - 1:
         raise IndexError('index out of range')
 
     else:
@@ -93,7 +93,7 @@ def remove(lst, idx):
     if lst == List():
         return (None, None)
 
-    elif idx > lst.size:
+    elif idx > lst.size - 1:
         raise IndexError('index out of range')
 
     else:

@@ -81,8 +81,8 @@ class TestList(unittest.TestCase):
         lst.values = test_gen(['a', 'b', 'c'], 7)
         lst.size = 3
         self.assertEqual(get(lst, 8), None)
-        self.assertEqual(get(lst, 1), 'b')
-
+        
+        
     def test_set_01(self):
         lst = List()
         lst.values = test_gen(['a', 'b', 'c'], 7)

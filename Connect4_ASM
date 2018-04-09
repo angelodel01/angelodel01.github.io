@@ -1,0 +1,761 @@
+
+;Many basic routines used to control the VGA were used as a template though we heavily modified them.
+;below are the original authors: 
+    ;Author: Bridget Benson 
+    ;Modifications: Bryan Mealy
+    
+;Developed in CPE233 course at California Technical Institute of Technology San Luis Obispo
+
+;;;;;;;;;;;;;;;;;Final Project Assigned by Dr. Jeff Gerfen;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;CONNECT4 by Avishek Maitra and Angelo DeLaurentis;;;;;;;;;;;;;;;;;;;; 
+
+;;;increment r8 and r9 by adding 4 to both to move a full square
+
+;d- r0 location of increment register
+;d- r1 location we're checking from 
+;d- r2 sr bot filler
+;d- r3 sr side filler
+;m- r4
+;m- r5
+;m- r6 = color
+;m- r7 starting y coordinate 
+;m- r8 starting x coordinate
+;m- r9 ending x-coordinate
+;m- r10 
+;m- r11
+;m- r12
+;m- r13
+;m- r14
+;m- r15
+;m- r16 column choice
+;d- r17 edge val
+;d- r18 win val
+;d- r19 current player value
+;d- r20 E/O counter
+;d- r21 current opponent value
+;d- r22 in value
+;m- r29
+;m- r28
+;m- r27
+;d- r30 value from checking sr
+;d- r31 win count
+
+
+.EQU time_INSIDE_FOR_COUNT = 0X3B
+.EQU time_MIDDLE_FOR_COUNT = 0xFF
+.EQU time_OUTSIDE_FOR_COUNT = 0XFF
+.EQU VGA_HADD = 0x90
+.EQU VGA_LADD = 0x91
+.EQU VGA_COLOR = 0x92
+.EQU SSEG = 0x81
+.EQU LEDS = 0x40
+.EQU BG_COLOR = 0x00    ;black
+.EQU BOARD_COLOR = 0x03 ;blue
+.EQU P1_COLOR = 0xE0    ;red
+.EQU P2_COLOR = 0xFC    ;yellow
+
+.EQU IN_PORT = 0x30
+
+.CSEG
+.ORG 0x40
+        
+        
+RESET:	SEI
+CLSCR:  MOV R23, 0x00 ;clear all of RAM
+		ST R23, (R0)
+		ADD R0, 0x01
+		CMP R0,0xFF
+		BRNE CLSCR
+        MOV r0, 0x00    ;clear clear counter
+        OUT r0, LEDS    ;clear LEDS 
+		MOV r4, 0x00    ;init dot val
+		MOV r5, 0x00    ;init dot val
+		MOV r6, 0x00    ;clear color
+		MOV r7, 0x01    ;set initial chip position
+		MOV r8, 0x13    ;set initial chip position
+		MOV r9, 0x00    ;set initial chip width 
+		MOV r10,0x00    ;init
+		MOV r11,0x00    ;init
+		MOV r12,0x00    ;init
+		MOV r13,0x00    ;init
+		MOV r14,0x00    ;init
+		MOV r15,0x00    ;init
+		MOV r19,0x00    ;init
+		MOV r20,0x00    ;init
+		MOV r21,0x00    ;init
+		MOV r22,0x00    ;init
+		MOV r16, 0x03	; column value
+		MOV r1, 0x00	; used to keep track of current spot while checking
+		MOV r2, 0x30 	;sr counters
+		MOV r3, 0x07	
+		MOV r17, 0x03 	;edge_val
+		MOV r18, 0xFF 	;win_val
+		MOV r30, 0x00 	;initialize increment_val
+		MOV r31, 0x00 	;win_count
+		MOV r25, 0x00 	;E/O counter
+		MOV r15, 0x00 	;reset val for choice mode
+		MOV r8,	0x13	;Set chip in top of board for next player 
+		MOV r7, 0x01	; x: 19, y: 1
+;Code segment below draws the initial board
+		CALL draw_background   ;makes black screen
+		MOV r6, BOARD_COLOR    ;sets color to blue
+		CALL draw_r1           ;draws row 1
+		CALL draw_r2           ;draws row 2
+		CALL draw_r3           ;draws row 3
+		CALL draw_r4           ;draws row 4
+		CALL draw_r5           ;draws row 5
+		CALL draw_r6           ;draws row 6
+		CALL draw_r7           ;draws row 7
+		CALL draw_c1           ;draws col 1
+		CALL draw_c2           ;draws col 2
+		CALL draw_c3           ;draws col 3
+		CALL draw_c4           ;draws col 4
+		CALL draw_c5           ;draws col 5
+		CALL draw_c6           ;draws col 6
+		CALL draw_c7           ;draws col 7
+		CALL draw_c8           ;draws col 8
+		MOV r8,	0x13	;Set chip in top of board for next player 
+		MOV r7, 0x01	; x: 19, y: 1
+        MOV r6, P1_COLOR ;set to red
+        CALL draw_chip  ;draw init chip 
+        BRN INIT_BOT
+
+INIT_BOT:	ST r17, (r2) ;;filling bottom of sr
+			ADD r2, 0x01
+			CMP r2, 0x37
+			BREQ INIT_SIDE
+			BRN INIT_BOT
+
+INIT_SIDE:	ST r17, (r3) ;;filling side of sr
+			ADD r3, 0x08
+			CMP r3, 0x37
+			;BREQ PLAYER_CHOICE
+			BREQ WAIT
+			BRN INIT_SIDE
+
+
+WAIT:	CALL EO_CHECKER
+		;VGA
+        ;CLI
+		;CALL draw_chip
+        ;SEI
+		;
+		BRN WAIT
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+
+
+
+;PLAYER_CHOICE:	;ADD r20, 0x01	;increment E/O count
+;				CALL EO_CHECKER
+;				BRN COLUMN_CHOICE
+
+
+;COLUMN_CHOICE: IN r1, IN_PORT ;get column value can be 0-6
+;				MOV r0, r1
+;				BRN	DROP
+
+
+MOV_RGT:	MOV r30, 0x00	;clear r30 register
+			MOV r0, r16
+			CALL INC_RGT	;returns r30 with val to the right r0 with square value
+			CMP r30, 0x03	;checks to see if there's a 3 to the right
+			BREQ INIT_DROP		;if they hit a wall drop chip
+			MOV r15, 0x00
+			ST r15, (r16)	;clear current register
+			;VGA
+			CALL erase_chip
+			;
+			ADD r16,0x01	;update column value
+			ST r19, (r16)	;put value of current player in top of current column
+			;VGA
+			ADD r8, 0x04
+			CALL draw_chip
+			;CALL pause
+			;
+			BRN END_TURN
+
+MOV_LFT:	MOV r30, 0x00	;clear r30 register
+			MOV r0, r16
+			CALL INC_LFT	;ret r30 with val to the left and r0 with square value
+			CMP r0, 0xFF	;it would overflow you you subtracted at the wall
+			BREQ INIT_DROP		;if you're at the wall drop chip
+			MOV r15, 0x00	;prep 0 value
+			ST r15, (r16)	;st 0 value into top of current column
+			;VGA
+			CALL erase_chip
+			;
+			SUB r16, 0x01	;decrement column value
+			ST r19, (r16)	;put value of current player in top of current column
+			;VGA
+			SUB r8, 0x04
+			CALL draw_chip
+			;CALL pause	
+			;
+			BRN END_TURN
+			
+INIT_DROP: 	MOV r0, r16
+			BRN DROP
+
+
+DROP:	MOV r15, 0x00
+        ;VGA
+        CALL erase_chip
+        CALL pause
+		ADD r7, 0x04
+		CALL draw_chip
+		CALL pause
+		;
+		ST r15, (r0)
+		CALL INC_DWN	;increment r0 dwn a column and put val in r30
+		CMP r30, 0x03	;if chip hits bottom or other go to PLACE
+		BREQ PLACE
+		CMP r30, r21
+		BREQ PLACE
+		CMP r30, r19
+		BREQ PLACE
+		ST r19, (r0)
+		BRN DROP		;else keep dropping
+
+;INIT_PLACE: BRN PLACE
+
+PLACE:
+		SUB r0, 0x08	;r0 will currently be the obstacle so increment 1 up
+		ST r19, (r0)	;store current players value in r0 val
+		MOV r1, r0		;put r0 val into r1 so that we can modify r0 while
+						;keeping track of the og value placed
+		;VGA
+		MOV r8,	0x13	;Reset chip in top of board for next player 
+		MOV r7, 0x01	; x: 19, y: 1
+        CMP r20,0x01
+        BREQ STRED
+        MOV r6, P2_COLOR ;sets next chip to yellow if in red
+        BRN RESUME       ;continues work flow 
+
+STRED:  MOV r6, P1_COLOR ;sets next chip to red if in yellow 
+        BRN RESUME       ;re-enters work flow 
+
+RESUME: CALL draw_chip   ;draws chip for next player
+		;END VGA
+		MOV r16, 0x03	;initializing to the middle column for next player
+		ADD r20, 0x01	;increment E/O count
+		BRN CHECK_DOWN	;check below for a win
+
+CHECK_DOWN:
+			CALL INC_DWN
+			CALL CHECK_WIN
+			CMP r30, 0x03
+			BREQ INIT_RGT
+			CMP r30, r21
+			BREQ INIT_RGT
+			ADD r31, 0x01
+			BRN CHECK_DOWN
+
+INIT_RGT: MOV r31, 0x00
+		  MOV r0, r1
+		  BRN CHECK_RGT
+
+
+CHECK_RGT:	CALL INC_RGT
+			CALL CHECK_WIN
+			CMP r30, 0x03
+			BREQ INIT_LFT
+			CMP r30, 0x00
+			BREQ INIT_LFT
+			CMP r30, r21
+			BREQ INIT_LFT
+			ADD r31, 0x01
+			BRN CHECK_RGT
+
+INIT_LFT:	MOV r0, r1
+			BRN CHECK_LFT
+
+CHECK_LFT:	CALL INC_LFT
+			CALL CHECK_WIN
+			CMP r30, 0x03
+			BREQ INIT_UP_RGT
+			CMP r30, 0x00
+			BREQ INIT_UP_RGT
+			CMP r30, r21
+			BREQ INIT_UP_RGT
+			ADD r31, 0x01
+			BRN CHECK_LFT
+
+INIT_UP_RGT:	MOV r31, 0x00
+				MOV r0, r1
+				BRN CHECK_UP_RGT
+
+CHECK_UP_RGT:	CALL INC_UP_RGT
+				CALL CHECK_WIN
+				CMP r30, 0x03
+				BREQ INIT_DWN_LFT
+				CMP r30, 0x00
+				BREQ INIT_DWN_LFT
+				CMP r30, r21		;other player value
+				BREQ INIT_DWN_LFT
+				ADD r31, 0x01
+				BRN CHECK_UP_RGT
+
+INIT_DWN_LFT:	MOV r0, r1
+				BRN CHECK_DWN_LFT
+
+CHECK_DWN_LFT:	CALL INC_DWN_LFT
+				CALL CHECK_WIN
+				CMP r30, 0x03
+				BREQ INIT_UP_LFT
+				CMP r30, 0x00
+				BREQ INIT_UP_LFT
+				CMP r30, r21	;other player value
+				BREQ INIT_UP_LFT
+				ADD r31, 0x01
+				BRN CHECK_DWN_LFT
+
+
+INIT_UP_LFT:	MOV r31, 0x00
+				MOV r0, r1
+				BRN CHECK_UP_LFT
+
+
+CHECK_UP_LFT:	CALL INC_UP_LFT
+				CALL CHECK_WIN
+				CMP r30, 0x03
+				BREQ INIT_DWN_RGT
+				CMP r30, 0x00
+				BREQ INIT_DWN_RGT
+				CMP r30, r21
+				BREQ INIT_DWN_RGT
+				ADD r31, 0x01
+				BRN CHECK_UP_LFT
+
+INIT_DWN_RGT:	MOV r0, r1
+				BRN CHECK_DWN_RGT
+
+
+CHECK_DWN_RGT:	CALL INC_DWN_RGT
+				CALL CHECK_WIN
+				CMP r30, 0x03
+				BREQ END_TURN
+				CMP r30, 0x00
+				BREQ END_TURN
+				CMP r30, r21
+				BREQ END_TURN
+				ADD r31, 0x01
+				BRN CHECK_DWN_RGT
+
+CHECK_WIN:	CMP r31, 0x03
+			BREQ WINNER
+			RET
+
+;;;r0 holds current location in sr 
+;;;Increment Formula:
+;;;;;;increment calculation on r0
+;;;;;;pull data from location r0 into register r0
+;;;;;;return with r0 holding new location and r30 holding new data
+
+
+
+INC_DWN: 	;MOV r30, r0
+			ADD r0, 0x08
+			LD r30, (r0)
+			RET
+
+INC_RGT: 	;LD r30, (r0)
+			ADD r0, 0x01
+			LD r30, (r0)
+			RET
+
+INC_LFT:	;LD r30, (r0)
+			SUB r0, 0x01
+			LD r30, (r0)
+			RET
+
+INC_UP_RGT:	;LD r30, (r0)
+			SUB r0, 0x07
+			LD r30, (r0)
+			RET
+
+
+INC_UP_LFT: 	;LD r30, (r0)
+				SUB r0, 0x09
+				LD r30, (r0)
+				RET
+
+INC_DWN_RGT:	;LD r30, (r0)
+				ADD r0, 0x09
+				LD r30, (r0)
+				RET
+
+INC_DWN_LFT:	;LD r30, (r0)
+				ADD r0, 0x07
+				LD r30, (r0)
+				RET
+
+
+EO_CHECKER:	AND r20, 0x01	;bit mask to 0th
+			CMP r20, 0x00	;if Odd
+			BREQ P1
+			BRN P2
+
+P1:	MOV r21, 0x02
+	MOV	r19, 0x01
+	;VGA
+	MOV r6, P1_COLOR
+	;
+	RET
+
+P2: MOV r21, 0x01
+	MOV r19, 0x02
+	;VGA
+	MOV r6, P2_COLOR
+	;
+	RET
+
+
+WINNER: MOV r24,0xFF     ;increment red win count
+        OUT r24, LEDS 
+        BRN END_WIN
+
+
+
+
+ISR:	
+		MOV r30, 0x00
+		IN r22, IN_PORT
+		CMP r22, 0x01
+		BREQ MOV_LFT
+		CMP r22, 0x04
+		BREQ MOV_LFT
+		CMP r22, 0x07
+		BREQ MOV_LFT
+		CMP r22, 0x0A
+		BREQ MOV_LFT
+
+
+		CMP r22, 0x03
+		BREQ MOV_RGT
+		CMP r22, 0x06
+		BREQ MOV_RGT
+		CMP r22, 0x09
+		BREQ MOV_RGT
+		CMP r22, 0x0B
+		BREQ MOV_RGT
+
+		MOV r0, r16
+		MOV r30, 0x00
+
+		CMP r22, 0x02
+		BREQ DROP
+		CMP r22, 0x05
+		BREQ DROP
+		CMP r22, 0x08
+		BREQ DROP
+		CMP r22, 0x00
+		BREQ DROP
+
+END_TURN: RETIE
+
+END_WIN:  RETID
+
+
+
+
+;Code Segment below tests draw_chip, erase_chip, and pause
+      ;MOV r6, P1_COLOR      ;sets color to red
+      ;MOV r8, 0x13          ;starting X coordinate (middle of board)
+      ;MOV r7, 0x00          ;starting Y coordinate (top of board)
+      ;CALL draw_chip        ;draws P1 chip
+      ;CALL pause           
+      ;CALL pause
+      ;CALL erase_chip       ;erases P1 chip 
+      ;MOV r6, P2_COLOR      ;sets color to yellow
+      ;CALL draw_chip        ;draws yellow chip in the same place as the red chip
+
+;main:  AND    r0, r0         ;filler
+;       BRN    main           ;continuous loop    
+
+draw_r1: MOV r8, 0x06        ;starting x coordinate              
+         MOV r7, 0x04        ;start y coordinate
+         MOV r9, 0x22        ;ending x coordinate
+         CALL   draw_horizontal_line ;draws line
+         RET
+
+draw_r2: MOV r8, 0x06        ;starting x coordinate              
+         MOV r7, 0x08        ;start y coordinate
+         MOV r9, 0x22        ;ending x coordinate
+         CALL   draw_horizontal_line ;draws line
+         RET
+
+draw_r3: MOV r8, 0x06        ;starting x coordinate              
+         MOV r7, 0x0C        ;start y coordinate
+         MOV r9, 0x22        ;ending x coordinate
+         CALL   draw_horizontal_line ;draws line
+         RET
+
+draw_r4: MOV r8, 0x06        ;starting x coordinate              
+         MOV r7, 0x10        ;start y coordinate
+         MOV r9, 0x22        ;ending x coordinate
+         CALL   draw_horizontal_line ;draws line
+         RET
+
+draw_r5: MOV r8, 0x06        ;starting x coordinate              
+         MOV r7, 0x14        ;start y coordinate
+         MOV r9, 0x22        ;ending x coordinate
+         CALL   draw_horizontal_line ;draws line
+         RET
+
+draw_r6: MOV r8, 0x06        ;starting x coordinate              
+         MOV r7, 0x18        ;start y coordinate
+         MOV r9, 0x22        ;ending x coordinate
+         CALL   draw_horizontal_line ;draws line
+         RET
+
+draw_r7: MOV r8, 0x06        ;starting x coordinate              
+         MOV r7, 0x1C        ;start y coordinate
+         MOV r9, 0x22        ;ending x coordinate
+         CALL draw_horizontal_line ;draws line
+         RET
+
+draw_c1: MOV r8, 0x06       ;x-coordinate
+         MOV r7, 0x04       ;starting y coordinate
+         MOV r9, 0x1C       ;ending y coordinate
+         CALL draw_vertical_line
+         RET
+
+draw_c2: MOV r8, 0x0A       ;x-coordinate
+         MOV r7, 0x04       ;starting y coordinate
+         MOV r9, 0x1C       ;ending y coordinate
+         CALL draw_vertical_line
+         RET
+
+draw_c3: MOV r8, 0x0E       ;x-coordinate
+         MOV r7, 0x04       ;starting y coordinate
+         MOV r9, 0x1C       ;ending y coordinate
+         CALL draw_vertical_line
+         RET
+
+draw_c4: MOV r8, 0x12       ;x-coordinate
+         MOV r7, 0x04       ;starting y coordinate
+         MOV r9, 0x1C       ;ending y coordinate
+         CALL draw_vertical_line
+         RET
+
+draw_c5: MOV r8, 0x16       ;x-coordinate
+         MOV r7, 0x04       ;starting y coordinate
+         MOV r9, 0x1C       ;ending y coordinate
+         CALL draw_vertical_line
+         RET
+
+draw_c6: MOV r8, 0x1A       ;x-coordinate
+         MOV r7, 0x04       ;starting y coordinate
+         MOV r9, 0x1C       ;ending y coordinate
+         CALL draw_vertical_line
+         RET
+
+draw_c7: MOV r8, 0x1E       ;x-coordinate
+         MOV r7, 0x04       ;starting y coordinate
+         MOV r9, 0x1C       ;ending y coordinate
+         CALL draw_vertical_line
+         RET
+
+draw_c8: MOV r8, 0x22       ;x-coordinate
+         MOV r7, 0x04       ;starting y coordinate
+         MOV r9, 0x1C       ;ending y coordinate
+         CALL draw_vertical_line
+         RET
+
+;-----------------------------------------------------------------
+;- Custom subroutine to DRAW a 3X3 chip
+;- r8 = starting x coordinate
+;- r7 = starting y coordinate 
+;- r6 = color
+;- make sure all the registers are set to the proper value 
+;- before calling the subroutine
+;- modified registers: r9,r10,r11,r12 
+;------------------------------------------------------------------
+
+draw_chip: MOV r10, r8      ;copies r8 value to r10
+           MOV r9, r10      ;copies r10 value to r9 
+           MOV r12, r7      ;copies r7 into r12
+           ADD r9, 0x02     ;ending X for draw horizontal line routine
+           MOV r11, r9      ;copies ending X to r11
+           CALL draw_horizontal_line ;first line
+           ADD r7, 0x01     ;increment y position
+           MOV r8, r10      ;get original starting X
+           MOV r9, r11      ;get original ending X
+           CALL draw_horizontal_line ;second line
+           ADD r7, 0x01     ;increment y position
+           MOV r8, r10      ;get original starting X
+           MOV r9, r11      ;get original ending X
+           CALL draw_horizontal_line ;third line
+           MOV r8, r10      ;gets back the original r8 value
+           MOV r7, r12      ;gets back the original r7 value 
+           RET              
+           
+;-----------------------------------------------------------------
+;- Custom subroutine to ERASE a 3X3 chip
+;- r8 = starting x coordinate
+;- r7 = starting y coordinate 
+;- r6 = color (I will set it to black to erase)
+;- make sure all the registers are set to the proper value 
+;- before calling the subroutine
+;- modified registers: r9, r10, r11, r12
+;------------------------------------------------------------------
+
+erase_chip: MOV r14, r6      ;copies original color
+            MOV r6, 0x00     ;erase color (black)
+            MOV r10, r8      ;copies r8 value to r10
+            MOV r9, r10      ;copies r10 value to r9 
+            MOV r12, r7      ;copies r7 into r12
+            ADD r9, 0x02     ;ending X for draw horizontal line routine
+            MOV r11, r9      ;copies ending X to r11
+            CALL draw_horizontal_line ;first line
+            ADD r7, 0x01     ;increment y position
+            MOV r8, r10      ;get original starting X
+            MOV r9, r11      ;get original ending X
+            CALL draw_horizontal_line ;second line
+            ADD r7, 0x01     ;increment y position
+            MOV r8, r10      ;get original starting X
+            MOV r9, r11      ;get original ending X
+            CALL draw_horizontal_line ;third line
+            MOV r8, r10      ;gets back the original r8 value
+            MOV r7, r12      ;gets back the original r7 value 
+            MOV r6, r14      ;gets back the original color
+            RET  
+
+;--------------------------------------------------------------------
+;-  Subroutine: draw_horizontal_line
+;-
+;-  Draws a horizontal line from (r8,r7) to (r9,r7) using color in r6
+;-
+;-  Parameters:
+;-   r8  = starting x-coordinate
+;-   r7  = y-coordinate
+;-   r9  = ending x-coordinate
+;-   r6  = color used for line
+;- 
+;- Tweaked registers: r8,r9
+;--------------------------------------------------------------------
+draw_horizontal_line:
+        ADD    r9,0x01          ; go from r8 to r15 inclusive
+
+draw_horiz1:
+        CALL   draw_dot         ; 
+        ADD    r8,0x01
+        CMP    r8,r9
+        BRNE   draw_horiz1
+        RET
+;--------------------------------------------------------------------
+
+
+;---------------------------------------------------------------------
+;-  Subroutine: draw_vertical_line
+;-
+;-  Draws a vertical line from (r8,r7) to (r8,r9) using color in r6
+;-
+;-  Parameters:
+;-   r8  = x-coordinate
+;-   r7  = starting y-coordinate
+;-   r9  = ending y-coordinate
+;-   r6  = color used for line
+;- 
+;- Tweaked registers: r7,r9
+;--------------------------------------------------------------------
+draw_vertical_line:
+         ADD    r9,0x01
+
+draw_vert1:          
+         CALL   draw_dot
+         ADD    r7,0x01
+         CMP    r7,R9
+         BRNE   draw_vert1
+         RET
+;--------------------------------------------------------------------
+
+;---------------------------------------------------------------------
+;-  Subroutine: draw_background
+;-
+;-  Fills the 30x40 grid with one color using successive calls to 
+;-  draw_horizontal_line subroutine. 
+;- 
+;-  Tweaked registers: r13,r7,r8,r9
+;----------------------------------------------------------------------
+draw_background: 
+         MOV   r6,BG_COLOR              ; use default color
+         MOV   r13,0x00                 ; r13 keeps track of rows
+start:   MOV   r7,r13                   ; load current row count 
+         MOV   r8,0x00                  ; restart x coordinates
+         MOV   r9,0x27 
+ 
+         CALL  draw_horizontal_line
+         ADD   r13,0x01                 ; increment row count
+         CMP   r13,0x1D                 ; see if more rows to draw
+         BRNE  start                    ; branch to draw more rows
+         RET
+;---------------------------------------------------------------------
+    
+;---------------------------------------------------------------------
+;- Subrountine: draw_dot
+;- 
+;- This subroutine draws a dot on the display the given coordinates: 
+;- 
+;- (X,Y) = (r8,r7)  with a color stored in r6  
+;- 
+;- Tweaked registers: r4,r5
+;---------------------------------------------------------------------
+draw_dot: 
+           MOV   r4,r7         ; copy Y coordinate
+           MOV   r5,r8         ; copy X coordinate
+
+           AND   r5,0x3F       ; make sure top 2 bits cleared
+           AND   r4,0x1F       ; make sure top 3 bits cleared
+           LSR   r4             ; need to get the bot 2 bits of r4 into sA
+           BRCS  dd_add40
+
+t1:        LSR   r4
+           BRCS  dd_add80
+
+dd_out:    OUT   r5,VGA_LADD   ; write bot 8 address bits to register
+           OUT   r4,VGA_HADD   ; write top 3 address bits to register
+           OUT   r6,VGA_COLOR  ; write data to frame buffer
+           RET
+
+dd_add40:  OR    r5,0x40       ; set bit if needed
+           CLC                  ; freshen bit
+           BRN   t1             
+
+dd_add80:  OR    r5,0x80       ; set bit if needed
+           BRN   dd_out
+; --------------------------------------------------------------------
+
+;---------------------------------------------------------------------
+;- Subroutine: Quarter second pause 
+;- Modifies r29, r28, r27
+;---------------------------------------------------------------------
+
+pause: MOV r29, time_OUTSIDE_FOR_COUNT
+outside_for: SUB r29, 0x01
+             MOV R28, time_MIDDLE_FOR_COUNT
+middle_for:  SUB r28, 0x01
+             MOV r27, time_INSIDE_FOR_COUNT
+inside_for:  SUB r27, 0x01
+             BRNE inside_for
+             OR R28, 0x00
+             BRNE middle_for
+             OR r29, 0x00
+             BRNE outside_for
+             RET
+
+.ORG 0x3FF
+VECTOR: BRN ISR
+
+
+
+
+
+
+
+
+
+

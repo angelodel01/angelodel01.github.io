@@ -1,15 +1,69 @@
-Our program and corresponding hardware allows two users to play the classic and timeless game of Connect Four. Every line of code works is computed with the RAT MCU. In fact, the every component of the system is run by a single VHDL bitstream file. There are two peripherals used for user interaction. First, the input comes from a keypad. This keypad is driven by VHDL code and sends a properly timed interrupt single to the MCU so the MCU can do work with the specific input. To display the entire workings of the game, a VGA is used. This displays the board and the game chips. The main logic of the game occurs inside the ScratchRAM memory. The entire board is built in ScratchRAM, and every single move is stored in the corresponding position. In other words, an entire game of Connect Four can also be played in ScratchRAM. 
 
-The object of the game is like classic Connect Four. Players place their chips on top of existing chips inside a 7x6 board trying to have four chips of their kind in a row either vertically, horizontally, or diagonally. To place the chips in the proper position, the user uses the keypad. If the user presses any value in the leftmost column, the chip will shift left. This happens both on the VGA and in the ScratchRAM. If the user presses any value in the rightmost column, the chip will shift right in the VGA display and the ScratchRAM. Finally, if the user presses anything in the middle column, the chip will drop. The user sees the chip drop in a realistic manner to the top of the other chips that have been already played. When a player wins, all the LEDs light up. The game can then be played again with the press of the middle button on the Basys board. 
 
-Input from the Keypad driver is checked in a scanning fashion. One complete scan occurs every six milliseconds. Therefore, our keypad driver can detect a new input every six milliseconds. The only input the keypad needs to detect is single human button presses, so this is more than enough time. The keypad is connected with each row and column having a separate connection to the Basys 3 board through PMOD headers. These inputs and outputs allow the keypad to scan in a organized and controlled manner. The VGA and the RAT MCU both run at a speed of 50 MHz so these two devices can complete functions at that rate. This allows both devices to complete complex tasks extremely quickly. The max operating voltage for the device is 3.3V. Any higher and the Basys 3 board may malfunction. 
+mush by ANGELO DE LAURENTIS AND LOGAN LAWSON
 
-The basis of our algorithm is that the actual game happens in the Scratch register. The only time we draw to the VGA is when the user is selecting where they want to drop their chip and when the actual chip drops down into its spot. While this is happening, based on whose turn it is, we draw a corresponding value(0x01 for p1 and 0x02 for p2) into the corresponding shift register at that same. This way we are able to easily debug our program by commenting out all the VGA code and simply play the 4 square game in our scratch ram. 
+This program is an implementation of a minimally useful shell.
 
-This implementation also makes it easier to do our checking for a win process. Our win checking algorithm is set up so it depends on counting how many chips in a row we have. This way for every possible win(down, lateral and diagonal) we’re able to simply check our win count. For example, when there are two chips next to each other in the right direction, the win count gets incremented. If there is not chip in the right direction, the win count is cleared, and the checking algorithm moves on to check the next type of possible win. 
+it assumes that arguments will be seperated by a space " ".
 
-The checking algorithm is also heavily dependant on where and when we reset our winning count. For example, after we’ve incremented downwards if we haven’t either gotten a winning count or hit a block that belongs to the player currently taking their turn then we branch to a subroutine that resets the win count to 0 before it starts checking to the right.But after we’ve incremented to the right if we haven’t either gotten a winning count or hit a block that belongs to the player currently taking their turn then we DO NOT  branch to a subroutine that resets before we start checking the left. This is because there are several different combinations of blocks to the left and right that could result in a win.
 
-We continue this general outline of checking-then-resetting throughout the process of checking for a win. After checking the left blocks if we haven’t gotten a win we reset the win count and begin checking up to the right(for a diagonal win) then we DO NOT reset the win count before we begin checking down to the left. In the next step we DO reset before we start checking up to the left and then finally we DO NOT reset before we finish checking down to the right. If a win has not occurred after checking down to the right(the last check we do). And the incrementing process hits a value that is NOT the current player’s value and we don’t currently have a winning count then we’ve concluded our checking, and we end the turn. The VGA then draws the next chip with the next player’s chip color. 
+This is the struct we used to store and organize all the information that we get from the user.
 
-If at any time we get a win we simply branch to a winning subroutine that outputs the value 0xFF to the LED port and disables future interrupts.
+typedef struct print pipeInf;
+
+struct print{
+	int stage_num; 
+	char input[512];
+	char output[512];
+	int argc;
+	char *argv[11];
+	char stage_name[512];
+};
+
+
+
+
+
+extern char *readFile(FILE *file, int *exit);
+	This function reads the line that the user inputs and returns it as a string
+
+extern void parser(char *line, pipeInf list[]);
+	This function parses the string returned by readFile and turns it into a list of sctructs
+
+extern void printFunc(pipeInf list[]);
+	This function was originally developed for HW5 to print all of the information in our structs but ended up being a useful debugging tool for HW6 as well
+
+void piper(pipeInf list[]);
+	This function is our main loop. It runs through the list of structs built by parser and uses the information to create the actual children and pipes that will do the work of the shell.
+
+void pipeInputHandler(int flag, FILE *file);
+	This function is used call readFile parser and piper
+
+void changeDirectory(char *directory);
+	This function is called when a "cd" is given by the user and changes directories
+
+void middleChild(int fd_in, int fd_out, int fd_carry, pipeInf curr);
+	This function is for performing tasks that a child who has a pipe as an input and an ouput needs to perform.
+
+void firstChild(int fd_in, int fd_out, int fd_carry, int *fd_rin, pipeInf curr);
+	This function is for performing tasks that a child who gets their input from stdin or file redirection and then pipes it's output to middleChild().
+
+void lastChild(int fd_in, int fd_out, int fd_carry, int *fd_rout, pipeInf curr);
+	This function is for performing tasks that a child who gets their input from a pipe from middleChild(), and has an output that is either stdout or a redirection
+
+void redirectInput(pipeInf curr, int *fd_rin);
+	This function is for redirecting input if a '<' is given by a user.
+
+void redirectOutput(pipeInf curr, int *fd_rout);
+	This function is for redirecting output if a '>' is given by a user.
+
+void oneStage(pipeInf curr, pid_t temp_child, int *fd_rin, int *fd_rout);
+	This function is for handline the case when the user doesn't include any pipes in their input.
+
+void handler(int signum);
+	This is the handler that sigaction calls if is recieves a SIGINT signal from the user.
+
+
+
+
+

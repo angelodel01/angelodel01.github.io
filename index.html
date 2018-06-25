@@ -9,9 +9,19 @@
 			</div>
 		<script>
 			function searchFunction(){  
-			  var input = document.getElementById("myText").value;	  
-			  document.getElementById("demo").innerHTML = input;
+			  var input = document.getElementById("myText").value;
+			  var url = `https://api.iextrading.com/1.0/stock/${input}/company`;
+			  var request = new XMLhttpRequest();
+			  request.open('GET', url);
+			  request.responseType = 'JSON';
+			  request.onload = function() {
+			  	var name = request.response.companyName;
+			  }
+			  document.getElementById("demo").innerHTML = name;
 			}
+
+
+
 		</script>
 	</body>
 

@@ -1,11 +1,9 @@
 
-function sayHello(){
-  document.getElementById("demo").innerHTML =
-  "Hello!";
+
+function SearchFunction(){
+  var input = document.getElementById("myText").value;
+  document.getElementById("demo").innerHTML = input;
 }
 
-function main(){
-  sayHello();
-}
 
-main();
+

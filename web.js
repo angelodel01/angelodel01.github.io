@@ -1,6 +1,7 @@
-function searchFunction(){
+function searchFunction(){  
   var input = document.getElementById("myText").value;
-  document.getElementById("demo").innerHTML = input;
+  alert(input);
+  /*document.getElementById("demo").innerHTML = input;*/
 }
 
 

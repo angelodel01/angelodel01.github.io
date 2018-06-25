@@ -3,15 +3,14 @@
 		<h1>Search For Stock Information</h1>	
 	</head>
 	<body>
-		<input type="text" id="myText" value="Type Name of Company">
+		<input type="text" id="myText">
 		<button onclick="searchFunction()">Search</button>
 			<div id="demo">
 			</div>
 		<script>
 		function searchFunction(){  
-		  var input = document.getElementById("myText").value;
-		  alert(input);
-		  /*document.getElementById("demo").innerHTML = input;*/
+		  var input = document.getElementById("myText").value;	  
+		  document.getElementById("demo").innerHTML = input;
 		}
 		</script>
 	</body>

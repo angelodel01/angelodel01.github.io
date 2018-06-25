@@ -16,8 +16,8 @@
 			  request.responseType = 'JSON';
 			  request.onload = function() {
 			  	var name = request.response.companyName;
+			  	document.getElementById("demo").innerHTML = name;
 			  }
-			  document.getElementById("demo").innerHTML = name;
 			}
 
 		</script>

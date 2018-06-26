@@ -5,15 +5,14 @@ function repoClick(){
 	createButton("List Repos", "accessFunction()", "bn");
 	removeTitle();
 	createButton("Go Home", "goHome()", "h");
-	accessFunction();
 	return;
 }
+
 function searchClick(){
 	createInputBox("Input");
 	createButton("Search Stock", "searchFunction()", "bn");
 	removeTitle();
 	createButton("Go Home", "goHome()", "h");
-	searchFunction();
 	return;
 }
 
@@ -60,7 +59,7 @@ function createButton(message, func, id){
 function createInputBox(id){
 	var box = document.createElement("INPUT");
 	box.setAttribute("type", "text");
-	box.setAttribute("value", "type here...");
+	box.setAttribute("placeholder", "type here...");
 	box.setAttribute("id", id);
 	document.body.appendChild(box);	
 }

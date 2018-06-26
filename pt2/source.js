@@ -1,6 +1,7 @@
-
+var par = 0;
 
 function repoClick(){
+	par = 0;
 	createInputBox("Input");
 	createButton("List Repos", "accessFunction()", "bn");
 	removeTitle();
@@ -9,6 +10,7 @@ function repoClick(){
 }
 
 function searchClick(){
+	par = 0;
 	createInputBox("Input");
 	createButton("Search Stock", "searchFunction()", "bn");
 	removeTitle();
@@ -33,15 +35,16 @@ function wipeChildPage(){
 
 	field = document.getElementById("Input");
 	field.parentNode.removeChild(field);
-
-	div = document.getElementById("display");
-	div.parentNode.removeChild(div);
+	if (par == 1){
+		div = document.getElementById("display");
+		div.parentNode.removeChild(div);
+	}
 }
 
 function goHome(){
 	wipeChildPage();
 	var ogHead = document.getElementById("ogB");
-	ogHead.style.display = "block";	
+	ogHead.style.display = "block";
 }
 
 function createButton(message, func, id){
@@ -52,6 +55,7 @@ function createButton(message, func, id){
 	btn.appendChild(mess);
 	btn.setAttribute("id", id);
 	btn.setAttribute("onClick", func);
+	btn.setAttribute("class", "button");
 	document.body.appendChild(btn);
 }
 
@@ -61,10 +65,12 @@ function createInputBox(id){
 	box.setAttribute("type", "text");
 	box.setAttribute("placeholder", "type here...");
 	box.setAttribute("id", id);
-	document.body.appendChild(box);	
+	box.setAttribute("class", "textBox");
+	document.body.appendChild(box);
 }
 
 function createParagraph(id){
+	par = 1;
 	var p = document.createElement("P");
 	p.setAttribute("type", "text");
 	p.setAttribute("id", id);

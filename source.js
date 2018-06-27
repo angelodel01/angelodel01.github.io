@@ -4,20 +4,27 @@ var par = 0;
 
 function protectedClick(){
 	par = 0;
-	protectedContent("1234");
+	if (parseCookie(document.cookie) != ""){
+		protectedContent();
+	} else{
+		window.location = "https://cognito-dev.calpoly.edu/login?response_type=token&client_id=2fior6770hvto4u6kuq084j7fu&redirect_uri=https://angelodel01.github.io";   
+	}
 	removeTitle();
 	return;
 }
 
-function protectedContent(k){
+function parseCookie(raw_cook){
+	console.log("in parseCookie");
+	var cook1 = raw_cook.split(";");
+	var cook2 = raw_cook.split("=");
+	console.log(cook2[1]);
+	return cook2[1];
+}
+
+function protectedContent(){
+	console.log("inside protectedContent()");
 	createParagraph("display");
 	document.getElementById("display").innerHTML = "SECRET SECRET SECRET";
-	document.cookie = "key="+k;
-	var cookieStr = document.cookie;
-	cookieStr = cookieStr.split(";");
-	cookieVal = cookieStr.split("=");
-	console.log(cookieVal[1]);
-	console.log("after");
 	return;	
 }
 

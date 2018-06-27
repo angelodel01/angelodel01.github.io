@@ -16,7 +16,8 @@ function protectedContent(k){
 	var cookieStr = document.cookie;
 	cookieStr = cookieStr.split(";");
 	cookieVal = cookieStr.split("=");
-	console.log("cookieVal : "+ cookieVal);
+	console.log(cookieVal[1]);
+	console.log("after");
 	return;	
 }
 

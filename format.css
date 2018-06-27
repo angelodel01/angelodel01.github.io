@@ -1,0 +1,79 @@
+h{
+    display: flex;
+    width: 99%;
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+    font-size: 20px;
+    border-bottom: 5px solid #b4a76c;
+    border-right: 5px solid #b4a76c;
+    border-left: 5px solid #b4a76c;
+    padding: 20px 20px 20px 20px;
+    background-color: #035642;
+    z-index: 100;
+    font-family: 'Verdana', 'Geneva', 'sans-serif';
+    color: white;
+}
+body{
+	background-color: #dad7cb;
+	border-bottom: 5px solid #b4a76c;
+	text-align: center;
+
+}
+
+divb{
+	font-family: 'Verdana', 'Geneva', 'sans-serif';
+	color: #035642;
+	text-align: center;
+}
+#display{
+	text-align: left;
+	padding: 5%;
+	width: 70%;
+	font-family: 'Verdana', 'Geneva', 'sans-serif';
+}
+
+.button:hover {
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+.button{
+	height: 100%;
+    width: 100%;
+    min-width: 150px;
+    max-width: 300px;
+    max-height: 50px;
+    min-height: 45px;
+    width: 100%;
+    margin: 10px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+    border-radius: 5px;
+    border: 1px solid #b4a76c;
+    background-color: #fefefe;
+    text-decoration: none;
+    color: black;
+    font-size: 16px;
+}
+
+.textBox{
+	color: #035642;
+	height: 50px;
+	font-size: 16px;
+	border: 2px solid #b4a76c;
+    border-radius: 4px;
+}
+
+input[type=text] {
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: 3px solid #ccc;
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
+    outline: none;
+}
+
+input[type=text]:focus {
+    border: 3px solid #555;
+}
+

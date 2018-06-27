@@ -3,7 +3,6 @@
 
 var par = 0;
 function protectedClick(){
-	listener();
 	par = 0;
 	var key = getCookie("key");
 	console.log(key);

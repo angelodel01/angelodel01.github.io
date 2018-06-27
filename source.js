@@ -3,6 +3,7 @@
 
 var par = 0;
 function protectedClick(){
+	listener();
 	par = 0;
 	var key = getCookie("key");
 	console.log(key);
@@ -10,7 +11,7 @@ function protectedClick(){
 		protectedContent();
 	} else{
 		window.location = "https://cognito-dev.calpoly.edu/login?response_type=token&client_id=2fior6770hvto4u6kuq084j7fu&redirect_uri=https://angelodel01.github.io";
-		listener();
+		
 	}
 	removeTitle();
 	return;

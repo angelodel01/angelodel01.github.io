@@ -10,9 +10,9 @@ function protectedClick(){
 	par = 0;
 	console.log("in procClick", keyUrl);
 	var key = getCookie("key");
-	alert(keyUrl);
 	if (keyUrl != ""){
-		protectedContent();
+		var realUrl = keyUrl.split("&");
+		protectedContent(realUrl);
 	} else{
 		window.location = "https://cognito-dev.calpoly.edu/login?response_type=token&client_id=2fior6770hvto4u6kuq084j7fu&redirect_uri=https://angelodel01.github.io";	
 	}
@@ -70,10 +70,10 @@ function getCookie(cname) {
     return "";
 }
 
-function protectedContent(){
+function protectedContent(realUrl){
 	console.log("inside protectedContent()");
 	createParagraph("display");
-	document.getElementById("display").innerHTML = "SECRET SECRET SECRET";
+	document.getElementById("display").innerHTML = "SECRET SECRET SECRET" + realUrl;
 	return;	
 }
 

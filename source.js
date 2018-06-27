@@ -18,6 +18,7 @@ function protectedContent(k){
 	console.log(document.cookie.key);
 	console.log("after");
 	console.log(cookieStr[1]);
+	document.getElementById("display").innerHTML = "after";
 	return;	
 }
 

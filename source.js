@@ -14,8 +14,9 @@ function protectedContent(k){
 	document.getElementById("display").innerHTML = "SECRET SECRET SECRET";
 	document.cookie = "key="+k;
 	var cookieStr = document.cookie;
-	cookieStr = cookieStr.split("=");
-	console.log(cookieStr[1]);
+	cookieStr = cookieStr.split(";");
+	cookieVal = cookieStr.split("=");
+	console.log("cookieVal : "+ cookieVal);
 	return;	
 }
 

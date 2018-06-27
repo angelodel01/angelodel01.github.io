@@ -2,9 +2,6 @@
 */
 
 var par = 0;
-
-
-
 function protectedClick(){
 	par = 0;
 	var key = getCookie("key");

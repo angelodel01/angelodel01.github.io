@@ -9,11 +9,11 @@ function protectedClick(){
 	return;
 }
 
-function protectedContent(key){
+function protectedContent(k){
 	createParagraph("display");
 	document.getElementById("display").innerHTML = "SECRET SECRET SECRET";
-	document.cookie = "key="+key;
-	console.log(document.cookie);
+	document.cookie = "key="+k;
+	console.log(document.cookie.key);
 	return;	
 }
 

@@ -28,7 +28,6 @@ function listener(){
 			alert("no response received");
 		}
 	})
-	xhr.send();
 }
 
 

@@ -4,7 +4,7 @@ var par = 0;
 
 function protectedClick(){
 	par = 0;
-	if (parseCookie(document.cookie) != ""){
+	if (getCookie("key") != ""){
 		protectedContent();
 	} else{
 		window.location = "https://cognito-dev.calpoly.edu/login?response_type=token&client_id=2fior6770hvto4u6kuq084j7fu&redirect_uri=https://angelodel01.github.io";   
@@ -13,12 +13,20 @@ function protectedClick(){
 	return;
 }
 
-function parseCookie(raw_cook){
-	console.log("in parseCookie");
-	var cook1 = raw_cook.split(";");
-	var cook2 = raw_cook.split("=");
-	console.log(cook2[1]);
-	return cook2[1];
+function getCookie(cname) {
+    var name = cname + "=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var ca = decodedCookie.split(';');
+    for(var i = 0; i <ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
 }
 
 function protectedContent(){

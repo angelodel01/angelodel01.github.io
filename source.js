@@ -1,12 +1,17 @@
 /*pw: Boy+Is4ånd 
-*/
+google "how to build routes with vanilla javascript"
 
+https://aws.github.io/aws-amplify/
+
+*/
+var keyUrl = location.hash.substring(1);
 var par = 0;
 function protectedClick(){
 	par = 0;
+	console.log("in procClick", keyUrl);
 	var key = getCookie("key");
-	console.log(key);
-	if (key != ""){
+	alert(keyUrl);
+	if (keyUrl != ""){
 		protectedContent();
 	} else{
 		window.location = "https://cognito-dev.calpoly.edu/login?response_type=token&client_id=2fior6770hvto4u6kuq084j7fu&redirect_uri=https://angelodel01.github.io";	
@@ -49,12 +54,6 @@ function getToken() {
   xhr.send();
 }
 
-
-
-
-
-
-
 function getCookie(cname) {
     var name = cname + "=";
     var decodedCookie = decodeURIComponent(document.cookie);
@@ -82,7 +81,7 @@ function protectedContent(){
 
 
 function repoClick(){
-	console.log("repoClick()");
+	console.log(keyUrl);
 	par = 0;
 	createInputBox("Input");
 	createButton("List Repos", "accessFunction()", "bn");
@@ -92,6 +91,7 @@ function repoClick(){
 }
 
 function searchClick(){
+	console.log(keyUrl);
 	par = 0;
 	createInputBox("Input");
 	createButton("Search Stock", "searchFunction()", "bn");

@@ -8,7 +8,7 @@ var keyUrl = location.hash.substring(1);
 var par = 0;
 function protectedClick(){
 	par = 0;
-	console.log("in procClick", keyUrl);
+	//console.log("in procClick", keyUrl);
 	var key = getCookie("key");
 	if (keyUrl != ""){
 		var realUrl = keyUrl.split("&");
@@ -72,7 +72,7 @@ function getCookie(cname) {
 
 function protectedContent(realUrl){
 	console.log("inside protectedContent()");
-	console.log(realUrl[1]);
+	//console.log(realUrl[1]);
 	createParagraph("display");
 	document.getElementById("display").innerHTML = "SECRET SECRET SECRET";
 	return;	
@@ -82,7 +82,7 @@ function protectedContent(realUrl){
 
 
 function repoClick(){
-	console.log(keyUrl);
+	//console.log(keyUrl);
 	par = 0;
 	createInputBox("Input");
 	createButton("List Repos", "accessFunction()", "bn");
@@ -92,7 +92,7 @@ function repoClick(){
 }
 
 function searchClick(){
-	console.log(keyUrl);
+	//console.log(keyUrl);
 	par = 0;
 	createInputBox("Input");
 	createButton("Search Stock", "searchFunction()", "bn");

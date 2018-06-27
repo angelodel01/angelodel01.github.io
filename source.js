@@ -15,10 +15,7 @@ function protectedContent(k){
 	document.cookie = "key="+k;
 	var cookieStr = document.cookie;
 	cookieStr = cookieStr.split("=");
-	console.log(document.cookie.key);
-	console.log("after");
 	console.log(cookieStr[1]);
-	document.getElementById("display").innerHTML = "after";
 	return;	
 }
 

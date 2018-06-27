@@ -82,6 +82,7 @@ function protectedContent(){
 
 
 function repoClick(){
+	console.log("repoClick()");
 	par = 0;
 	createInputBox("Input");
 	createButton("List Repos", "accessFunction()", "bn");

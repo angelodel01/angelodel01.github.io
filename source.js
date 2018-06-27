@@ -12,7 +12,8 @@ function protectedClick(){
 	if (key != ""){
 		protectedContent();
 	} else{
-		window.location = "https://cognito-dev.calpoly.edu/login?response_type=token&client_id=2fior6770hvto4u6kuq084j7fu&redirect_uri=https://angelodel01.github.io";   
+		window.location = "https://cognito-dev.calpoly.edu/login?response_type=token&client_id=2fior6770hvto4u6kuq084j7fu&redirect_uri=https://angelodel01.github.io";
+		protectedContent();
 	}
 	removeTitle();
 	return;

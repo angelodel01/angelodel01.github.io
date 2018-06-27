@@ -13,7 +13,11 @@ function protectedContent(k){
 	createParagraph("display");
 	document.getElementById("display").innerHTML = "SECRET SECRET SECRET";
 	document.cookie = "key="+k;
+	var cookieStr = document.cookie;
+	cookieStr = cookieStr.split("=");
 	console.log(document.cookie.key);
+	console.log("after");
+	console.log(cookieStr[1]);
 	return;	
 }
 

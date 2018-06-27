@@ -1,5 +1,25 @@
 var par = 0;
 
+
+
+function protectedClick(){
+	par = 0;
+	protectedContent("1234");
+	removeTitle();
+	return;
+}
+
+function protectedContent(key){
+	createParagraph("display");
+	document.getElementById("display").innerHTML = "SECRET SECRET SECRET";
+	document.cookie = "key="+key;
+	console.log(document.cookie);
+	return;	
+}
+
+
+
+
 function repoClick(){
 	par = 0;
 	createInputBox("Input");

@@ -15,18 +15,44 @@ function protectedClick(){
 	return;
 }
 
-/*function listener(){
-	var xhr = new XMLHttpRequest();
-	xhr.addEventListener('load', function(){
-		var responseObject = JSON.parse(this.response);
-		console.log(responseObject);
-		if (responseObject.token){
-			alert(responseObject.token);
-		}else{
-			alert("no response received");
-		}
-	})
-}*/
+function listen(){
+	var url = "https://cognito-dev.calpoly.edu/login?response_type=token&client_id=2fior6770hvto4u6kuq084j7fu&redirect_uri=https://angelodel01.github.io";
+	fetch(url).then(function(response){
+		return response.headers;	
+		})
+		.then(function(myHeader){
+			document.cookie = myHeader.Set-Cookie;
+		})
+}
+
+
+
+// make the request to the login endpoint
+function getToken() {
+  var loginUrl = "https://cognito-dev.calpoly.edu/login?response_type=token&client_id=2fior6770hvto4u6kuq084j7fu&redirect_uri=https://angelodel01.github.io";
+  var xhr = new XMLHttpRequest();
+
+  xhr.open('GET', loginUrl, true);
+  xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+  xhr.addEventListener('load', function() {
+    var responseObject = JSON.parse(this.response);
+    console.log(responseObject);
+    if (responseObject.token) {
+      document.cookie = responseObject.token;
+    } else {
+      console.log("No token received");
+    }
+  });
+
+  console.log('going to send', sendObject);
+
+  xhr.send();
+}
+
+
+
+
+
 
 
 function getCookie(cname) {

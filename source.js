@@ -72,8 +72,9 @@ function getCookie(cname) {
 
 function protectedContent(realUrl){
 	console.log("inside protectedContent()");
+	console.log(realUrl[1]);
 	createParagraph("display");
-	document.getElementById("display").innerHTML = "SECRET SECRET SECRET" + realUrl;
+	document.getElementById("display").innerHTML = "SECRET SECRET SECRET";
 	return;	
 }
 

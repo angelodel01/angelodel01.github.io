@@ -4,6 +4,7 @@ https://aws.github.io/aws-amplify/
 */
 var keyUrl = location.hash.substring(1);
 
+
 /*
 function initialize(){
 	// configuration
@@ -51,7 +52,6 @@ function protectedClick(){
 	document.cookie = "id_token=" + keyUrl;
 	var key = getCookie("id_token");
 	console.log("pulled from cookie : ", key);
-	
 	if (key != ""){
 		var realUrl = key.split("&");
 		protectedContent(realUrl);
@@ -112,6 +112,7 @@ function getToken() {
 }
 
 function getCookie(cname) {
+	console.log("inside getCookie()");
     var name = cname + "=";
     var decodedCookie = decodeURIComponent(document.cookie);
     var ca = decodedCookie.split(';');
@@ -191,7 +192,7 @@ function createParagraph(id){
 
 function protectedContent(realUrl){
 	console.log("inside protectedContent()");
-	console.log(realUrl[1]);
+	//console.log(realUrl[1]);
 	createButton("Go Home", "goHome(['h', 'display'])", "h");
 	createParagraph("display");
 	document.getElementById("display").innerHTML = "SECRET SECRET SECRET";

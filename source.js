@@ -4,7 +4,7 @@ https://aws.github.io/aws-amplify/
 */
 var keyUrl = location.hash.substring(1);
 
-
+/*
 eyJraWQiOiJTNlp6cWFZdzh2SlFcLyszUXRoUldnRGp6M0srTWFvOElTZWxST0RPSmh3TT0iLCJhbGciOiJSUzI1NiJ9.eyJhdF9oYXNoIjoiQ3BqZl9SZTI4WDZQck9Wam1VcEViQSIsInN1YiI6IjRiNzlmYjJlLTFjN2EtNDdkYi05NTQ3LTllN2RjZjBjZjI4OCIsImF1ZCI6IjJmaW9yNjc3MGh2dG80dTZrdXEwODRqN2Z1IiwiZW1haWxfdmVyaWZpZWQiOnRydWUsInRva2VuX3VzZSI6ImlkIiwiYXV0aF90aW1lIjoxNTMwMjEwMzk1LCJpc3MiOiJodHRwczpcL1wvY29nbml0by1pZHAudXMtd2VzdC0yLmFtYXpvbmF3cy5jb21cL3VzLXdlc3QtMl9MbG9kWWd5UU4iLCJjb2duaXRvOnVzZXJuYW1lIjoiYW1kZWxhdXIiLCJleHAiOjE1MzAyMTM5OTUsImlhdCI6MTUzMDIxMDM5NSwiZW1haWwiOiJhbWRlbGF1ckBjYWxwb2x5LmVkdSJ9.j3u8TR86-ctHrHPJefT18SkXlJTT92NO8Pw5KZB_NmOpsHjENBKLX00ntT9I5wfR5JM2RNqZy2R4tpKpG8od9Tqp6_UnXDIJaSZ4gIxk0Gq7crtMsmg5GAGEGISf1_CJ0oJSq6aHNL2I9PjZUjnyEB-961j0NZZ-lL34fssRC0ZhC8Lm2XZjKGpa0ncOh4wljUSCTZIcM-rRgLSGhuTfMyl3mGsdyurc6bMXnYjlt2QbNXj4vPmZvjhEh2l85eclsVX4XmXB4EMQkSABZKrRvwatoVWus94ABJVNDb0uTJe9PaNxEmYCGo5rLtRDjTrsONHQbPTl2QOe6ldOVH-6vQ
 
 
@@ -13,7 +13,7 @@ eyJraWQiOiJTNlp6cWFZdzh2SlFcLyszUXRoUldnRGp6M0srTWFvOElTZWxST0RPSmh3TT0iLCJhbGci
 
 
 
-/*
+
 function initialize(){
 	// configuration
 	Router.config({ mode: 'history'});
@@ -210,7 +210,7 @@ function createParagraph(id){
 
 function protectedContent(realUrl){
 	console.log("inside protectedContent()");
-	console.log(realUrl[1]);
+	console.log("realUrl : "realUrl);
 	createButton("Go Home", "goHome(['h', 'display'])", "h");
 	createParagraph("display");
 	document.getElementById("display").innerHTML = "SECRET SECRET SECRET";

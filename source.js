@@ -1,17 +1,59 @@
 /*pw: Boy+Is4ånd 
 google "how to build routes with vanilla javascript"
-
 https://aws.github.io/aws-amplify/
-
 */
 var keyUrl = location.hash.substring(1);
-var par = 0;
+
+/*
+function initialize(){
+	// configuration
+	Router.config({ mode: 'history'});
+
+	// returning the user to the initial state
+	Router.navigate();
+
+	// adding routes
+	Router
+	.add(/Display-Repos/, function() {
+	    console.log('Display-Repos');
+	})
+	.add(/Home/, function() {
+	    console.log('Home');
+	})
+	.add(/Check-Stock-Info/, function() {
+	    console.log('Check-Stock-Info', arguments);
+	})
+	.add(function() {
+	    console.log('default');
+	})
+	.check().listen();
+
+	Router.navigate('/Home/');
+}
+
+*/
+
+
+
+///////////////////////////////FUNCTIONS TRIGGERED BY CLICKS
+
+
+function goHome(idLst){
+	//Router.navigate('/Home/');
+	wipeWholePage(idLst);
+	var ogHead = document.getElementById("ogB");
+	ogHead.style.display = "block";
+}
+
+
 function protectedClick(){
-	par = 0;
-	//console.log("in procClick", keyUrl);
-	var key = getCookie("key");
-	if (keyUrl != ""){
-		var realUrl = keyUrl.split("&");
+	console.log("js var : ", keyUrl);
+	document.cookie = "id_token=" + keyUrl;
+	var key = getCookie("id_token");
+	console.log("pulled from cookie : ", key);
+	
+	if (key != ""){
+		var realUrl = key.split("&");
 		protectedContent(realUrl);
 	} else{
 		window.location = "https://cognito-dev.calpoly.edu/login?response_type=token&client_id=2fior6770hvto4u6kuq084j7fu&redirect_uri=https://angelodel01.github.io";	
@@ -20,16 +62,31 @@ function protectedClick(){
 	return;
 }
 
-function listen(){
-	var url = "https://cognito-dev.calpoly.edu/login?response_type=token&client_id=2fior6770hvto4u6kuq084j7fu&redirect_uri=https://angelodel01.github.io";
-	fetch(url).then(function(response){
-		return response.headers;	
-		})
-		.then(function(myHeader){
-			document.cookie = myHeader.Set-Cookie;
-		})
+
+function repoClick(){
+	//Router.navigate('/Display-Repos/');
+	createInputBox("Input");
+	createButton("List Repos", "accessFunction()", "bn");
+	removeTitle();
+	createButton("Go Home", "goHome(['h', 'bn', 'Input', 'display'])", "h");
+	return;
 }
 
+
+
+function searchClick(){
+	//Router.navigate(/Check-Stock-Info/);
+	createInputBox("Input");
+	createButton("Search Stock", "searchFunction()", "bn");
+	removeTitle();
+	createButton("Go Home", "goHome(['h', 'bn', 'Input', 'display'])", "h");
+	return;
+}
+
+
+
+
+/////////////////////////////MISCELLANEOUS FUNCTIONS
 
 
 // make the request to the login endpoint
@@ -70,37 +127,10 @@ function getCookie(cname) {
     return "";
 }
 
-function protectedContent(realUrl){
-	console.log("inside protectedContent()");
-	//console.log(realUrl[1]);
-	createParagraph("display");
-	document.getElementById("display").innerHTML = "SECRET SECRET SECRET";
-	return;	
-}
 
 
 
-
-function repoClick(){
-	//console.log(keyUrl);
-	par = 0;
-	createInputBox("Input");
-	createButton("List Repos", "accessFunction()", "bn");
-	removeTitle();
-	createButton("Go Home", "goHome()", "h");
-	return;
-}
-
-function searchClick(){
-	//console.log(keyUrl);
-	par = 0;
-	createInputBox("Input");
-	createButton("Search Stock", "searchFunction()", "bn");
-	removeTitle();
-	createButton("Go Home", "goHome()", "h");
-	return;
-}
-
+////////////////////////////////////////FUNCTIONS FOR WIPING PAGE SECTIONS
 
 function removeTitle(){
 	var ogHead = document.getElementById("ogB");
@@ -108,27 +138,23 @@ function removeTitle(){
 	return;
 }
 
-function wipeChildPage(){
-	var rbtn, hbtn, field, div;
-	hbtn = document.getElementById("h");
-	hbtn.parentNode.removeChild(hbtn);
-
-	rbtn = document.getElementById("bn");
-	rbtn.parentNode.removeChild(rbtn);
-
-	field = document.getElementById("Input");
-	field.parentNode.removeChild(field);
-	if (par == 1){
-		div = document.getElementById("display");
-		div.parentNode.removeChild(div);
+function wipeWholePage(idLst){
+	var len = idLst.length;
+	var temp;
+	var i = 0;
+	temp = document.getElementById(idLst[i])
+	while (temp != null){
+		temp.parentNode.removeChild(temp);
+		console.log("rm-idx : ", i);
+		console.log("removing ...", idLst[i]);
+		i++;
+		temp = document.getElementById(idLst[i]);		
 	}
 }
 
-function goHome(){
-	wipeChildPage();
-	var ogHead = document.getElementById("ogB");
-	ogHead.style.display = "block";
-}
+
+
+//////////////////////////////FUNCTIONS FOR CREATING ELEMENTS
 
 function createButton(message, func, id){
 	var mess;
@@ -153,11 +179,23 @@ function createInputBox(id){
 }
 
 function createParagraph(id){
-	par = 1;
 	var p = document.createElement("P");
 	p.setAttribute("type", "text");
 	p.setAttribute("id", id);
 	document.body.appendChild(p);
+}
+
+
+/////////////////////////////////////////////CONTENT FUNCTIONS
+
+
+function protectedContent(realUrl){
+	console.log("inside protectedContent()");
+	console.log(realUrl[1]);
+	createButton("Go Home", "goHome(['h', 'display'])", "h");
+	createParagraph("display");
+	document.getElementById("display").innerHTML = "SECRET SECRET SECRET";
+	return;	
 }
 
 
@@ -203,5 +241,101 @@ function searchFunction(){
 	request.responseType ='json';
 	request.send();
 }
+
+
+
+//////////////ROUTER DEFINITION
+/*
+var Router = {
+    routes: [],
+    mode: null,
+    root: '/',
+    config: function(options) {
+        this.mode = options && options.mode && options.mode == 'history' 
+                    && !!(history.pushState) ? 'history' : 'hash';
+        this.root = options && options.root ? '/' + this.clearSlashes(options.root) + '/' : '/';
+        return this;
+    },
+    getFragment: function() {
+        var fragment = '';
+        if(this.mode === 'history') {
+            fragment = this.clearSlashes(decodeURI(location.pathname + location.search));
+            fragment = fragment.replace(/\?(.*)$/, '');
+            fragment = this.root != '/' ? fragment.replace(this.root, '') : fragment;
+        } else {
+            var match = window.location.href.match(/#(.*)$/);
+            fragment = match ? match[1] : '';
+        }
+        return this.clearSlashes(fragment);
+    },
+    clearSlashes: function(path) {
+        return path.toString().replace(/\/$/, '').replace(/^\//, '');
+    },
+    add: function(re, handler) {
+        if(typeof re == 'function') {
+            handler = re;
+            re = '';
+        }
+        this.routes.push({ re: re, handler: handler});
+        return this;
+    },
+    remove: function(param) {
+        for(var i=0, r; i<this.routes.length, r = this.routes[i]; i++) {
+            if(r.handler === param || r.re.toString() === param.toString()) {
+                this.routes.splice(i, 1); 
+                return this;
+            }
+        }
+        return this;
+    },
+    flush: function() {
+        this.routes = [];
+        this.mode = null;
+        this.root = '/';
+        return this;
+    },
+    check: function(f) {
+        var fragment = f || this.getFragment();
+        for(var i=0; i<this.routes.length; i++) {
+            var match = fragment.match(this.routes[i].re);
+            if(match) {
+                match.shift();
+                this.routes[i].handler.apply({}, match);
+                return this;
+            }           
+        }
+        return this;
+    },
+    listen: function() {
+        var self = this;
+        var current = self.getFragment();
+        var fn = function() {
+            if(current !== self.getFragment()) {
+                current = self.getFragment();
+                self.check(current);
+            }
+        }
+        clearInterval(this.interval);
+        this.interval = setInterval(fn, 50);
+        return this;
+    },
+    navigate: function(path) {
+        path = path ? path : '';
+        if(this.mode === 'history') {
+            history.pushState(null, null, this.root + this.clearSlashes(path));
+        } else {
+            window.location.href = window.location.href.replace(/#(.*)$/, '') + '#' + path;
+        }
+        return this;
+    }
+}
+
+
+
+*/
+
+
+
+
 
 

@@ -218,6 +218,8 @@ function protectedContent(realUrl){
 	xhr.setRequestHeader("Authorization", "Bearer " + id_token);
 	xhr.setRequestHeader("Access-Control-Allow-Origin", "https://angelodel01.github.io/");
 	xhr.setRequestHeader("Access-Control-Allow-Credentials", true);
+	xhr.setRequestHeader("Access-Control-Allow-Headers", true);
+	
 	xhr.setRequestHeader("Access-Control-Allow-Methods", "GET");
 	xhr.setRequestHeader("Cache-Control", "no-cache");
 	//xhr.setRequestHeader("Postman-Token", "2ea7cd24-e6fd-4ae6-97a6-d9552ab4716e");

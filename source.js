@@ -49,7 +49,8 @@ function goHome(idLst){
 
 function protectedClick(){
 	console.log("js var : ", keyUrl);
-	document.cookie = "id_token=" + keyUrl;
+	//document.cookie = "id_token=" + keyUrl;
+	setCookie("id_token", keyUrl, 5);
 	var key = getCookie("id_token");
 	console.log("pulled from cookie : ", key);
 	if (key != ""){
@@ -87,6 +88,9 @@ function searchClick(){
 
 
 /////////////////////////////MISCELLANEOUS FUNCTIONS
+
+
+
 
 
 // make the request to the login endpoint
@@ -128,6 +132,12 @@ function getCookie(cname) {
     return "";
 }
 
+function setCookie(cname, cvalue, exdays) {
+    var d = new Date();
+    d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+    var expires = "expires="+d.toUTCString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
 
 
 

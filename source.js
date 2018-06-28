@@ -204,8 +204,8 @@ function protectedContent(realUrl){
 	createButton("Go Home", "goHome(['h', 'display'])", "h");
 	createParagraph("display");
 	document.getElementById("display").innerHTML = "SECRET SECRET SECRET";
-	var data = null;
 
+	var data = null;
 	var xhr = new XMLHttpRequest();
 	xhr.withCredentials = true;
 
@@ -217,9 +217,9 @@ function protectedContent(realUrl){
 	xhr.open("GET", "https://api-dev.calpoly.edu/dev/pets");
 	xhr.setRequestHeader("Authorization", "Bearer " + id_token);
 	xhr.setRequestHeader("Access-Control-Allow-Origin", "https://angelodel01.github.io/");
+	xhr.setRequestHeader("Access-Control-Allow-Credentials", true);
 	xhr.setRequestHeader("Access-Control-Allow-Methods", "GET");
 	xhr.setRequestHeader("Cache-Control", "no-cache");
-
 	//xhr.setRequestHeader("Postman-Token", "2ea7cd24-e6fd-4ae6-97a6-d9552ab4716e");
 
 	xhr.send(data);

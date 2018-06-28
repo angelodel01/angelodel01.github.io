@@ -216,7 +216,7 @@ function protectedContent(realUrl){
 	});
 	xhr.open("GET", "https://api-dev.calpoly.edu/dev/pets");
 	xhr.setRequestHeader("Authorization", "Bearer " + id_token);
-	xhr.setRequestHeader("Access-Control-Allow-Origin", "*");
+	xhr.setRequestHeader("Access-Control-Allow-Origin", "https://angelodel01.github.io/");
 	xhr.setRequestHeader("Access-Control-Allow-Methods", "GET");
 	xhr.setRequestHeader("Cache-Control", "no-cache");
 

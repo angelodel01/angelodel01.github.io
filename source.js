@@ -220,6 +220,7 @@ function protectedContent(realUrl){
 	xhr.setRequestHeader("Access-Control-Allow-Credentials", true);
 	xhr.setRequestHeader("Access-Control-Allow-Headers", "Content-Type");
 	xhr.setRequestHeader("Access-Control-Request-Headers", "Content-Type");
+	xhr.setRequestHeader("Access-Control-Request-Method", "GET");
 
 	xhr.setRequestHeader("Access-Control-Allow-Methods", "GET");
 	xhr.setRequestHeader("Cache-Control", "no-cache");

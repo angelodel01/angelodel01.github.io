@@ -210,7 +210,7 @@ function createParagraph(id){
 
 function protectedContent(realUrl){
 	console.log("inside protectedContent()");
-	console.log("realUrl : "realUrl);
+	console.log("realUrl : ", realUrl);
 	createButton("Go Home", "goHome(['h', 'display'])", "h");
 	createParagraph("display");
 	document.getElementById("display").innerHTML = "SECRET SECRET SECRET";

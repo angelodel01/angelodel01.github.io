@@ -284,9 +284,9 @@ function protectedContent(id_token){
 	document.getElementById("display").innerHTML = "SECRET SECRET SECRET";
 	var url = "https://api-dev.calpoly.edu/pets";
 
-	const myHeaders = new Headers();
-	myHeaders.append('Content-Type', 'application/json');
-	myHeaders.append('Authorization', 'Bearer ' + id_token);
+	const headers = new Headers();
+	headers.append('Content-Type', 'application/json');
+	headers.append('Authorization', 'Bearer ' + id_token);
 	/*
 	let headers = {
 		'Content-Type': 'application/json',

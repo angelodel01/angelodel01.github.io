@@ -10,7 +10,7 @@ eyJraWQiOiJTNlp6cWFZdzh2SlFcLyszUXRoUldnRGp6M0srTWFvOElTZWxST0RPSmh3TT0iLCJhbGci
 */
 
 
-
+/*
 //////////////ROUTER DEFINITION
 var Router = {
     routes: [],
@@ -110,7 +110,7 @@ Router
 .add(goHome(['h', 'bn', 'Input', 'display']))
 .check().listen();
 Router.navigate();
-
+*/
 
 
 
@@ -119,14 +119,36 @@ Router.navigate();
 
 
 function goHome(idLst){
-	Router.navigate();
+	//Router.navigate();
 	wipeWholePage(idLst);
 	var ogHead = document.getElementById("ogB");
 	ogHead.style.display = "block";
 }
 
 
-var protectedClick = function(){
+
+function repoClick(){
+	//Router.navigate('/Display-Repos/');
+	createInputBox("Input");
+	createButton("List Repos", "accessFunction()", "bn");
+	removeHome();
+	createButton("Go Home", "goHome(['h', 'bn', 'Input', 'display'])", "h");
+	return;
+}
+
+
+
+var searchClick = function(){
+	//Router.navigate(/Check-Stock-Info/);
+	createInputBox("Input");
+	createButton("Search Stock", "searchFunction()", "bn");
+	removeHome();
+	createButton("Go Home", "goHome(['h', 'bn', 'Input', 'display'])", "h");
+	return;
+}
+
+
+function protectedClick(){
 	console.log("js var : ", keyUrl);
 	/*var realUrl = keyUrl.split("&");
 	var id_token = realUrl[0].slice(9);*/
@@ -139,31 +161,9 @@ var protectedClick = function(){
 	} else{
 		window.location = "https://cognito-dev.calpoly.edu/login?response_type=token&client_id=2fior6770hvto4u6kuq084j7fu&redirect_uri=https://angelodel01.github.io";	
 	}
-	removeTitle();
+	removeHome();
 	return;
 }
-
-
-var repoClick = function(){
-	Router.navigate('/Display-Repos/');
-	createInputBox("Input");
-	createButton("List Repos", "accessFunction()", "bn");
-	removeTitle();
-	createButton("Go Home", "goHome(['h', 'bn', 'Input', 'display'])", "h");
-	return;
-}
-
-
-
-var searchClick = function(){
-	Router.navigate(/Check-Stock-Info/);
-	createInputBox("Input");
-	createButton("Search Stock", "searchFunction()", "bn");
-	removeTitle();
-	createButton("Go Home", "goHome(['h', 'bn', 'Input', 'display'])", "h");
-	return;
-}
-
 
 
 
@@ -220,7 +220,7 @@ function setCookie(cname, cvalue, exdays) { //not used right now
 
 ////////////////////////////////////////FUNCTIONS FOR WIPING PAGE SECTIONS
 
-function removeTitle(){
+function removeHome(){
 	var ogHead = document.getElementById("ogB");
 	ogHead.style.display = "none";
 	return;
@@ -276,7 +276,6 @@ function createParagraph(id){
 
 /////////////////////////////////////////////CONTENT FUNCTIONS
 
-
 function protectedContent(id_token){
 	console.log("inside protectedContent()");
 	console.log("id_token : ", id_token);
@@ -293,7 +292,7 @@ function protectedContent(id_token){
 			document.getElementById("display").innerHTML = this.responseText;
 		}
 	});
-	xhr.open("GET", "https://api-dev.calpoly.edu/dev/pets");
+	xhr.open("GET", "https://api-dev.calpoly.edu/pets");
 	xhr.setRequestHeader("Authorization", "Bearer " + id_token);
 	xhr.setRequestHeader("Access-Control-Allow-Credentials", true);
 	xhr.setRequestHeader("Access-Control-Allow-Origin", "https://angelodel01.github.io/");
@@ -307,9 +306,6 @@ function protectedContent(id_token){
 	//xhr.setRequestHeader("Postman-Token", "2ea7cd24-e6fd-4ae6-97a6-d9552ab4716e");
 */
 	xhr.send(data);
-
-
-
 	return;	
 }
 

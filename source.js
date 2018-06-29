@@ -106,7 +106,7 @@ Router.navigate();
 // adding routes
 Router
 .add(/Display-Repos/, repoClick)
-.add(/Check-Stock-Info/, seatchClick)
+.add(/Check-Stock-Info/, searchClick)
 .add(goHome(['h', 'bn', 'Input', 'display']))
 .check().listen();
 Router.navigate();

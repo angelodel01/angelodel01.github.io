@@ -11,7 +11,7 @@ eyJraWQiOiJTNlp6cWFZdzh2SlFcLyszUXRoUldnRGp6M0srTWFvOElTZWxST0RPSmh3TT0iLCJhbGci
 
 //////////////ROUTER DEFINITION
 
-var Router = {
+/*var Router = {
     routes: [],
     mode: null,
     root: '/',
@@ -110,7 +110,7 @@ Router
 .add(goHome(['h', 'bn', 'Input', 'display']))
 .check().listen();
 Router.navigate();
-
+*/
 
 
 
@@ -119,7 +119,7 @@ Router.navigate();
 
 
 function goHome(idLst){
-	Router.navigate();
+	//Router.navigate();
 	wipeWholePage(idLst);
 	var ogHead = document.getElementById("ogB");
 	ogHead.style.display = "block";
@@ -144,7 +144,7 @@ function protectedClick(){
 
 
 function repoClick(){
-	Router.navigate('/Display-Repos/');
+	//Router.navigate('/Display-Repos/');
 	createInputBox("Input");
 	createButton("List Repos", "accessFunction()", "bn");
 	removeTitle();
@@ -155,7 +155,7 @@ function repoClick(){
 
 
 function searchClick(){
-	Router.navigate(/Check-Stock-Info/);
+	//Router.navigate(/Check-Stock-Info/);
 	createInputBox("Input");
 	createButton("Search Stock", "searchFunction()", "bn");
 	removeTitle();
@@ -279,7 +279,7 @@ function createParagraph(id){
 /////////////////////////////////////////////CONTENT FUNCTIONS
 
 
-function protectedContent(realUrl){
+function protectedContent(id_token){
 	console.log("inside protectedContent()");
 	console.log("id_token : ", id_token);
 	createButton("Go Home", "goHome(['h', 'display'])", "h");

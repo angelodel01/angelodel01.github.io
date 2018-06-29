@@ -149,7 +149,7 @@ function protectedClick(){
 	/*var realUrl = keyUrl.split("&");
 	var id_token = realUrl[0].slice(9);*/
 
-	document.cookie = keyUrl.replace("&", ";");
+	document.cookie = keyUrl.replace("&", ";");//don't do this anymore! use the set cookie function so we can determine when the key expires and coordinate that with the cookie expiration.
 	var key = getCookie("id_token");
 	console.log("pulled from cookie : ", key);
 	if (key != ""){
@@ -303,10 +303,24 @@ function protectedContent(id_token){
 			var table = document.getElementById("table1");
 			var row = table.insertRow(0);
 			var cell1 = row.insertCell(0);
-			cell1.innerHTML = "type : ";
+			cell1.innerHTML = "type :";
 			for (i = 0; i < len; i++){
 				var cell2 = row.insertCell(i+1);
 				cell2.innerHTML = myJson[i].type;
+			}
+			var row2 = table.insertRow(1);
+			var cell3 = row2.insertCell(0);
+			cell3.innerHTML = "id :";
+			for (i = 0; i < len; i++){
+				var cell4 = row2.insertCell(i+1);
+				cell4.innerHTML = myJson[i].id;
+			}
+			var row3 = table.insertRow(1);
+			var cell5 = row3.insertCell(0);
+			cell5.innerHTML = "price :";
+			for (i = 0; i < len; i++){
+				var cell6 = row3.insertCell(i+1);
+				cell6.innerHTML = myJson[i].price;
 			}
 		})
 	return;	

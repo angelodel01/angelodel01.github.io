@@ -3,33 +3,115 @@ google "how to build routes with vanilla javascript"
 https://aws.github.io/aws-amplify/
 */
 var keyUrl = location.hash.substring(1);
-
 /*
 eyJraWQiOiJTNlp6cWFZdzh2SlFcLyszUXRoUldnRGp6M0srTWFvOElTZWxST0RPSmh3TT0iLCJhbGciOiJSUzI1NiJ9.eyJhdF9oYXNoIjoiQ3BqZl9SZTI4WDZQck9Wam1VcEViQSIsInN1YiI6IjRiNzlmYjJlLTFjN2EtNDdkYi05NTQ3LTllN2RjZjBjZjI4OCIsImF1ZCI6IjJmaW9yNjc3MGh2dG80dTZrdXEwODRqN2Z1IiwiZW1haWxfdmVyaWZpZWQiOnRydWUsInRva2VuX3VzZSI6ImlkIiwiYXV0aF90aW1lIjoxNTMwMjEwMzk1LCJpc3MiOiJodHRwczpcL1wvY29nbml0by1pZHAudXMtd2VzdC0yLmFtYXpvbmF3cy5jb21cL3VzLXdlc3QtMl9MbG9kWWd5UU4iLCJjb2duaXRvOnVzZXJuYW1lIjoiYW1kZWxhdXIiLCJleHAiOjE1MzAyMTM5OTUsImlhdCI6MTUzMDIxMDM5NSwiZW1haWwiOiJhbWRlbGF1ckBjYWxwb2x5LmVkdSJ9.j3u8TR86-ctHrHPJefT18SkXlJTT92NO8Pw5KZB_NmOpsHjENBKLX00ntT9I5wfR5JM2RNqZy2R4tpKpG8od9Tqp6_UnXDIJaSZ4gIxk0Gq7crtMsmg5GAGEGISf1_CJ0oJSq6aHNL2I9PjZUjnyEB-961j0NZZ-lL34fssRC0ZhC8Lm2XZjKGpa0ncOh4wljUSCTZIcM-rRgLSGhuTfMyl3mGsdyurc6bMXnYjlt2QbNXj4vPmZvjhEh2l85eclsVX4XmXB4EMQkSABZKrRvwatoVWus94ABJVNDb0uTJe9PaNxEmYCGo5rLtRDjTrsONHQbPTl2QOe6ldOVH-6vQ
 &access_token=eyJraWQiOiJ5ZXNrQ1RYOTZVVHJVZjhyMzFOaU5BZ21kUG9RbW9DbXJZTTNaQlBaZEZZPSIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiI0Yjc5ZmIyZS0xYzdhLTQ3ZGItOTU0Ny05ZTdkY2YwY2YyODgiLCJ0b2tlbl91c2UiOiJhY2Nlc3MiLCJzY29wZSI6InBob25lIG9wZW5pZCBwcm9maWxlIGVtYWlsIiwiYXV0aF90aW1lIjoxNTMwMjEwMzk1LCJpc3MiOiJodHRwczpcL1wvY29nbml0by1pZHAudXMtd2VzdC0yLmFtYXpvbmF3cy5jb21cL3VzLXdlc3QtMl9MbG9kWWd5UU4iLCJleHAiOjE1MzAyMTM5OTUsImlhdCI6MTUzMDIxMDM5NSwidmVyc2lvbiI6MiwianRpIjoiNTZkMjBlOWMtNzU0Zi00YzkyLWE5OGQtZDkyYzM2YmY1NDBmIiwiY2xpZW50X2lkIjoiMmZpb3I2NzcwaHZ0bzR1Nmt1cTA4NGo3ZnUiLCJ1c2VybmFtZSI6ImFtZGVsYXVyIn0.gItuiXsHUjWlwIa2AjU-dM_fBzBVZbSfOPPYa4BE6t_JyyDvDdGIywuX07fFtbi3n5900Q6pzaFp17GUCEAFVW3pZmgtedmLWr-Vog2aDeWIkSh-k94ERMn20nYboVc2WYa29WB8D5PhW8Ykz4O8-UGb4JBhfFVUreoo8rpMKHIT-YL1csfFr2PeNnO0T8X5uVz-loN6FHhRX7mvdqbhr6mbkwXMO2NwBpU3H_QXYnrrSmy_YR2Nt_ZRBIh19pW6trhPMWW97knEuZh8fFG_0pql0TRmSF_Zfjj-dPqldth9sArrObvgyyJWuitEVOTBD6sA4H5NM3LbHJqdptt9_Q&expires_in=3600&token_type=Bearer
-function initialize(){
-	// configuration
-	Router.config({ mode: 'history'});
-	// returning the user to the initial state
-	Router.navigate();
-	// adding routes
-	Router
-	.add(/Display-Repos/, function() {
-	    console.log('Display-Repos');
-	})
-	.add(/Home/, function() {
-	    console.log('Home');
-	})
-	.add(/Check-Stock-Info/, function() {
-	    console.log('Check-Stock-Info', arguments);
-	})
-	.add(function() {
-	    console.log('default');
-	})
-	.check().listen();
-	Router.navigate('/Home/');
-}
 */
+
+
+//////////////ROUTER DEFINITION
+
+var Router = {
+    routes: [],
+    mode: null,
+    root: '/',
+    config: function(options) {
+        this.mode = options && options.mode && options.mode == 'history' 
+                    && !!(history.pushState) ? 'history' : 'hash';
+        this.root = options && options.root ? '/' + this.clearSlashes(options.root) + '/' : '/';
+        return this;
+    },
+    getFragment: function() {
+        var fragment = '';
+        if(this.mode === 'history') {
+            fragment = this.clearSlashes(decodeURI(location.pathname + location.search));
+            fragment = fragment.replace(/\?(.*)$/, '');
+            fragment = this.root != '/' ? fragment.replace(this.root, '') : fragment;
+        } else {
+            var match = window.location.href.match(/#(.*)$/);
+            fragment = match ? match[1] : '';
+        }
+        return this.clearSlashes(fragment);
+    },
+    clearSlashes: function(path) {
+        return path.toString().replace(/\/$/, '').replace(/^\//, '');
+    },
+    add: function(re, handler) {
+        if(typeof re == 'function') {
+            handler = re;
+            re = '';
+        }
+        this.routes.push({ re: re, handler: handler});
+        return this;
+    },
+    remove: function(param) {
+        for(var i=0, r; i<this.routes.length, r = this.routes[i]; i++) {
+            if(r.handler === param || r.re.toString() === param.toString()) {
+                this.routes.splice(i, 1); 
+                return this;
+            }
+        }
+        return this;
+    },
+    flush: function() {
+        this.routes = [];
+        this.mode = null;
+        this.root = '/';
+        return this;
+    },
+    check: function(f) {
+        var fragment = f || this.getFragment();
+        for(var i=0; i<this.routes.length; i++) {
+            var match = fragment.match(this.routes[i].re);
+            if(match) {
+                match.shift();
+                this.routes[i].handler.apply({}, match);
+                return this;
+            }           
+        }
+        return this;
+    },
+    listen: function() {
+        var self = this;
+        var current = self.getFragment();
+        var fn = function() {
+            if(current !== self.getFragment()) {
+                current = self.getFragment();
+                self.check(current);
+            }
+        }
+        clearInterval(this.interval);
+        this.interval = setInterval(fn, 50);
+        return this;
+    },
+    navigate: function(path) {
+        path = path ? path : '';
+        if(this.mode === 'history') {
+            history.pushState(null, null, this.root + this.clearSlashes(path));
+        } else {
+            window.location.href = window.location.href.replace(/#(.*)$/, '') + '#' + path;
+        }
+        return this;
+    }
+}
+
+
+
+
+
+// configuration
+Router.config({ mode: 'history'});
+// returning the user to the initial state
+Router.navigate();
+// adding routes
+Router
+.add(/Display-Repos/, repoClick)
+.add(/Check-Stock-Info/, seatchClick)
+.add(goHome(['h', 'bn', 'Input', 'display']))
+.check().listen();
+Router.navigate();
+
+
 
 
 
@@ -37,7 +119,7 @@ function initialize(){
 
 
 function goHome(idLst){
-	//Router.navigate('/Home/');
+	Router.navigate();
 	wipeWholePage(idLst);
 	var ogHead = document.getElementById("ogB");
 	ogHead.style.display = "block";
@@ -46,13 +128,13 @@ function goHome(idLst){
 
 function protectedClick(){
 	console.log("js var : ", keyUrl);
-	//document.cookie = "id_token=" + keyUrl;
-	setCookie("id_token", keyUrl, 5);
+	var realUrl = keyUrl.split("&");
+	var id_token = realUrl[0].slice(9);
+	setCookie("id_token", id_token, 5);
 	var key = getCookie("id_token");
 	console.log("pulled from cookie : ", key);
 	if (key != ""){
-		var realUrl = key.split("&");
-		protectedContent(realUrl);
+		protectedContent(key);
 	} else{
 		window.location = "https://cognito-dev.calpoly.edu/login?response_type=token&client_id=2fior6770hvto4u6kuq084j7fu&redirect_uri=https://angelodel01.github.io";	
 	}
@@ -62,7 +144,7 @@ function protectedClick(){
 
 
 function repoClick(){
-	//Router.navigate('/Display-Repos/');
+	Router.navigate('/Display-Repos/');
 	createInputBox("Input");
 	createButton("List Repos", "accessFunction()", "bn");
 	removeTitle();
@@ -73,7 +155,7 @@ function repoClick(){
 
 
 function searchClick(){
-	//Router.navigate(/Check-Stock-Info/);
+	Router.navigate(/Check-Stock-Info/);
 	createInputBox("Input");
 	createButton("Search Stock", "searchFunction()", "bn");
 	removeTitle();
@@ -199,7 +281,6 @@ function createParagraph(id){
 
 function protectedContent(realUrl){
 	console.log("inside protectedContent()");
-	var id_token = realUrl[0].slice(9);
 	console.log("id_token : ", id_token);
 	createButton("Go Home", "goHome(['h', 'display'])", "h");
 	createParagraph("display");
@@ -220,6 +301,7 @@ function protectedContent(realUrl){
 	xhr.setRequestHeader("Access-Control-Allow-Credentials", true);
 	xhr.setRequestHeader("Access-Control-Allow-Headers", "Content-Type");
 	xhr.setRequestHeader("Access-Control-Request-Headers", "Content-Type");
+
 	xhr.setRequestHeader("Access-Control-Request-Method", "GET");
 
 	xhr.setRequestHeader("Access-Control-Allow-Methods", "GET");
@@ -279,89 +361,4 @@ function searchFunction(){
 
 
 
-//////////////ROUTER DEFINITION
-/*
-var Router = {
-    routes: [],
-    mode: null,
-    root: '/',
-    config: function(options) {
-        this.mode = options && options.mode && options.mode == 'history' 
-                    && !!(history.pushState) ? 'history' : 'hash';
-        this.root = options && options.root ? '/' + this.clearSlashes(options.root) + '/' : '/';
-        return this;
-    },
-    getFragment: function() {
-        var fragment = '';
-        if(this.mode === 'history') {
-            fragment = this.clearSlashes(decodeURI(location.pathname + location.search));
-            fragment = fragment.replace(/\?(.*)$/, '');
-            fragment = this.root != '/' ? fragment.replace(this.root, '') : fragment;
-        } else {
-            var match = window.location.href.match(/#(.*)$/);
-            fragment = match ? match[1] : '';
-        }
-        return this.clearSlashes(fragment);
-    },
-    clearSlashes: function(path) {
-        return path.toString().replace(/\/$/, '').replace(/^\//, '');
-    },
-    add: function(re, handler) {
-        if(typeof re == 'function') {
-            handler = re;
-            re = '';
-        }
-        this.routes.push({ re: re, handler: handler});
-        return this;
-    },
-    remove: function(param) {
-        for(var i=0, r; i<this.routes.length, r = this.routes[i]; i++) {
-            if(r.handler === param || r.re.toString() === param.toString()) {
-                this.routes.splice(i, 1); 
-                return this;
-            }
-        }
-        return this;
-    },
-    flush: function() {
-        this.routes = [];
-        this.mode = null;
-        this.root = '/';
-        return this;
-    },
-    check: function(f) {
-        var fragment = f || this.getFragment();
-        for(var i=0; i<this.routes.length; i++) {
-            var match = fragment.match(this.routes[i].re);
-            if(match) {
-                match.shift();
-                this.routes[i].handler.apply({}, match);
-                return this;
-            }           
-        }
-        return this;
-    },
-    listen: function() {
-        var self = this;
-        var current = self.getFragment();
-        var fn = function() {
-            if(current !== self.getFragment()) {
-                current = self.getFragment();
-                self.check(current);
-            }
-        }
-        clearInterval(this.interval);
-        this.interval = setInterval(fn, 50);
-        return this;
-    },
-    navigate: function(path) {
-        path = path ? path : '';
-        if(this.mode === 'history') {
-            history.pushState(null, null, this.root + this.clearSlashes(path));
-        } else {
-            window.location.href = window.location.href.replace(/#(.*)$/, '') + '#' + path;
-        }
-        return this;
-    }
-}
-*/
+

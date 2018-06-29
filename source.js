@@ -138,7 +138,7 @@ function repoClick(){
 
 
 
-var searchClick = function(){
+function searchClick(){
 	//Router.navigate(/Check-Stock-Info/);
 	createInputBox("Input");
 	createButton("Search Stock", "searchFunction()", "bn");

@@ -287,7 +287,6 @@ function protectedContent(id_token){
 	const myHeaders = new Headers();
 	myHeaders.append('Content-Type', 'application/json');
 	myHeaders.append('Authorization', 'Bearer ' + id_token);
-	myHeaders.append("Access-Control-Allow-Origin", "http://angelodel01.github.io/");
 
 	createParagraph("display");
 	fetch(url, {myHeaders, mode : "cors"}).then(function(response){

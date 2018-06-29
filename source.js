@@ -9,6 +9,7 @@ eyJraWQiOiJTNlp6cWFZdzh2SlFcLyszUXRoUldnRGp6M0srTWFvOElTZWxST0RPSmh3TT0iLCJhbGci
 */
 
 
+
 //////////////ROUTER DEFINITION
 /*
 var Router = {
@@ -281,7 +282,7 @@ function createParagraph(id){
 /////////////////////////////////////////////CONTENT FUNCTIONS
 
 
-function protectedContent(realUrl){
+function protectedContent(id_token){
 	console.log("inside protectedContent()");
 	console.log("id_token : ", id_token);
 	createButton("Go Home", "goHome(['h', 'display'])", "h");

@@ -290,7 +290,7 @@ function protectedContent(id_token){
 	myHeaders.append("Access-Control-Allow-Origin", "http://angelodel01.github.io/");
 
 	createParagraph("display");
-	fetch(url).then(function(response){
+	fetch(url, {myHeaders}).then(function(response){
 		return response.json();	
 		})
 		.then(function(myJson){

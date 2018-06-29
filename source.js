@@ -95,10 +95,6 @@ var Router = {
         return this;
     }
 }
-
-
-
-
 // configuration
 Router.config({ mode: 'history'});
 // returning the user to the initial state
@@ -273,6 +269,14 @@ function createParagraph(id){
 	document.body.appendChild(p);
 }
 
+function createTable(id){
+	var t = document.createElement("TABLE");
+	t.setAttribute("type", "text");
+	t.setAttribute("id", id);
+	document.body.appendChild(t);
+}
+
+
 
 /////////////////////////////////////////////CONTENT FUNCTIONS
 
@@ -281,17 +285,13 @@ function protectedContent(id_token){
 	console.log("id_token : ", id_token);
 	createButton("Go Home", "goHome(['h', 'display'])", "h");
 	createParagraph("display");
+	createTable("table1");
+
 	document.getElementById("display").innerHTML = "SECRET SECRET SECRET";
 	var url = "https://api-dev.calpoly.edu/pets";
-
 	const headers = new Headers();
 	headers.append('Content-Type', 'application/json');
 	headers.append('Authorization', 'Bearer ' + id_token);
-	/*
-	let headers = {
-		'Content-Type': 'application/json',
-		'Authorization': 'Bearer ' + id_token
-	}*/
 
 	createParagraph("display");
 	fetch(url, {headers: headers, mode : "cors",}).then(function(response){
@@ -299,18 +299,23 @@ function protectedContent(id_token){
 		})
 		.then(function(myJson){
 			var len = myJson.length;
-			var text= ""; 
-			for (i = 1; i < len; i++){
-				text += myJson[i].type + "<br>";
+			var text= "";
+			var table = document.getElementById("table1");
+			var row = table.insertRow(0);
+			var cell1 = row.insertCell(0);
+			cell1.innerHTML = "type";
+			for (i = 0; i < len; i++){
+				var cell2 = row.insertCell(i+1);
+				cell2.innerHTML = myJson[i].type;
+				//text += myJson[i].type + "<br>";
 			}
-			document.getElementById("display").innerHTML = text;
+			//document.getElementById("display").innerHTML = text;
 		})
 
 
 	/*var data = null;
 	var xhr = new XMLHttpRequest();
 	xhr.withCredentials = true;
-
 	xhr.addEventListener("readystatechange", function () {
 		if (this.readyState === 4) {
 			document.getElementById("display").innerHTML = this.responseText;
@@ -323,13 +328,10 @@ function protectedContent(id_token){
 	xhr.withCredentials = true;
 	xhr.setRequestHeader("Access-Control-Allow-Headers", "Content-Type");
 	xhr.setRequestHeader("Access-Control-Request-Headers", "Content-Type");
-
 	xhr.setRequestHeader("Access-Control-Request-Method", "GET");
-
 	xhr.setRequestHeader("Access-Control-Allow-Methods", "GET");
 	xhr.setRequestHeader("Cache-Control", "no-cache");
 	//xhr.setRequestHeader("Postman-Token", "2ea7cd24-e6fd-4ae6-97a6-d9552ab4716e");
-
 	xhr.send(data);*/
 	return;	
 }
@@ -377,7 +379,3 @@ function searchFunction(){
 	request.responseType ='json';
 	request.send();
 }
-
-
-
-

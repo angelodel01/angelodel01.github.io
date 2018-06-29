@@ -303,36 +303,12 @@ function protectedContent(id_token){
 			var table = document.getElementById("table1");
 			var row = table.insertRow(0);
 			var cell1 = row.insertCell(0);
-			cell1.innerHTML = "type";
+			cell1.innerHTML = "type : ";
 			for (i = 0; i < len; i++){
 				var cell2 = row.insertCell(i+1);
 				cell2.innerHTML = myJson[i].type;
-				//text += myJson[i].type + "<br>";
 			}
-			//document.getElementById("display").innerHTML = text;
 		})
-
-
-	/*var data = null;
-	var xhr = new XMLHttpRequest();
-	xhr.withCredentials = true;
-	xhr.addEventListener("readystatechange", function () {
-		if (this.readyState === 4) {
-			document.getElementById("display").innerHTML = this.responseText;
-		}
-	});
-	xhr.open("GET", "https://api-dev.calpoly.edu/pets");
-	xhr.setRequestHeader("Authorization", "Bearer " + id_token);
-	xhr.setRequestHeader("Access-Control-Allow-Credentials", true);
-	xhr.setRequestHeader("Access-Control-Allow-Origin", "http://angelodel01.github.io/");
-	xhr.withCredentials = true;
-	xhr.setRequestHeader("Access-Control-Allow-Headers", "Content-Type");
-	xhr.setRequestHeader("Access-Control-Request-Headers", "Content-Type");
-	xhr.setRequestHeader("Access-Control-Request-Method", "GET");
-	xhr.setRequestHeader("Access-Control-Allow-Methods", "GET");
-	xhr.setRequestHeader("Cache-Control", "no-cache");
-	//xhr.setRequestHeader("Postman-Token", "2ea7cd24-e6fd-4ae6-97a6-d9552ab4716e");
-	xhr.send(data);*/
 	return;	
 }
 

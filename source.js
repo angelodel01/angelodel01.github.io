@@ -282,8 +282,27 @@ function protectedContent(id_token){
 	createButton("Go Home", "goHome(['h', 'display'])", "h");
 	createParagraph("display");
 	document.getElementById("display").innerHTML = "SECRET SECRET SECRET";
+	var url = "https://api-dev.calpoly.edu/pets";
 
-	var data = null;
+	const myHeaders = new Headers();
+	myHeaders.append('Content-Type', 'application/json');
+	myHeaders.append('Authorization', 'Bearer ' + id_token);
+
+	createParagraph("display");
+	fetch(url).then(function(response){
+		return response.json();	
+		})
+		.then(function(myJson){
+			var len = myJson.length;
+			var text= ""; 
+			for (i = 1; i < len; i++){
+				text += myJson[i].type + "<br>";
+			}
+			document.getElementById("display").innerHTML = text;
+		})
+
+
+	/*var data = null;
 	var xhr = new XMLHttpRequest();
 	xhr.withCredentials = true;
 
@@ -297,7 +316,7 @@ function protectedContent(id_token){
 	xhr.setRequestHeader("Access-Control-Allow-Credentials", true);
 	xhr.setRequestHeader("Access-Control-Allow-Origin", "http://angelodel01.github.io/");
 	xhr.withCredentials = true;
-	/*xhr.setRequestHeader("Access-Control-Allow-Headers", "Content-Type");
+	xhr.setRequestHeader("Access-Control-Allow-Headers", "Content-Type");
 	xhr.setRequestHeader("Access-Control-Request-Headers", "Content-Type");
 
 	xhr.setRequestHeader("Access-Control-Request-Method", "GET");
@@ -305,8 +324,8 @@ function protectedContent(id_token){
 	xhr.setRequestHeader("Access-Control-Allow-Methods", "GET");
 	xhr.setRequestHeader("Cache-Control", "no-cache");
 	//xhr.setRequestHeader("Postman-Token", "2ea7cd24-e6fd-4ae6-97a6-d9552ab4716e");
-*/
-	xhr.send(data);
+
+	xhr.send(data);*/
 	return;	
 }
 

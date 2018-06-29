@@ -289,7 +289,7 @@ function protectedContent(id_token){
 	myHeaders.append('Authorization', 'Bearer ' + id_token);
 
 	createParagraph("display");
-	fetch(url, {myHeaders, mode : "cors"}).then(function(response){
+	fetch(url, {myHeaders, mode : "no-cors"}).then(function(response){
 		return response.json();	
 		})
 		.then(function(myJson){

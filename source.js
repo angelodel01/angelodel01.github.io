@@ -118,7 +118,7 @@ Router.navigate();
 ///////////////////////////////FUNCTIONS TRIGGERED BY CLICKS
 
 
-var goHome = function(idLst){
+function goHome(idLst){
 	//Router.navigate();
 	wipeWholePage(idLst);
 	var ogHead = document.getElementById("ogB");

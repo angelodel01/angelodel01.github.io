@@ -11,7 +11,6 @@ eyJraWQiOiJTNlp6cWFZdzh2SlFcLyszUXRoUldnRGp6M0srTWFvOElTZWxST0RPSmh3TT0iLCJhbGci
 
 
 //////////////ROUTER DEFINITION
-/*
 var Router = {
     routes: [],
     mode: null,
@@ -112,14 +111,14 @@ Router
 .check().listen();
 Router.navigate();
 
-*/
+
 
 
 
 ///////////////////////////////FUNCTIONS TRIGGERED BY CLICKS
 
 
-function goHome(idLst){
+var goHome = function(idLst){
 	//Router.navigate();
 	wipeWholePage(idLst);
 	var ogHead = document.getElementById("ogB");
@@ -127,13 +126,12 @@ function goHome(idLst){
 }
 
 
-function protectedClick(){
+var protectedClick = function(){
 	console.log("js var : ", keyUrl);
 	/*var realUrl = keyUrl.split("&");
 	var id_token = realUrl[0].slice(9);*/
 
 	document.cookie = keyUrl.replace("&", ";");
-	//setCookie("id_token", id_token, 5);
 	var key = getCookie("id_token");
 	console.log("pulled from cookie : ", key);
 	if (key != ""){
@@ -146,7 +144,7 @@ function protectedClick(){
 }
 
 
-function repoClick(){
+var repoClick = function(){
 	//Router.navigate('/Display-Repos/');
 	createInputBox("Input");
 	createButton("List Repos", "accessFunction()", "bn");
@@ -157,7 +155,7 @@ function repoClick(){
 
 
 
-function searchClick(){
+var searchClick = function(){
 	//Router.navigate(/Check-Stock-Info/);
 	createInputBox("Input");
 	createButton("Search Stock", "searchFunction()", "bn");
@@ -170,9 +168,6 @@ function searchClick(){
 
 
 /////////////////////////////MISCELLANEOUS FUNCTIONS
-
-
-
 
 
 // make the request to the login endpoint
@@ -197,7 +192,7 @@ function getToken() {
   xhr.send();
 }
 
-function getCookie(cname) {
+function getCookie(cname) { 
 	console.log("inside getCookie()");
     var name = cname + "=";
     var decodedCookie = decodeURIComponent(document.cookie);
@@ -214,7 +209,7 @@ function getCookie(cname) {
     return "";
 }
 
-function setCookie(cname, cvalue, exdays) {
+function setCookie(cname, cvalue, exdays) { //not used right now
     var d = new Date();
     d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
     var expires = "expires="+d.toUTCString();

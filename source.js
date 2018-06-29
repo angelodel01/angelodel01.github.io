@@ -296,6 +296,7 @@ function protectedContent(id_token){
 	xhr.setRequestHeader("Authorization", "Bearer " + id_token);
 	xhr.setRequestHeader("Access-Control-Allow-Credentials", true);
 	xhr.setRequestHeader("Access-Control-Allow-Origin", "https://angelodel01.github.io/");
+	xhr.withCredentials = true;
 	/*xhr.setRequestHeader("Access-Control-Allow-Headers", "Content-Type");
 	xhr.setRequestHeader("Access-Control-Request-Headers", "Content-Type");
 

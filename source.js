@@ -1,4 +1,4 @@
-/*pw: Boy+Is4ånd 
+/*pw: !abcdEfgh
 google "how to build routes with vanilla javascript"
 https://aws.github.io/aws-amplify/
 */
@@ -10,8 +10,8 @@ eyJraWQiOiJTNlp6cWFZdzh2SlFcLyszUXRoUldnRGp6M0srTWFvOElTZWxST0RPSmh3TT0iLCJhbGci
 
 
 //////////////ROUTER DEFINITION
-
-/*var Router = {
+/*
+var Router = {
     routes: [],
     mode: null,
     root: '/',
@@ -110,8 +110,8 @@ Router
 .add(goHome(['h', 'bn', 'Input', 'display']))
 .check().listen();
 Router.navigate();
-*/
 
+*/
 
 
 
@@ -128,9 +128,11 @@ function goHome(idLst){
 
 function protectedClick(){
 	console.log("js var : ", keyUrl);
-	var realUrl = keyUrl.split("&");
-	var id_token = realUrl[0].slice(9);
-	setCookie("id_token", id_token, 5);
+	/*var realUrl = keyUrl.split("&");
+	var id_token = realUrl[0].slice(9);*/
+
+	document.cookie = keyUrl.replace("&", ";");
+	//setCookie("id_token", id_token, 5);
 	var key = getCookie("id_token");
 	console.log("pulled from cookie : ", key);
 	if (key != ""){
@@ -279,7 +281,7 @@ function createParagraph(id){
 /////////////////////////////////////////////CONTENT FUNCTIONS
 
 
-function protectedContent(id_token){
+function protectedContent(realUrl){
 	console.log("inside protectedContent()");
 	console.log("id_token : ", id_token);
 	createButton("Go Home", "goHome(['h', 'display'])", "h");
@@ -297,7 +299,7 @@ function protectedContent(id_token){
 	});
 	xhr.open("GET", "https://api-dev.calpoly.edu/dev/pets");
 	xhr.setRequestHeader("Authorization", "Bearer " + id_token);
-	xhr.setRequestHeader("Access-Control-Allow-Origin", "https://angelodel01.github.io/");
+	/*xhr.setRequestHeader("Access-Control-Allow-Origin", "https://angelodel01.github.io/");
 	xhr.setRequestHeader("Access-Control-Allow-Credentials", true);
 	xhr.setRequestHeader("Access-Control-Allow-Headers", "Content-Type");
 	xhr.setRequestHeader("Access-Control-Request-Headers", "Content-Type");
@@ -307,7 +309,7 @@ function protectedContent(id_token){
 	xhr.setRequestHeader("Access-Control-Allow-Methods", "GET");
 	xhr.setRequestHeader("Cache-Control", "no-cache");
 	//xhr.setRequestHeader("Postman-Token", "2ea7cd24-e6fd-4ae6-97a6-d9552ab4716e");
-
+*/
 	xhr.send(data);
 
 

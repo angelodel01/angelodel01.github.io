@@ -149,10 +149,14 @@ function searchClick(){
 
 function protectedClick(){
 	console.log("js var : ", keyUrl);
-	/*var realUrl = keyUrl.split("&");
-	var id_token = realUrl[0].slice(9);*/
-
-	document.cookie = keyUrl.replace("&", ";");//don't do this anymore! use the set cookie function so we can determine when the key expires and coordinate that with the cookie expiration.
+	var realUrl = keyUrl.split("&");
+	for (i = 0; i < 3; i++){
+		console.log(i);
+		console.log(realUrl[i]);
+	}
+	var id_token = realUrl[0].slice(9);
+	//document.cookie = keyUrl.replace("&", ";");//don't do this anymore! use the set cookie function so we can determine when the key expires and coordinate that with the cookie expiration.
+	//setCookie("id_token", id_token);
 	var key = getCookie("id_token");
 	console.log("pulled from cookie : ", key);
 	if (key != ""){
@@ -208,9 +212,10 @@ function getCookie(cname) {
     return "";
 }
 
-function setCookie(cname, cvalue, exdays) { //not used right now
+function setCookie(cname, cvalue, exsecs) { //not used right now
     var d = new Date();
-    d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+    //d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+    d.setTime(d.getTime() + exsecs*1000)
     var expires = "expires="+d.toUTCString();
     document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
 }

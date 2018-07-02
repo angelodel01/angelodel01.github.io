@@ -163,7 +163,7 @@ function protectedClick(){
 	console.log("pulled from cookie : ", key);
 	protectedContent(key);
 	removeHome();
-	window.location.href.replace("https://angelodel01.github.io/");
+	window.location.hash = null;
 	return;
 }
 

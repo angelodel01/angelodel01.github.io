@@ -146,7 +146,7 @@ function searchClick(){
 	return;
 }
 
-/*
+
 function protectedClick(){
 	console.log("js var : ", keyUrl);
 	if (keyUrl == ""){
@@ -163,11 +163,11 @@ function protectedClick(){
 	console.log("pulled from cookie : ", key);
 	protectedContent(key);
 	removeHome();
-	window.location.hash = null;
+	window.location.hash = "";
 	return;
-}*/
+}
 
-function protectedClick(){
+/*function protectedClick(){
 	console.log("js var : ", keyUrl);
 	if (keyUrl != ""){
 		var realUrl = keyUrl.split("&");
@@ -185,9 +185,9 @@ function protectedClick(){
 	console.log("pulled from cookie : ", key);
 	protectedContent(key);
 	removeHome();
-	window.location.hash = null;
+	window.location.hash = "";
 	return;
-}
+}*/
 
 
 /////////////////////////////MISCELLANEOUS FUNCTIONS

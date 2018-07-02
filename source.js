@@ -153,7 +153,7 @@ function protectedClick(){
 	var id_token = realUrl[0].slice(9);
 	//console.log("realUrl[2] : ", realUrl[2]);
 	document.cookie = keyUrl.replace("&", ";");//don't do this anymore! use the set cookie function so we can determine when the key expires and coordinate that with the cookie expiration.
-	for (i = 0; i< 4; i++){
+	for (i = 0; i< realUrl.length; i++){
 		console.log(`realUrl[${i}]`, realUrl[i]);
 	}
 

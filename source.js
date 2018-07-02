@@ -150,14 +150,11 @@ function searchClick(){
 function protectedClick(){
 	console.log("js var : ", keyUrl);
 	var realUrl = keyUrl.split("&");
-	for (i = 0; i < 3; i++){
-		console.log(i);
-		console.log(realUrl[i]);
-	}
 	var id_token = realUrl[0].slice(9);
 	//document.cookie = keyUrl.replace("&", ";");//don't do this anymore! use the set cookie function so we can determine when the key expires and coordinate that with the cookie expiration.
-	//setCookie("id_token", id_token);
+	setCookie("id_token", id_token, realUrl[2].slice(11));
 	var key = getCookie("id_token");
+	console.log("expiration time... ", realUrl[2].slice(11))
 	console.log("pulled from cookie : ", key);
 	if (key != ""){
 		protectedContent(key);

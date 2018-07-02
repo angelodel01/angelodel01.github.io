@@ -9,6 +9,9 @@ eyJraWQiOiJTNlp6cWFZdzh2SlFcLyszUXRoUldnRGp6M0srTWFvOElTZWxST0RPSmh3TT0iLCJhbGci
 &access_token=eyJraWQiOiJ5ZXNrQ1RYOTZVVHJVZjhyMzFOaU5BZ21kUG9RbW9DbXJZTTNaQlBaZEZZPSIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiI0Yjc5ZmIyZS0xYzdhLTQ3ZGItOTU0Ny05ZTdkY2YwY2YyODgiLCJ0b2tlbl91c2UiOiJhY2Nlc3MiLCJzY29wZSI6InBob25lIG9wZW5pZCBwcm9maWxlIGVtYWlsIiwiYXV0aF90aW1lIjoxNTMwMjEwMzk1LCJpc3MiOiJodHRwczpcL1wvY29nbml0by1pZHAudXMtd2VzdC0yLmFtYXpvbmF3cy5jb21cL3VzLXdlc3QtMl9MbG9kWWd5UU4iLCJleHAiOjE1MzAyMTM5OTUsImlhdCI6MTUzMDIxMDM5NSwidmVyc2lvbiI6MiwianRpIjoiNTZkMjBlOWMtNzU0Zi00YzkyLWE5OGQtZDkyYzM2YmY1NDBmIiwiY2xpZW50X2lkIjoiMmZpb3I2NzcwaHZ0bzR1Nmt1cTA4NGo3ZnUiLCJ1c2VybmFtZSI6ImFtZGVsYXVyIn0.gItuiXsHUjWlwIa2AjU-dM_fBzBVZbSfOPPYa4BE6t_JyyDvDdGIywuX07fFtbi3n5900Q6pzaFp17GUCEAFVW3pZmgtedmLWr-Vog2aDeWIkSh-k94ERMn20nYboVc2WYa29WB8D5PhW8Ykz4O8-UGb4JBhfFVUreoo8rpMKHIT-YL1csfFr2PeNnO0T8X5uVz-loN6FHhRX7mvdqbhr6mbkwXMO2NwBpU3H_QXYnrrSmy_YR2Nt_ZRBIh19pW6trhPMWW97knEuZh8fFG_0pql0TRmSF_Zfjj-dPqldth9sArrObvgyyJWuitEVOTBD6sA4H5NM3LbHJqdptt9_Q&expires_in=3600&token_type=Bearer
 */
 
+#C3CDE6
+
+#dad7cb
 
 /*
 //////////////ROUTER DEFINITION
@@ -283,9 +286,9 @@ function createTable(id){
 function protectedContent(id_token){
 	console.log("inside protectedContent()");
 	console.log("id_token : ", id_token);
-	createButton("Go Home", "goHome(['h', 'display'])", "h");
 	createParagraph("display");
 	createTable("table1");
+	createButton("Go Home", "goHome(['h', 'display', 'table1'])", "h");
 
 	document.getElementById("display").innerHTML = "SECRET SECRET SECRET";
 	var url = "https://api-dev.calpoly.edu/pets";
@@ -293,7 +296,7 @@ function protectedContent(id_token){
 	headers.append('Content-Type', 'application/json');
 	headers.append('Authorization', 'Bearer ' + id_token);
 
-	createParagraph("display");
+	//createParagraph("display");
 	fetch(url, {headers: headers, mode : "cors",}).then(function(response){
 		return response.json();	
 		})
@@ -315,7 +318,7 @@ function protectedContent(id_token){
 				var cell4 = row2.insertCell(i+1);
 				cell4.innerHTML = myJson[i].id;
 			}
-			var row3 = table.insertRow(1);
+			var row3 = table.insertRow(2);
 			var cell5 = row3.insertCell(0);
 			cell5.innerHTML = "price :";
 			for (i = 0; i < len; i++){

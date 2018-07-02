@@ -146,7 +146,7 @@ function searchClick(){
 	return;
 }
 
-
+/*
 function protectedClick(){
 	console.log("js var : ", keyUrl);
 	if (keyUrl == ""){
@@ -165,8 +165,29 @@ function protectedClick(){
 	removeHome();
 	window.location.hash = null;
 	return;
-}
+}*/
 
+function protectedClick(){
+	console.log("js var : ", keyUrl);
+	if (keyUrl != ""){
+		var realUrl = keyUrl.split("&");
+		var id_token = realUrl[0].slice(9);
+		console.log("realUrl[2] : ", realUrl[2]);
+		var exptime = realUrl[2].slice(11);
+		setCookie("id_token", id_token, exptime);
+	}
+	var key = getCookie("id_token");
+	if (key == ""){
+		window.location = "https://cognito-dev.calpoly.edu/login?response_type=token&client_id=2fior6770hvto4u6kuq084j7fu&redirect_uri=https://angelodel01.github.io";
+		return;
+	}
+	console.log("expiration time : ", exptime);
+	console.log("pulled from cookie : ", key);
+	protectedContent(key);
+	removeHome();
+	window.location.hash = null;
+	return;
+}
 
 
 /////////////////////////////MISCELLANEOUS FUNCTIONS

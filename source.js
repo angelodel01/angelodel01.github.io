@@ -153,7 +153,6 @@ function protectedClick(){
 		window.location = "https://cognito-dev.calpoly.edu/login?response_type=token&client_id=2fior6770hvto4u6kuq084j7fu&redirect_uri=https://angelodel01.github.io";
 		return;
 	}
-	window.location.replace("https://angelodel01.github.io/");
 	var realUrl = keyUrl.split("&");
 	var id_token = realUrl[0].slice(9);
 	console.log("realUrl[2] : ", realUrl[2]);

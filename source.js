@@ -152,9 +152,10 @@ function protectedClick(){
 	var realUrl = keyUrl.split("&");
 	var id_token = realUrl[0].slice(9);
 	//document.cookie = keyUrl.replace("&", ";");//don't do this anymore! use the set cookie function so we can determine when the key expires and coordinate that with the cookie expiration.
-	setCookie("id_token", id_token, realUrl[2].slice(11));
+	var exptime = realUrl[2].slice(11);
+	setCookie("id_token", id_token, exptime);
 	var key = getCookie("id_token");
-	console.log("expiration time... ", realUrl[2].slice(11))
+	console.log("expiration time : ", exptime);
 	console.log("pulled from cookie : ", key);
 	if (key != ""){
 		protectedContent(key);

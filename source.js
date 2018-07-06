@@ -1,16 +1,26 @@
 /*pw: Bcde@345
-google "how to build routes with vanilla javascript"
-https://aws.github.io/aws-amplify/
 */
 var keyUrl = location.hash.substring(1);
 
+///////////////////////////////History popState
+windows.addEventListener('popState', e => {
+	popped_page = e.state.page
 
+	switch(popped_page.toUpperCase()) {
+		case REPO:
+			repoClick()
+		case STOCK:
+			searchClick();
+		case PROTECTED:
+			protectedClick();
+	}
+})
 
 ///////////////////////////////FUNCTIONS TRIGGERED BY CLICKS
 
-
 function goHome(idLst){
 	wipeWholePage(idLst);
+	// window.history.pushState({page : 'home'}, null, '')
 	var ogHead = document.getElementById("ogB");
 	ogHead.style.display = "block";
 }
@@ -18,6 +28,7 @@ function goHome(idLst){
 
 
 function repoClick(){
+	window.history.pushState({page : 'repo'}, null, 'repo')
 	createInputBox("Input");
 	createButton("List Repos", "accessFunction()", "bn");
 	removeHome();
@@ -28,6 +39,7 @@ function repoClick(){
 
 
 function searchClick(){
+	window.history.pushState({page : 'stock'}, null, 'stock')
 	createInputBox("Input");
 	createButton("Search Stock", "searchFunction()", "bn");
 	removeHome();
@@ -37,8 +49,9 @@ function searchClick(){
 
 
 function protectedClick(){
+	window.history.pushState({page : 'protected'}, null, 'protected')
 	console.log("js var : ", keyUrl);
-	if (keyUrl != ""){
+	/*if (keyUrl != ""){
 		var realUrl = keyUrl.split("&");
 		var id_token = realUrl[0].slice(9);
 		console.log("realUrl[2] : ", realUrl[2]);
@@ -51,8 +64,8 @@ function protectedClick(){
 	if (key == ""){
 		window.location = "https://cognito-dev.calpoly.edu/login?response_type=token&client_id=2fior6770hvto4u6kuq084j7fu&redirect_uri=https://angelodel01.github.io";
 		return;
-	}
-	protectedContent(key);
+	}*/
+	protectedContent();
 	removeHome();
 	window.location.hash = "";
 	return;
@@ -83,7 +96,7 @@ function getToken() {
   xhr.send();
 }
 
-function getCookie(cname) { 
+function getCookie(cname) {
 	console.log("inside getCookie()");
     var name = cname + "=";
     var decodedCookie = decodeURIComponent(document.cookie);
@@ -128,7 +141,7 @@ function wipeWholePage(idLst){
 		console.log("rm-idx : ", i);
 		console.log("removing ...", idLst[i]);
 		i++;
-		temp = document.getElementById(idLst[i]);		
+		temp = document.getElementById(idLst[i]);
 	}
 }
 
@@ -176,13 +189,30 @@ function createTable(id){
 
 /////////////////////////////////////////////CONTENT FUNCTIONS
 
-function protectedContent(id_token){
+function protectedContent(){
 	console.log("inside protectedContent()");
 	console.log("id_token : ", id_token);
+// check cookie
+	if (keyUrl != ""){
+		var realUrl = keyUrl.split("&");
+		var id_token = realUrl[0].slice(9);
+		console.log("realUrl[2] : ", realUrl[2]);
+		var exptime = realUrl[2].slice(11);
+		setCookie("id_token", id_token, exptime);
+		console.log("expiration time : ", exptime);
+		console.log("pulled from cookie : ", key);
+	}
+	var key = getCookie("id_token");
+	if (key == ""){
+		window.location = "https://cognito-dev.calpoly.edu/login?response_type=token&client_id=2fior6770hvto4u6kuq084j7fu&redirect_uri=https://angelodel01.github.io";
+		return;
+	}
+
 	createParagraph("display");
 	createTable("table1");
 	createButton("Go Home", "goHome(['h', 'display', 'table1'])", "h");
 
+	id_token = key
 	document.getElementById("display").innerHTML = "SECRET SECRET SECRET";
 	var url = "https://api-dev.calpoly.edu/pets";
 	const headers = new Headers();
@@ -191,7 +221,7 @@ function protectedContent(id_token){
 
 	//createParagraph("display");
 	fetch(url, {headers: headers, mode : "cors",}).then(function(response){
-		return response.json();	
+		return response.json();
 		})
 		.then(function(myJson){
 			var len = myJson.length;
@@ -219,7 +249,7 @@ function protectedContent(id_token){
 				cell6.innerHTML = myJson[i].price;
 			}
 		})
-	return;	
+	return;
 }
 
 
@@ -229,11 +259,11 @@ function accessFunction(){
 	var url = "https://api.github.com/user/repos?access_token=" + input;
 	createParagraph("display");
 	fetch(url).then(function(response){
-		return response.json();	
+		return response.json();
 		})
 		.then(function(myJson){
 			var len = myJson.length;
-			var text= ""; 
+			var text= "";
 			for (i = 1; i < len; i++){
 				text += myJson[i].name + "<br>";
 			}
@@ -254,10 +284,10 @@ function searchFunction(){
     		"<br />" + "<b>Exchange :</b> " + resp.exchange +
     		"<br />" + "<b>Industry :</b> " + resp.industry +
     		"<br />" + "<b>Website :</b> " + resp.website +
-    		"<br />" + "<b>Description :</b> " + resp.description + 
+    		"<br />" + "<b>Description :</b> " + resp.description +
     		"<br />" + "<b>CEO :</b> " + resp.CEO +
     		"<br />" + "<b>Issue Type</b> : " + resp.issueType +
-    		"<br />" + "<b>Sector :</b> " + resp.sector + 
+    		"<br />" + "<b>Sector :</b> " + resp.sector +
     		"<br />" + "<b>Tags :</b> " + resp.tags;
 		}
 	};

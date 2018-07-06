@@ -287,7 +287,7 @@ function searchFunction(){
 
 function personSearch() {
 	var input = document.getElementById("searchParam").value;
-	var url = `https://localhost:3000/personSearch?searchParam=${input}`
+	var url = `http://localhost:3000/personSearch?searchParam=${input}`
 	url = encodeURI(url)
 	fetch(url).then(function(response){
 		return response.json()

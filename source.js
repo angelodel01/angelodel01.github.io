@@ -3,7 +3,7 @@
 var keyUrl = location.hash.substring(1);
 
 ///////////////////////////////History popState
-windows.addEventListener('popState', e => {
+window.addEventListener('popState', e => {
 	popped_page = e.state.page
 
 	switch(popped_page.toUpperCase()) {

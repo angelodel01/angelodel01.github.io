@@ -57,7 +57,7 @@ function simpleSearchClick() {
 	createInputBox("searchParam");
 	createButton("Search Person", "personSearch()", "bn");
 	removeHome();
-	createButton("Go Home", "goHome(['h', 'bn', 'searchParam', 'display', 'foundEntries'])", "h");
+	createButton("Go Home", "goHome(['h', 'bn', 'searchParam', 'display', 'foundEntries', 'resultMessage'])", "h");
 	return;
 }
 /////////////////////////////MISCELLANEOUS FUNCTIONS
@@ -308,16 +308,19 @@ function personSearch() {
 
 				let headerRow = entryTable.createTHead().insertRow(0)
 				for(cellVal in tblHeaderVal) {
-					headerRow.insertCell().innerHTML = cellVal
+					headerRow.insertCell().innerHTML = tblHeaderVal[cellVal]
 				}
 
 				for(key in keys) {
-					var entry = myJson[key]
+
+					var entry = myJson[keys[key]]
+
 					let entryKeys = Object.keys(entry)
+
 					var row = entryTable.insertRow()
 
 					for(entryKey in entryKeys) {
-						row.insertCell().innerHTML = entry[entryKey]
+						row.insertCell().innerHTML = entry[entryKeys[entryKey]]
 					}
 				}
 

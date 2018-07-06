@@ -28,7 +28,7 @@ function goHome(idLst){
 
 
 function repoClick(){
-	window.history.pushState({page : 'repo'}, null, 'repo')
+	window.history.pushState({page : 'repo'}, null, './repo')
 	createInputBox("Input");
 	createButton("List Repos", "accessFunction()", "bn");
 	removeHome();
@@ -39,7 +39,7 @@ function repoClick(){
 
 
 function searchClick(){
-	window.history.pushState({page : 'stock'}, null, 'stock')
+	window.history.pushState({page : 'stock'}, null, './stock')
 	createInputBox("Input");
 	createButton("Search Stock", "searchFunction()", "bn");
 	removeHome();
@@ -49,7 +49,7 @@ function searchClick(){
 
 
 function protectedClick(){
-	window.history.pushState({page : 'protected'}, null, 'protected')
+	window.history.pushState({page : 'protected'}, null, './protected')
 	console.log("js var : ", keyUrl);
 	/*if (keyUrl != ""){
 		var realUrl = keyUrl.split("&");

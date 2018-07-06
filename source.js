@@ -4,15 +4,7 @@ https://aws.github.io/aws-amplify/
 */
 var keyUrl = location.hash.substring(1);
 
-/*
-eyJraWQiOiJTNlp6cWFZdzh2SlFcLyszUXRoUldnRGp6M0srTWFvOElTZWxST0RPSmh3TT0iLCJhbGciOiJSUzI1NiJ9.eyJhdF9oYXNoIjoiQ3BqZl9SZTI4WDZQck9Wam1VcEViQSIsInN1YiI6IjRiNzlmYjJlLTFjN2EtNDdkYi05NTQ3LTllN2RjZjBjZjI4OCIsImF1ZCI6IjJmaW9yNjc3MGh2dG80dTZrdXEwODRqN2Z1IiwiZW1haWxfdmVyaWZpZWQiOnRydWUsInRva2VuX3VzZSI6ImlkIiwiYXV0aF90aW1lIjoxNTMwMjEwMzk1LCJpc3MiOiJodHRwczpcL1wvY29nbml0by1pZHAudXMtd2VzdC0yLmFtYXpvbmF3cy5jb21cL3VzLXdlc3QtMl9MbG9kWWd5UU4iLCJjb2duaXRvOnVzZXJuYW1lIjoiYW1kZWxhdXIiLCJleHAiOjE1MzAyMTM5OTUsImlhdCI6MTUzMDIxMDM5NSwiZW1haWwiOiJhbWRlbGF1ckBjYWxwb2x5LmVkdSJ9.j3u8TR86-ctHrHPJefT18SkXlJTT92NO8Pw5KZB_NmOpsHjENBKLX00ntT9I5wfR5JM2RNqZy2R4tpKpG8od9Tqp6_UnXDIJaSZ4gIxk0Gq7crtMsmg5GAGEGISf1_CJ0oJSq6aHNL2I9PjZUjnyEB-961j0NZZ-lL34fssRC0ZhC8Lm2XZjKGpa0ncOh4wljUSCTZIcM-rRgLSGhuTfMyl3mGsdyurc6bMXnYjlt2QbNXj4vPmZvjhEh2l85eclsVX4XmXB4EMQkSABZKrRvwatoVWus94ABJVNDb0uTJe9PaNxEmYCGo5rLtRDjTrsONHQbPTl2QOe6ldOVH-6vQ
-&access_token=eyJraWQiOiJ5ZXNrQ1RYOTZVVHJVZjhyMzFOaU5BZ21kUG9RbW9DbXJZTTNaQlBaZEZZPSIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiI0Yjc5ZmIyZS0xYzdhLTQ3ZGItOTU0Ny05ZTdkY2YwY2YyODgiLCJ0b2tlbl91c2UiOiJhY2Nlc3MiLCJzY29wZSI6InBob25lIG9wZW5pZCBwcm9maWxlIGVtYWlsIiwiYXV0aF90aW1lIjoxNTMwMjEwMzk1LCJpc3MiOiJodHRwczpcL1wvY29nbml0by1pZHAudXMtd2VzdC0yLmFtYXpvbmF3cy5jb21cL3VzLXdlc3QtMl9MbG9kWWd5UU4iLCJleHAiOjE1MzAyMTM5OTUsImlhdCI6MTUzMDIxMDM5NSwidmVyc2lvbiI6MiwianRpIjoiNTZkMjBlOWMtNzU0Zi00YzkyLWE5OGQtZDkyYzM2YmY1NDBmIiwiY2xpZW50X2lkIjoiMmZpb3I2NzcwaHZ0bzR1Nmt1cTA4NGo3ZnUiLCJ1c2VybmFtZSI6ImFtZGVsYXVyIn0.gItuiXsHUjWlwIa2AjU-dM_fBzBVZbSfOPPYa4BE6t_JyyDvDdGIywuX07fFtbi3n5900Q6pzaFp17GUCEAFVW3pZmgtedmLWr-Vog2aDeWIkSh-k94ERMn20nYboVc2WYa29WB8D5PhW8Ykz4O8-UGb4JBhfFVUreoo8rpMKHIT-YL1csfFr2PeNnO0T8X5uVz-loN6FHhRX7mvdqbhr6mbkwXMO2NwBpU3H_QXYnrrSmy_YR2Nt_ZRBIh19pW6trhPMWW97knEuZh8fFG_0pql0TRmSF_Zfjj-dPqldth9sArrObvgyyJWuitEVOTBD6sA4H5NM3LbHJqdptt9_Q&expires_in=3600&token_type=Bearer
 
-
-#C3CDE6
-
-#dad7cb
-*/
 /*
 //////////////ROUTER DEFINITION
 var Router = {
@@ -168,29 +160,6 @@ function protectedClick(){
 	window.location.hash = "";
 	return;
 }
-
-/*function protectedClick(){
-	console.log("js var : ", keyUrl);
-	if (keyUrl != ""){
-		var realUrl = keyUrl.split("&");
-		var id_token = realUrl[0].slice(9);
-		console.log("realUrl[2] : ", realUrl[2]);
-		var exptime = realUrl[2].slice(11);
-		setCookie("id_token", id_token, exptime);
-	}
-	var key = getCookie("id_token");
-	if (key == ""){
-		window.location = "https://cognito-dev.calpoly.edu/login?response_type=token&client_id=2fior6770hvto4u6kuq084j7fu&redirect_uri=https://angelodel01.github.io";
-		return;
-	}
-	console.log("expiration time : ", exptime);
-	console.log("pulled from cookie : ", key);
-	protectedContent(key);
-	removeHome();
-	window.location.hash = "";
-	return;
-}*/
-
 
 /////////////////////////////MISCELLANEOUS FUNCTIONS
 

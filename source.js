@@ -291,7 +291,7 @@ function personSearch() {
 	url = encodeURI(url)
 	const headers = new Headers();
 	headers.append('Content-Type', 'application/json');
-	fetch(url, {headers : headers, mode:'no-cors'}).then(function(respons	e){
+	fetch(url, {headers : headers, mode:'cors'}).then(function(respons	e){
 		return response.json().then(function(myJson){
 		console.log(myJson)
 			let keys = Object.keys(myJson)

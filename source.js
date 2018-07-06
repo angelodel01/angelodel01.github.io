@@ -289,7 +289,7 @@ function personSearch() {
 	var input = document.getElementById("searchParam").value;
 	var url = `http://localhost:3000/personSearch?searchParam=${input}`
 	url = encodeURI(url)
-	fetch(url, {mode:'cors'}).then(function(response){
+	fetch(url, {mode:'no-cors'}).then(function(response){
 		return response.json()
 	}).then(function(myJson){
 		let keys = Object.keys(myJson)

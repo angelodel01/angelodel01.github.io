@@ -5,7 +5,7 @@ var keyUrl = location.hash.substring(1);
 ///////////////////////////////History popState
 window.addEventListener('popState', e => {
 	popped_page = e.state.page
-
+console.log("HERE")
 	switch(popped_page.toUpperCase()) {
 		case REPO:
 			repoClick()

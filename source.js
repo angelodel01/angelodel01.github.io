@@ -291,7 +291,7 @@ function personSearch() {
 	url = encodeURI(url)
 	fetch(url, {mode:'no-cors'}).then(function(response){
 		return response.json().then(function(myJson){
-console.log(myJson)
+		console.log(myJson)
 			let keys = Object.keys(myJson)
 
 			createParagraph("resultMessage")

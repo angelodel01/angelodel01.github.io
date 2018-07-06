@@ -290,36 +290,36 @@ function personSearch() {
 	var url = `http://localhost:3000/personSearch?searchParam=${input}`
 	url = encodeURI(url)
 	fetch(url, {mode:'no-cors'}).then(function(response){
-		return response.json()
-	}).then(function(myJson){
-		let keys = Object.keys(myJson)
+		return response.json().then(function(myJson){
+			let keys = Object.keys(myJson)
 
-		createParagraph("resultMessage")
-		createTable("foundEntries")
+			createParagraph("resultMessage")
+			createTable("foundEntries")
 
-		let resMsg = document.getElementById("resultMessage")
-		let entryTable = document.getElementById("foundEntries")
-		let tblHeaderVal = ["Name", "Phone", "Dept", "Username", "Email"]
-		if(!keys.length) {
-			resMsg.innerHTML = "No entries found"
-		} else {
-			resMsg.innerHTML = `Found ${keys.length} entries`
+			let resMsg = document.getElementById("resultMessage")
+			let entryTable = document.getElementById("foundEntries")
+			let tblHeaderVal = ["Name", "Phone", "Dept", "Username", "Email"]
+			if(!keys.length) {
+				resMsg.innerHTML = "No entries found"
+			} else {
+				resMsg.innerHTML = `Found ${keys.length} entries`
 
-			let headerRow = entryTable.createTHead().insertRow(0)
-			for(cellVal in tblHeaderVal) {
-				headerRow.insertCell().innerHTML = cellVal
-			}
-
-			for(key in keys) {
-				var entry = myJson[key]
-				let entryKeys = Object.keys(entry)
-				var row = entryTable.insertRow()
-
-				for(entryKey in entryKeys) {
-					row.insertCell().innerHTML = entry[entryKey]
+				let headerRow = entryTable.createTHead().insertRow(0)
+				for(cellVal in tblHeaderVal) {
+					headerRow.insertCell().innerHTML = cellVal
 				}
-			}
 
-		}
+				for(key in keys) {
+					var entry = myJson[key]
+					let entryKeys = Object.keys(entry)
+					var row = entryTable.insertRow()
+
+					for(entryKey in entryKeys) {
+						row.insertCell().innerHTML = entry[entryKey]
+					}
+				}
+
+			}
+		})
 	})
 }

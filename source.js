@@ -5,112 +5,11 @@ https://aws.github.io/aws-amplify/
 var keyUrl = location.hash.substring(1);
 
 
-/*
-//////////////ROUTER DEFINITION
-var Router = {
-    routes: [],
-    mode: null,
-    root: '/',
-    config: function(options) {
-        this.mode = options && options.mode && options.mode == 'history' 
-                    && !!(history.pushState) ? 'history' : 'hash';
-        this.root = options && options.root ? '/' + this.clearSlashes(options.root) + '/' : '/';
-        return this;
-    },
-    getFragment: function() {
-        var fragment = '';
-        if(this.mode === 'history') {
-            fragment = this.clearSlashes(decodeURI(location.pathname + location.search));
-            fragment = fragment.replace(/\?(.*)$/, '');
-            fragment = this.root != '/' ? fragment.replace(this.root, '') : fragment;
-        } else {
-            var match = window.location.href.match(/#(.*)$/);
-            fragment = match ? match[1] : '';
-        }
-        return this.clearSlashes(fragment);
-    },
-    clearSlashes: function(path) {
-        return path.toString().replace(/\/$/, '').replace(/^\//, '');
-    },
-    add: function(re, handler) {
-        if(typeof re == 'function') {
-            handler = re;
-            re = '';
-        }
-        this.routes.push({ re: re, handler: handler});
-        return this;
-    },
-    remove: function(param) {
-        for(var i=0, r; i<this.routes.length, r = this.routes[i]; i++) {
-            if(r.handler === param || r.re.toString() === param.toString()) {
-                this.routes.splice(i, 1); 
-                return this;
-            }
-        }
-        return this;
-    },
-    flush: function() {
-        this.routes = [];
-        this.mode = null;
-        this.root = '/';
-        return this;
-    },
-    check: function(f) {
-        var fragment = f || this.getFragment();
-        for(var i=0; i<this.routes.length; i++) {
-            var match = fragment.match(this.routes[i].re);
-            if(match) {
-                match.shift();
-                this.routes[i].handler.apply({}, match);
-                return this;
-            }           
-        }
-        return this;
-    },
-    listen: function() {
-        var self = this;
-        var current = self.getFragment();
-        var fn = function() {
-            if(current !== self.getFragment()) {
-                current = self.getFragment();
-                self.check(current);
-            }
-        }
-        clearInterval(this.interval);
-        this.interval = setInterval(fn, 50);
-        return this;
-    },
-    navigate: function(path) {
-        path = path ? path : '';
-        if(this.mode === 'history') {
-            history.pushState(null, null, this.root + this.clearSlashes(path));
-        } else {
-            window.location.href = window.location.href.replace(/#(.*)$/, '') + '#' + path;
-        }
-        return this;
-    }
-}
-// configuration
-Router.config({ mode: 'history'});
-// returning the user to the initial state
-Router.navigate();
-// adding routes
-Router
-.add(/Display-Repos/, repoClick)
-.add(/Check-Stock-Info/, searchClick)
-.add(goHome(['h', 'bn', 'Input', 'display']))
-.check().listen();
-Router.navigate();
-*/
-
-
-
 
 ///////////////////////////////FUNCTIONS TRIGGERED BY CLICKS
 
 
 function goHome(idLst){
-	//Router.navigate();
 	wipeWholePage(idLst);
 	var ogHead = document.getElementById("ogB");
 	ogHead.style.display = "block";
@@ -119,7 +18,6 @@ function goHome(idLst){
 
 
 function repoClick(){
-	//Router.navigate('/Display-Repos/');
 	createInputBox("Input");
 	createButton("List Repos", "accessFunction()", "bn");
 	removeHome();
@@ -130,7 +28,6 @@ function repoClick(){
 
 
 function searchClick(){
-	//Router.navigate(/Check-Stock-Info/);
 	createInputBox("Input");
 	createButton("Search Stock", "searchFunction()", "bn");
 	removeHome();

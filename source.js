@@ -287,11 +287,13 @@ function searchFunction(){
 
 function personSearch() {
 	var input = document.getElementById("searchParam").value;
-	var url = `http://localhost/personSearch?searchParam=${input}`
+	var url = `http://localhost:3000/personSearch?searchParam=${input}`
 	url = encodeURI(url)
-	fetch(url, {mode:'cors'}).then(function(response){
+	const headers = new Headers();
+	headers.append('Content-Type', 'application/json');
+	fetch(url, {headers : headers, mode:'no-cors'}).then(function(respons	e){
 		return response.json().then(function(myJson){
-console.log(myJson)
+		console.log(myJson)
 			let keys = Object.keys(myJson)
 
 			createParagraph("resultMessage")

@@ -289,9 +289,8 @@ function personSearch() {
 	var input = document.getElementById("searchParam").value;
 	var url = `http://localhost:3000/personSearch?searchParam=${input}`
 	url = encodeURI(url)
-	const headers = new Headers();
-	headers.append('Content-Type', 'application/json');
-	fetch(url, {headers : headers, mode:'cors'}).then(function(response){
+
+	fetch(url, {mode:'cors'}).then(function(response){
 		return response.json().then(function(myJson){
 		console.log(myJson)
 			let keys = Object.keys(myJson)

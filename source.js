@@ -57,7 +57,7 @@ function simpleSearchClick() {
 	createInputBox("searchParam");
 	createButton("Search Person", "personSearch()", "bn");
 	removeHome();
-	createButton("Go Home", "goHome(['h', 'bn', 'searchParam', 'display', 'foundEntries', 'resultMessage'])", "h");
+	createButton("Go Home", "goHome(['h', 'bn', 'searchParam', 'foundEntries', 'resultMessage'])", "h");
 	return;
 }
 /////////////////////////////MISCELLANEOUS FUNCTIONS
@@ -286,6 +286,18 @@ function searchFunction(){
 }
 
 function personSearch() {
+	// Setup to remove table and paragraph if exists
+	var resTbl = document.getElementById("foundEntries")
+	var resMsg = document.getElementById("resultMessage")
+
+	if(resTbl) {
+		resTbl.parentNode.removeChild(resTbl);
+	}
+
+	if(resMsg) {
+		resMsg.parentNode.removeChild(resMsg);
+	}
+
 	var input = document.getElementById("searchParam").value;
 	var url = `http://localhost:3000/personSearch?searchParam=${input}`
 	url = encodeURI(url)

@@ -77,3 +77,6 @@ input[type=text]:focus {
     border: 3px solid #555;
 }
 
+th {
+	background-color: green
+}

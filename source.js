@@ -244,18 +244,17 @@ function protectedContent(){
 
 function accessFunction(){
 	var input = document.getElementById("Input").value;
-	var url = "https://api.github.com/user/repos?access_token=" + input;
-	createParagraph("display");
+	var url = `https://api.github.com/user/repos?access_token=${input}`
+	createTable("gitRepos");
+	let dispTblGit = document.getElementById("gitRepos");
 	fetch(url).then(function(response){
 		return response.json();
 	})
-	.then(function(myJson){
-		var len = myJson.length;
-		var text= "";
-		for (i = 1; i < len; i++){
-			text += myJson[i].name + "<br>";
+	.then(function(repoJson){
+		for(repo in repoJson) {
+			var row = dispTblGit.insertRow(repo);
+			row.insertCell(0).innerHTML = repoJson[repo].name;
 		}
-		document.getElementById("display").innerHTML = text;
 	})
 }
 

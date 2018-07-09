@@ -27,9 +27,9 @@ divb{
    text-align: center;
 }
 #display{
-   text-align: left;
+   text-align: center;
    padding: 5%;
-   width: 70%;
+   width: auto;
    font-family: 'Verdana', 'Geneva', 'sans-serif';
 }
 

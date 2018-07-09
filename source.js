@@ -207,7 +207,7 @@ function protectedContent(){
 	createButton("Go Home", "goHome(['h', 'display', 'table1'])", "h");
 
 	id_token = key
-	document.getElementById("display").innerHTML = "SECRET SECRET SECRET";
+	document.getElementById("display").innerHTML = "PROTECTED CONTENT ACCESS GRANTED";
 	var url = "https://api-dev.calpoly.edu/pets";
 	const headers = new Headers();
 	headers.append('Content-Type', 'application/json');

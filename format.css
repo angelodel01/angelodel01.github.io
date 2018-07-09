@@ -26,6 +26,7 @@ divb{
    color: #035642;
    text-align: center;
 }
+
 #display{
    text-align: center;
    padding: 5%;
@@ -73,12 +74,8 @@ input[type=text] {
    transition: 0.5s;
    outline: none;
 }
-
 input[type=text]:focus {
    border: 3px solid #555;
-}
-table {
-   margin-top: 100px;
 }
 
 table, td {
@@ -91,6 +88,11 @@ table, td {
    border-collapse: collapse;
 
 }
+table {
+    margin-top: 25px;
+    margin-bottom: 15px;
+}
+
 td {
    border-bottom: 1px solid #b4a76c;
 
@@ -101,7 +103,6 @@ td {
 tr:nth-child(even) td{
    background-color: #066d54;
 }
-
 .thRow {
    border : 1px solid black;
 }

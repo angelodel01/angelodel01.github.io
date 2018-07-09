@@ -250,13 +250,35 @@ function protectedContent(){
 
 function accessFunction(){
 	var input = document.getElementById("Input").value;
+
 	var url = `https://api.github.com/user/repos?access_token=${input}`
+
+	var dispTblGit = document.getElementById("gitRepos");
+	var erro = document.getElementById("errorMess");
+
+	if(dispTblGit) {
+		dispTblGit.parentNode.removeChild(dispTblGit);
+	}
+	if(erro) {
+		erro.parentNode.removeChild(erro)
+	}
+
 	createTable("gitRepos");
-	let dispTblGit = document.getElementById("gitRepos");
+	dispTblGit = document.getElementById("gitRepos");
+
 	fetch(url).then(function(response){
 		return response.json();
 	})
 	.then(function(repoJson){
+		let repoKeys = Object.keys(repoJson);
+		if(repoKeys.includes("message")) {
+	console.log(repoJson);
+			createDiv("errorMess", "error");
+			let erro = document.getElementById("errorMess")
+			erro.innerHTML = "<h2> Enter valid access token and try again </h2>"
+			return
+		}
+
 		for(repo in repoJson) {
 			var row = dispTblGit.insertRow(repo);
 			row.className = "tBodyRow"

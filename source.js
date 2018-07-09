@@ -287,6 +287,10 @@ console.log("MY URL", url);
 console.log("GOT", resp);
 
 	  if (resp == null){
+	  	var s_table = document.getElementById("stockTable")
+	  	if (s_table != null){
+	  		s_table.parentNode.removeChild(s_table);
+	  	}
 	  	createDiv("errorMess", "error")
 	  	document.getElementById("errorMess").innerHTML = "Invalid Corporation Symbol";
 	  }

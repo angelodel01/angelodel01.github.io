@@ -83,14 +83,29 @@ table, td {
    margin: auto;
    width: auto;
    font-size: small;
-   background-color:#035642
+   background-color:#035642;
+   border-collapse: collapse;
+
 }
 td {
    border-bottom: 1px solid #b4a76c;
-   border-right: 1px solid #b4a76c;
+
 }
-tr:hover td {
+.tBodyRow:hover td {
    background-color: grey;
+}
+tr:nth-child(even) td{
+   background-color: #066d54;
+}
+
+.thRow {
+   border : 1px solid black;
+}
+.thRow td {
+   background-color : #dad7cb;
+   color : #035642;
+   border-color : #dad7cb;
+   font-size: medium;
 }
 
 .loader {
@@ -106,10 +121,10 @@ tr:hover td {
 }
 
 p {
-    background-color:#035642;
-    color: white;
-    border: 5px solid #b4a76c;
-    padding: 7px
+   background-color:#035642;
+   color: white;
+   border: 5px solid #b4a76c;
+   padding: 7px
 }
 /* Safari */
 @-webkit-keyframes spin {

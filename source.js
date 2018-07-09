@@ -339,11 +339,6 @@ function personSearch() {
 
 				resMsg.innerHTML = `Found ${keys.length} entries`
 
-				let headerRow = entryTable.createTHead().insertRow(0)
-				for(cellVal in tblHeaderVal) {
-					headerRow.insertCell().innerHTML = tblHeaderVal[cellVal]
-				}
-
 				for(key in keys) {
 
 					var entry = myJson[keys[key]]
@@ -351,12 +346,17 @@ function personSearch() {
 					let entryKeys = Object.keys(entry)
 
 					var row = entryTable.insertRow()
-
+					row.className = "tBodyRow"
 					for(entryKey in entryKeys) {
 						row.insertCell().innerHTML = entry[entryKeys[entryKey]]
 					}
 				}
 
+				let headerRow = entryTable.createTHead().insertRow(0)
+				headerRow.className = "thRow"
+				for(cellVal in tblHeaderVal) {
+					headerRow.insertCell().innerHTML = '<b>' + tblHeaderVal[cellVal] + '</b>'
+				}
 			}
 		})
 	})

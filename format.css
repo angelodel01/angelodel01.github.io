@@ -86,12 +86,12 @@ table, td {
 .loader {
    border: 16px solid #f3f3f3;
    border-radius: 50%;
-   border-top: 16px solid #3498db;
+   border-top: 16px solid #035642;
    width: 50px;
    height: 50px;
    -webkit-animation: spin 2s linear infinite; /* Safari */
    animation: spin 2s linear infinite;
-   align-self: center;
+   justify-content: center;
 }
 
 /* Safari */

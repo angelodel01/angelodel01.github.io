@@ -207,10 +207,9 @@ function protectedContent(){
 	createButton("Go Home", "goHome(['h', 'display', 'petsTable'])", "h");
 
 	id_token = key
+	document.getElementById("display").innerHTML = "SECRET SECRET SECRET";
+
 	let dispTblPet = document.getElementById("petsTable");
-
-	document.getElementById("display").innerHTML = "PROTECTED CONTENT ACCESS GRANTED";
-
 	var url = "https://api-dev.calpoly.edu/pets";
 	const headers = new Headers();
 	headers.append('Content-Type', 'application/json');
@@ -262,6 +261,8 @@ function accessFunction(){
 	})
 }
 
+
+
 function searchFunction(){
    var searchVal = document.getElementById("Input").value
    var url = `https://api.iextrading.com/1.0/stock/${searchVal}/company`;
@@ -293,13 +294,6 @@ console.log("GOT", resp);
 
    request.send()
 }
-
-
-
-
-
-
-
 
 function personSearch() {
 	// Setup to remove table and paragraph if exists

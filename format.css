@@ -27,9 +27,10 @@ divb{
    text-align: center;
 }
 #display{
-   text-align: center;
+   text-align: left;
    padding: 5%;
-   width: auto;
+   margin: auto;
+   width: 70%;
    font-family: 'Verdana', 'Geneva', 'sans-serif';
 }
 
@@ -79,6 +80,7 @@ input[type=text]:focus {
 table {
    margin-top: 10px;
 }
+
 table, td {
    color: white;
    padding: 5px;

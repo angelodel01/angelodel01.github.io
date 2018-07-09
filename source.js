@@ -39,7 +39,7 @@ function searchClick(){
 	createInputBox("Input");
 	createButton("Search Stock", "searchFunction()", "bn");
 	removeHome();
-	createButton("Go Home", "goHome(['h', 'bn', 'Input', 'display'])", "h");
+	createButton("Go Home", "goHome(['h', 'bn', 'stockTable', 'Input'])", "h");
 	return;
 }
 
@@ -266,13 +266,16 @@ function accessFunction(){
 }
 
 
-function searchFunction(){
+/*function searchFunction(){
 	var input = document.getElementById("Input").value;
 	var request = new XMLHttpRequest();
-	createParagraph("display");
+
+
 	request.onreadystatechange = function() {
 		if (this.readyState == 4 && this.status == 200) {
 			var resp = this.response;
+
+
 			document.getElementById("display").innerHTML = "<b>Symbol : </b>" + resp.symbol +
 			"<br />" + "<b>Company Name :</b> " + resp.companyName +
 			"<br />" + "<b>Exchange :</b> " + resp.exchange +
@@ -288,7 +291,50 @@ function searchFunction(){
 	request.open("GET", `https://api.iextrading.com/1.0/stock/${input}/company`, true);
 	request.responseType ='json';
 	request.send();
+}*/
+
+
+
+
+
+
+function searchFunction(){
+   var searchVal = document.getElementById("Input").value
+   var url = `https://api.iextrading.com/1.0/stock/${searchVal}/company`;
+console.log("MY URL", url);
+   var request = new XMLHttpRequest();
+   request.open('GET', url);
+   request.responseType = 'json';
+   createTable("stockTable")
+   let dispStock = document.getElementById("stockTable")
+
+   request.onload = function() {
+      var resp = request.response;
+console.log("GOT", resp);
+
+      var tblLen = dispStock.rows.length;
+      var respKeys = Object.keys(resp);
+      for(var i = 0; i < respKeys.length; i++) {
+
+         if(tblLen === 0) {
+            var row = dispStock.insertRow(i);
+            row.insertCell(0).innerHTML = respKeys[i];
+            row.insertCell(1).innerHTML = resp[respKeys[i]];
+         } else if (tblLen === respKeys.length) {
+            dispStock.rows[i].cells[1].innerHTML = resp[respKeys[i]];
+         }
+      }
+   };
+
+   request.send()
 }
+
+
+
+
+
+
+
 
 function personSearch() {
 	// Setup to remove table and paragraph if exists

@@ -56,13 +56,15 @@ divb{
    color: black;
    font-size: 16px;
 }
-
 .textBox{
    color: #035642;
    height: 50px;
    font-size: 16px;
    border: 2px solid #b4a76c;
    border-radius: 4px;
+}
+.error{
+   color: red;
 }
 
 input[type=text] {

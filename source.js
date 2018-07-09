@@ -132,6 +132,10 @@ function wipeWholePage(idLst){
 		i++;
 		temp = document.getElementById(idLst[i]);
 	}
+	err = document.getElementById("errorMess")
+	if (err != null){
+		err.parentNode.removeChild(err)
+	}
 }
 
 
@@ -286,6 +290,10 @@ function accessFunction(){
 
 
 function searchFunction(){
+   var error = document.getElementById("errorMess")
+   if (error != null){
+   		error.parentNode.removeChild(error)
+   }
    var searchVal = document.getElementById("Input").value
    var url = `https://api.iextrading.com/1.0/stock/${searchVal}/company`;
 console.log("MY URL", url);
@@ -300,6 +308,10 @@ console.log("MY URL", url);
       var resp = request.response;
 console.log("GOT", resp);
 
+	  if (resp == null){
+	  	createDiv("errorMess", "error")
+	  	document.getElementById("errorMess").innerHTML = "Invalid Corporation Symbol";
+	  }
       var tblLen = dispStock.rows.length;
       var respKeys = Object.keys(resp);
       for(var i = 0; i < respKeys.length; i++) {

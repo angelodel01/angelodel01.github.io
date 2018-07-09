@@ -174,7 +174,12 @@ function createTable(id){
 	document.body.appendChild(t);
 }
 
-
+function createDiv(id, class){
+	var d = document.createElement("DIV");
+	d.setAttribute("id", id);
+	d.setAttribute("class", class);
+	document.body.appendChild(d);
+}
 
 /////////////////////////////////////////////CONTENT FUNCTIONS
 
@@ -302,11 +307,16 @@ function personSearch() {
 	var url = `http://localhost:3000/personSearch?searchParam=${input}`
 	url = encodeURI(url)
 
+	createDiv("loadIcon", "loader");
 	fetch(url, {mode:'cors'}).then(function(response){
 		return response.json().then(function(myJson){
 		console.log(myJson)
 			let keys = Object.keys(myJson)
 
+
+			var loadIcon = document.getElementById("loadIcon");
+			loadIcon.parentNode.removeChild(loadIcon);
+			
 			createParagraph("resultMessage")
 			createTable("foundEntries")
 
@@ -316,6 +326,7 @@ function personSearch() {
 			if(!keys.length) {
 				resMsg.innerHTML = "No entries found"
 			} else {
+
 				resMsg.innerHTML = `Found ${keys.length} entries`
 
 				let headerRow = entryTable.createTHead().insertRow(0)

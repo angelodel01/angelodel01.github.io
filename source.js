@@ -263,9 +263,6 @@ function accessFunction(){
 		erro.parentNode.removeChild(erro)
 	}
 
-	createTable("gitRepos");
-	dispTblGit = document.getElementById("gitRepos");
-
 	fetch(url).then(function(response){
 		return response.json();
 	})
@@ -278,6 +275,9 @@ function accessFunction(){
 			erro.innerHTML = "<h2> Enter valid access token and try again </h2>"
 			return
 		}
+
+		createTable("gitRepos");
+		dispTblGit = document.getElementById("gitRepos");
 
 		for(repo in repoJson) {
 			var row = dispTblGit.insertRow(repo);

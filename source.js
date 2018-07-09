@@ -204,7 +204,7 @@ function protectedContent(){
 
 	createParagraph("display");
 	createTable("petsTable");
-	createButton("Go Home", "goHome(['h', 'display', 'table1'])", "h");
+	createButton("Go Home", "goHome(['h', 'display', 'petsTable'])", "h");
 
 	id_token = key
 	document.getElementById("display").innerHTML = "SECRET SECRET SECRET";

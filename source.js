@@ -39,7 +39,7 @@ function searchClick(){
 	createInputBox("Input");
 	createButton("Search Stock", "searchFunction()", "bn");
 	removeHome();
-	createButton("Go Home", "goHome(['h', 'bn', 'stockTable', 'Input'])", "h");
+	createButton("Go Home", "goHome(['h', 'bn', 'Input'])", "h");
 	return;
 }
 
@@ -267,12 +267,13 @@ function searchFunction(){
    var searchVal = document.getElementById("Input").value
    var url = `https://api.iextrading.com/1.0/stock/${searchVal}/company`;
 console.log("MY URL", url);
+	createTable("stockTable")
+	let dispStock = document.getElementById("stockTable")
+
    var request = new XMLHttpRequest();
    request.open('GET', url);
    request.responseType = 'json';
-   createTable("stockTable")
-   let dispStock = document.getElementById("stockTable")
-
+   
    request.onload = function() {
       var resp = request.response;
 console.log("GOT", resp);

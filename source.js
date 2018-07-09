@@ -39,7 +39,7 @@ function searchClick(){
 	createInputBox("Input");
 	createButton("Search Stock", "searchFunction()", "bn");
 	removeHome();
-	createButton("Go Home", "goHome(['h', 'bn', 'stockTable', 'Input'])", "h");
+	createButton("Go Home", "goHome(['h', 'bn', 'Input', 'stockTable'])", "h");
 	return;
 }
 

@@ -30,7 +30,7 @@ function repoClick(){
 	createInputBox("Input");
 	createButton("List Repos", "accessFunction()", "bn");
 	removeHome();
-	createButton("Go Home", "goHome(['h', 'bn', 'Input', 'display'])", "h");
+	createButton("Go Home", "goHome(['h', 'bn', 'Input', 'gitRepos'])", "h");
 	return;
 }
 
@@ -203,11 +203,13 @@ function protectedContent(){
 	}
 
 	createParagraph("display");
-	createTable("table1");
+	createTable("petsTable");
 	createButton("Go Home", "goHome(['h', 'display', 'table1'])", "h");
 
 	id_token = key
 	document.getElementById("display").innerHTML = "SECRET SECRET SECRET";
+
+	let dispTblPet = document.getElementById("petsTable");
 	var url = "https://api-dev.calpoly.edu/pets";
 	const headers = new Headers();
 	headers.append('Content-Type', 'application/json');
@@ -217,7 +219,7 @@ function protectedContent(){
 		return response.json();
 	})
 	.then(function(petsJson){
-		var dispTblPet = document.getElementById("table1");
+
 		var keys = Object.keys(petsJson);
 		var petKeys = Object.keys(petsJson[0]);
 		for(key in keys) {
@@ -253,43 +255,11 @@ function accessFunction(){
 	.then(function(repoJson){
 		for(repo in repoJson) {
 			var row = dispTblGit.insertRow(repo);
+			row.className = "tBodyRow"
 			row.insertCell(0).innerHTML = repoJson[repo].name;
 		}
 	})
 }
-
-
-/*function searchFunction(){
-	var input = document.getElementById("Input").value;
-	var request = new XMLHttpRequest();
-
-
-	request.onreadystatechange = function() {
-		if (this.readyState == 4 && this.status == 200) {
-			var resp = this.response;
-
-
-			document.getElementById("display").innerHTML = "<b>Symbol : </b>" + resp.symbol +
-			"<br />" + "<b>Company Name :</b> " + resp.companyName +
-			"<br />" + "<b>Exchange :</b> " + resp.exchange +
-			"<br />" + "<b>Industry :</b> " + resp.industry +
-			"<br />" + "<b>Website :</b> " + resp.website +
-			"<br />" + "<b>Description :</b> " + resp.description +
-			"<br />" + "<b>CEO :</b> " + resp.CEO +
-			"<br />" + "<b>Issue Type</b> : " + resp.issueType +
-			"<br />" + "<b>Sector :</b> " + resp.sector +
-			"<br />" + "<b>Tags :</b> " + resp.tags;
-		}
-	};
-	request.open("GET", `https://api.iextrading.com/1.0/stock/${input}/company`, true);
-	request.responseType ='json';
-	request.send();
-}*/
-
-
-
-
-
 
 function searchFunction(){
    var searchVal = document.getElementById("Input").value
@@ -311,6 +281,7 @@ console.log("GOT", resp);
 
          if(tblLen === 0) {
             var row = dispStock.insertRow(i);
+				row.className = "tBodyRow"
             row.insertCell(0).innerHTML = respKeys[i];
             row.insertCell(1).innerHTML = resp[respKeys[i]];
          } else if (tblLen === respKeys.length) {

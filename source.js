@@ -314,7 +314,7 @@ console.log("GOT", resp);
 	  		s_table.parentNode.removeChild(s_table);
 	  	}
 	  	createDiv("errorMess", "error")
-	  	document.getElementById("errorMess").innerHTML = "Invalid Corporation Symbol";
+	  	document.getElementById("errorMess").innerHTML = "<h2> Invalid Corporation Symbol </h2>";
 	  }
       var tblLen = dispStock.rows.length;
       var respKeys = Object.keys(resp);

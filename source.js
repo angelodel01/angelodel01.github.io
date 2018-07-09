@@ -217,30 +217,6 @@ function protectedContent(){
 		return response.json();
 	})
 	.then(function(petsJson){
-		/*var len = myJson.length;
-		var text= "";
-		var table = document.getElementById("table1");
-		var row = table.insertRow(0);
-		var cell1 = row.insertCell(0);
-		cell1.innerHTML = "type :";
-		for (i = 0; i < len; i++){
-			var cell2 = row.insertCell(i+1);
-			cell2.innerHTML = myJson[i].type;
-		}
-		var row2 = table.insertRow(1);
-		var cell3 = row2.insertCell(0);
-		cell3.innerHTML = "id :";
-		for (i = 0; i < len; i++){
-			var cell4 = row2.insertCell(i+1);
-			cell4.innerHTML = myJson[i].id;
-		}
-		var row3 = table.insertRow(2);
-		var cell5 = row3.insertCell(0);
-		cell5.innerHTML = "price :";
-		for (i = 0; i < len; i++){
-			var cell6 = row3.insertCell(i+1);
-			cell6.innerHTML = myJson[i].price;
-		}*/
 		var dispTblPet = document.getElementById("table1");
 		var keys = Object.keys(petsJson);
 		var petKeys = Object.keys(petsJson[0]);

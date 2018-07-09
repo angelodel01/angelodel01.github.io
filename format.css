@@ -89,8 +89,8 @@ td {
    border-bottom: 1px solid #b4a76c;
    border-right: 1px solid #b4a76c;
 }
-tr:hover {
-    color:green;
+tr:hover td {
+   background-color: grey;
 }
 
 .loader {

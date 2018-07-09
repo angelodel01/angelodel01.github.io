@@ -326,7 +326,7 @@ function personSearch() {
 			var loadIcon = document.getElementById("loadIcon");
 			loadIcon.parentNode.removeChild(loadIcon);
 			homeBtn.disabled = false;
-			
+
 			createParagraph("resultMessage")
 			createTable("foundEntries")
 

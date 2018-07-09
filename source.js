@@ -211,14 +211,13 @@ function protectedContent(){
 	var url = "https://api-dev.calpoly.edu/pets";
 	const headers = new Headers();
 	headers.append('Content-Type', 'application/json');
-	headers.append('Authorization', 'Bearer ' + id_token);
+	headers.append('Authorization', `Bearer ${id_token}`);
 
-	//createParagraph("display");
-	fetch(url, {headers: headers, mode : "cors",}).then(function(response){
+	fetch(url, {headers: headers, mode : "cors"}).then(function(response){
 		return response.json();
 	})
-	.then(function(myJson){
-		var len = myJson.length;
+	.then(function(petsJson){
+		/*var len = myJson.length;
 		var text= "";
 		var table = document.getElementById("table1");
 		var row = table.insertRow(0);
@@ -241,6 +240,25 @@ function protectedContent(){
 		for (i = 0; i < len; i++){
 			var cell6 = row3.insertCell(i+1);
 			cell6.innerHTML = myJson[i].price;
+		}*/
+		var dispTblPet = document.getElementById("table1");
+		var keys = Object.keys(petsJson);
+		var petKeys = Object.keys(petsJson[0]);
+		for(key in keys) {
+			var petJson = petsJson[key]
+
+			var row = dispTblPet.insertRow();
+			row.className = "tBodyRow"
+			for(petKey in petKeys) {
+				var keyName = petKeys[petKey]
+				row.insertCell().innerHTML = petJson[keyName]
+			}
+		}
+
+		row = dispTblPet.createTHead().insertRow(0);
+		row.className = "thRow"
+		for (petKey in petKeys) {
+			row.insertCell().innerHTML = '<b>' + petKeys[petKey] + '</b>'
 		}
 	})
 	return;

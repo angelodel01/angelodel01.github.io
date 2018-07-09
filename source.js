@@ -294,6 +294,7 @@ function personSearch() {
 	// Setup to remove table and paragraph if exists
 	var resTbl = document.getElementById("foundEntries")
 	var resMsg = document.getElementById("resultMessage")
+	var loadingIcon = document.getElementById("loadIcon")
 
 	if(resTbl) {
 		resTbl.parentNode.removeChild(resTbl);
@@ -301,6 +302,10 @@ function personSearch() {
 
 	if(resMsg) {
 		resMsg.parentNode.removeChild(resMsg);
+	}
+
+	if(loadingIcon) {
+		loadingIcon.parentNode.removeChild(loadingIcon);
 	}
 
 	var input = document.getElementById("searchParam").value;
@@ -316,7 +321,7 @@ function personSearch() {
 
 			var loadIcon = document.getElementById("loadIcon");
 			loadIcon.parentNode.removeChild(loadIcon);
-			
+
 			createParagraph("resultMessage")
 			createTable("foundEntries")
 

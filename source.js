@@ -245,7 +245,7 @@ function protectedContent(){
 		var keys = Object.keys(petsJson);
 		var petKeys = Object.keys(petsJson[0]);
 		for(key in keys) {
-			// var petJson = petsJson[key]
+			var petJson = petsJson[key]
 
 			var row = dispTblPet.insertRow();
 			row.className = "tBodyRow"

@@ -295,6 +295,7 @@ function personSearch() {
 	var resTbl = document.getElementById("foundEntries")
 	var resMsg = document.getElementById("resultMessage")
 	var loadingIcon = document.getElementById("loadIcon")
+	var homeBtn = document.getElementById("h")
 
 	if(resTbl) {
 		resTbl.parentNode.removeChild(resTbl);
@@ -308,11 +309,14 @@ function personSearch() {
 		loadingIcon.parentNode.removeChild(loadingIcon);
 	}
 
+	homeBtn.disabled = true;
+
 	var input = document.getElementById("searchParam").value;
 	var url = `http://localhost:3000/personSearch?searchParam=${input}`
 	url = encodeURI(url)
 
 	createDiv("loadIcon", "loader");
+
 	fetch(url, {mode:'cors'}).then(function(response){
 		return response.json().then(function(myJson){
 		console.log(myJson)
@@ -321,7 +325,8 @@ function personSearch() {
 
 			var loadIcon = document.getElementById("loadIcon");
 			loadIcon.parentNode.removeChild(loadIcon);
-
+			homeBtn.disabled = false;
+			
 			createParagraph("resultMessage")
 			createTable("foundEntries")
 

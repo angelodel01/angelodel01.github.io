@@ -174,10 +174,10 @@ function createTable(id){
 	document.body.appendChild(t);
 }
 
-function createDiv(id, class){
+function createDiv(id, clas){
 	var d = document.createElement("DIV");
 	d.setAttribute("id", id);
-	d.setAttribute("class", class);
+	d.setAttribute("class", clas);
 	document.body.appendChild(d);
 }
 

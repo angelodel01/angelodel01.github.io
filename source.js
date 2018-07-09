@@ -30,7 +30,7 @@ function repoClick(){
 	createInputBox("Input");
 	createButton("List Repos", "accessFunction()", "bn");
 	removeHome();
-	createButton("Go Home", "goHome(['h', 'bn', 'Input', 'display'])", "h");
+	createButton("Go Home", "goHome(['h', 'bn', 'Input', 'gitRepos'])", "h");
 	return;
 }
 
@@ -203,11 +203,14 @@ function protectedContent(){
 	}
 
 	createParagraph("display");
-	createTable("table1");
-	createButton("Go Home", "goHome(['h', 'display', 'table1'])", "h");
+	createTable("petsTable");
+	createButton("Go Home", "goHome(['h', 'display', 'petsTable'])", "h");
 
 	id_token = key
+	let dispTblPet = document.getElementById("petsTable");
+
 	document.getElementById("display").innerHTML = "PROTECTED CONTENT ACCESS GRANTED";
+
 	var url = "https://api-dev.calpoly.edu/pets";
 	const headers = new Headers();
 	headers.append('Content-Type', 'application/json');
@@ -217,31 +220,7 @@ function protectedContent(){
 		return response.json();
 	})
 	.then(function(petsJson){
-		/*var len = myJson.length;
-		var text= "";
-		var table = document.getElementById("table1");
-		var row = table.insertRow(0);
-		var cell1 = row.insertCell(0);
-		cell1.innerHTML = "type :";
-		for (i = 0; i < len; i++){
-			var cell2 = row.insertCell(i+1);
-			cell2.innerHTML = myJson[i].type;
-		}
-		var row2 = table.insertRow(1);
-		var cell3 = row2.insertCell(0);
-		cell3.innerHTML = "id :";
-		for (i = 0; i < len; i++){
-			var cell4 = row2.insertCell(i+1);
-			cell4.innerHTML = myJson[i].id;
-		}
-		var row3 = table.insertRow(2);
-		var cell5 = row3.insertCell(0);
-		cell5.innerHTML = "price :";
-		for (i = 0; i < len; i++){
-			var cell6 = row3.insertCell(i+1);
-			cell6.innerHTML = myJson[i].price;
-		}*/
-		var dispTblPet = document.getElementById("table1");
+
 		var keys = Object.keys(petsJson);
 		var petKeys = Object.keys(petsJson[0]);
 		for(key in keys) {
@@ -268,53 +247,20 @@ function protectedContent(){
 
 function accessFunction(){
 	var input = document.getElementById("Input").value;
-	var url = "https://api.github.com/user/repos?access_token=" + input;
-	createParagraph("display");
+	var url = `https://api.github.com/user/repos?access_token=${input}`
+	createTable("gitRepos");
+	let dispTblGit = document.getElementById("gitRepos");
 	fetch(url).then(function(response){
 		return response.json();
 	})
-	.then(function(myJson){
-		var len = myJson.length;
-		var text= "";
-		for (i = 1; i < len; i++){
-			text += myJson[i].name + "<br>";
+	.then(function(repoJson){
+		for(repo in repoJson) {
+			var row = dispTblGit.insertRow(repo);
+			row.className = "tBodyRow"
+			row.insertCell(0).innerHTML = repoJson[repo].name;
 		}
-		document.getElementById("display").innerHTML = text;
 	})
 }
-
-
-/*function searchFunction(){
-	var input = document.getElementById("Input").value;
-	var request = new XMLHttpRequest();
-
-
-	request.onreadystatechange = function() {
-		if (this.readyState == 4 && this.status == 200) {
-			var resp = this.response;
-
-
-			document.getElementById("display").innerHTML = "<b>Symbol : </b>" + resp.symbol +
-			"<br />" + "<b>Company Name :</b> " + resp.companyName +
-			"<br />" + "<b>Exchange :</b> " + resp.exchange +
-			"<br />" + "<b>Industry :</b> " + resp.industry +
-			"<br />" + "<b>Website :</b> " + resp.website +
-			"<br />" + "<b>Description :</b> " + resp.description +
-			"<br />" + "<b>CEO :</b> " + resp.CEO +
-			"<br />" + "<b>Issue Type</b> : " + resp.issueType +
-			"<br />" + "<b>Sector :</b> " + resp.sector +
-			"<br />" + "<b>Tags :</b> " + resp.tags;
-		}
-	};
-	request.open("GET", `https://api.iextrading.com/1.0/stock/${input}/company`, true);
-	request.responseType ='json';
-	request.send();
-}*/
-
-
-
-
-
 
 function searchFunction(){
    var searchVal = document.getElementById("Input").value
@@ -336,6 +282,7 @@ console.log("GOT", resp);
 
          if(tblLen === 0) {
             var row = dispStock.insertRow(i);
+				row.className = "tBodyRow"
             row.insertCell(0).innerHTML = respKeys[i];
             row.insertCell(1).innerHTML = resp[respKeys[i]];
          } else if (tblLen === respKeys.length) {

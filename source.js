@@ -52,7 +52,7 @@ function render(state) {
 			protectedClick();
 			break;
 		case "HOME":
-			searchClick()
+			// searchClick()
 			break;
 	}
 }

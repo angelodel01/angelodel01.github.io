@@ -8,7 +8,7 @@ var stateObj = {
 
 window.onload = function(){
 	console.log("loading page... ")
-	window.history.pushState(stateObj, 'homePage', '/');
+	window.history.replaceState({page : 'home'}, null, "");
 };
 
 ///////////////////////////////History popState

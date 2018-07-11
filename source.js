@@ -1,9 +1,11 @@
 /*pw: Bcde@345
 */
 var keyUrl = location.hash.substring(1);
-
+var stateObj = {
+	page : 'home'
+}
 window.onload = function() {
-	window.history.pushState({page : 'home'}, 'homePage', '/')
+	window.history.pushState(stateObj, 'homePage', '/')
 }
 
 ///////////////////////////////History popState
@@ -24,7 +26,7 @@ window.addEventListener('popState', function(e) {
 			protectedClick();
 			break;
 	}
-})
+}, false)
 
 ///////////////////////////////FUNCTIONS TRIGGERED BY CLICKS
 

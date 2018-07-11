@@ -7,16 +7,22 @@ window.onload = function() {
 }
 
 ///////////////////////////////History popState
-window.addEventListener('popState', e => {
-	popped_page = e.state.page
+window.addEventListener('popState', function(e) {
+	let popped_page = e.state.page
 	console.log("HERE")
+	if(!popped_page)
+		return
+
 	switch(popped_page.toUpperCase()) {
-		case REPO:
-		repoClick()
-		case STOCK:
-		searchClick();
-		case PROTECTED:
-		protectedClick();
+		case "REPO":
+			repoClick()
+			break;
+		case "STOCK":
+			searchClick();
+			break;
+		case "PROTECTED":
+			protectedClick();
+			break;
 	}
 })
 

@@ -53,7 +53,7 @@ console.log("js var : ", keyUrl);
 }
 
 function simpleSearchClick() {
-	// window.history.pushState({page : 'simpleSearch'}, 'simpleSearchPage', './simpleSearch')
+	window.history.pushState({page : 'simpleSearch'}, 'simpleSearchPage', './simpleSearch')
 	createInputBox("searchParam");
 	createButton("Search Person", "personSearch()", "bn");
 	removeHome();

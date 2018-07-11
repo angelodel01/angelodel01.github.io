@@ -20,13 +20,13 @@ window.addEventListener('popState', e => {
 
 function goHome(idLst){
 	wipeWholePage(idLst);
-	// window.history.pushState({page : 'home'}, null, '')
+	window.history.pushState({page : 'home'}, 'homePage', '')
 	var ogHead = document.getElementById("ogB");
 	ogHead.style.display = "block";
 }
 
 function repoClick(){
-	// window.history.pushState({page : 'repo'}, 'repoPage', './repo')
+	window.history.pushState({page : 'repo'}, 'repoPage', './repo')
 	createInputBox("Input");
 	createButton("List Repos", "accessFunction()", "bn");
 	removeHome();
@@ -35,16 +35,16 @@ function repoClick(){
 }
 
 function searchClick(){
-	// window.history.pushState({page : 'stock'}, 'stockPage', './stock')
+	window.history.pushState({page : 'stock'}, 'stockPage', './stock')
 	createInputBox("Input");
-	createButton("Search Stock", "searchFunction()", "bn");
+	createButton("Search Stock", "searchFunctioßn()", "bn");
 	removeHome();
 	createButton("Go Home", "goHome(['h', 'bn', 'Input', 'stockTable'])", "h");
 	return;
 }
 
 function protectedClick(){
-	// window.history.pushState({page : 'protected'}, 'protectedPage', './protected')
+	window.history.pushState({page : 'protected'}, 'protectedPage', './protected')
 console.log("js var : ", keyUrl);
 	protectedContent();
 	removeHome();

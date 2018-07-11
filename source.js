@@ -2,14 +2,15 @@
 */
 var keyUrl = location.hash.substring(1);
 
-window.onload = function() {
+window.onload = function(){
+	console.log("loading page... ")
 	window.history.pushState({page : 'home'}, 'homePage', '/');
 };
 
 ///////////////////////////////History popState
-window.addEventListener('popState', function(e) {
+window.addEventListener('popState', function(e){
 	let popped_page = e.state.page
-	console.log("HERE")
+	console.log("EventListener added")
 	if(!popped_page)
 		return
 

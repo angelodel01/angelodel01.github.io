@@ -3,8 +3,8 @@
 var keyUrl = location.hash.substring(1);
 
 window.onload = function() {
-	window.history.pushState({page : 'home'}, 'homePage', '/')
-}
+	window.history.pushState({page : 'home'}, 'homePage', '/');
+};
 
 ///////////////////////////////History popState
 window.addEventListener('popState', function(e) {

@@ -6,10 +6,10 @@ var stateObj = {
 	page : 'home'
 }
 
-function initialize(){
+(function initialize(){
 	console.log("loading page... ")
 	window.history.replaceState(stateObj, null, "");
-}();
+})();
 
 ///////////////////////////////History popState
 // window.addEventListener('popState', function(e){

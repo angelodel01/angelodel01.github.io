@@ -141,6 +141,18 @@ function removeHome(){
 }
 
 function wipeWholePage(idLst){
+	var all = document.getElementsByTagName("*");
+
+	for (var i=0, max=all.length; i < max; i++) {
+			console.log(`all[${i}]`, all[i])
+			if all[i] !== document.getElementById("ogB"){
+					all[i].parentNode.removeChild(all[i])
+					console.log("removing ...", all[i].id)
+			}
+	}
+
+
+	/*
 	var len = idLst.length;
 	var temp;
 	var i = 0;
@@ -156,6 +168,7 @@ function wipeWholePage(idLst){
 	if (err != null){
 		err.parentNode.removeChild(err)
 	}
+	*/
 }
 
 

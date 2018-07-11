@@ -2,19 +2,14 @@
 */
 var keyUrl = location.hash.substring(1);
 
-
-window.onload = function(){
-	console.log("loading page... ")
-	window.history.pushState({page : 'home'}, 'homePage', '/');
-};
-
 var stateObj = {
 	page : 'home'
 }
-window.onload = function() {
-	window.history.pushState(stateObj, 'homePage', '/')
-}
 
+window.onload = function(){
+	console.log("loading page... ")
+	window.history.pushState(stateObj, 'homePage', '/');
+};
 
 ///////////////////////////////History popState
 window.addEventListener('popState', function(e){

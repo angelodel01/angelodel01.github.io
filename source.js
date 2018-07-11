@@ -2,28 +2,46 @@
 */
 var keyUrl = location.hash.substring(1);
 
-
-window.onload = function(){
-	console.log("loading page... ")
-	window.history.pushState({page : 'home'}, 'homePage', '/');
-};
-
 var stateObj = {
 	page : 'home'
 }
-window.onload = function() {
-	window.history.pushState(stateObj, 'homePage', '/')
+
+let initialize = function(){
+	console.log("loading page... ")
+	window.history.replaceState(stateObj, null, "");
+	render(stateObj)
 }
-
-
+initialize()
 ///////////////////////////////History popState
-window.addEventListener('popState', function(e){
-	let popped_page = e.state.page
-	console.log("EventListener added")
-	if(!popped_page)
-		return
+// window.addEventListener('popState', function(e){
+// 	let popped_page = e.state.page
+// 	console.log("EventListener added")
+// 	if(!popped_page)
+// 		return
+//
+// 	switch(popped_page.toUpperCase()) {
+// 		case "REPO":
+// 			repoClick()
+// 			break;
+// 		case "STOCK":
+// 			searchClick();
+// 			break;
+// 		case "PROTECTED":
+// 			protectedClick();
+// 			break;
+// 	}
+// }, false)
+window.onpopstate = function(event) {
+	if(event.state) {
+		stateObj = event.state
+	}
 
-	switch(popped_page.toUpperCase()) {
+	render(stateObj)
+}
+//////////////////////////////// Renderer
+function render(state) {
+	to_render = state.page
+	switch(to_render.toUpperCase()) {
 		case "REPO":
 			repoClick()
 			break;
@@ -33,13 +51,16 @@ window.addEventListener('popState', function(e){
 		case "PROTECTED":
 			protectedClick();
 			break;
+		case "HOME":
+			searchClick()
+			break;
 	}
-}, false)
-
+}
 ///////////////////////////////FUNCTIONS TRIGGERED BY CLICKS
 
 function goHome(idLst){
 	wipeWholePage(idLst);
+	stateObj.page = 'home'
 	window.history.pushState({page : 'home'}, 'homePage', '/')
 	var ogHead = document.getElementById("ogB");
 	ogHead.style.display = "block";

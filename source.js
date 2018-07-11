@@ -166,7 +166,7 @@ function wipeWholePage(idLst){
 
 	for (var i=0, max=all.length; i < max; i++) {
 			console.log(`all[${i}]`, all[i])
-			if all[i] !== document.getElementById("ogB"){
+			if (all[i] !== document.getElementById("ogB")){
 					all[i].parentNode.removeChild(all[i])
 					console.log("removing ...", all[i].id)
 			}

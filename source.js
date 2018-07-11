@@ -2,6 +2,10 @@
 */
 var keyUrl = location.hash.substring(1);
 
+window.onload = function() {
+	window.history.pushState({page : 'home'}, 'homePage', '/')
+}
+
 ///////////////////////////////History popState
 window.addEventListener('popState', e => {
 	popped_page = e.state.page
@@ -20,7 +24,7 @@ window.addEventListener('popState', e => {
 
 function goHome(idLst){
 	wipeWholePage(idLst);
-	window.history.pushState({page : 'home'}, 'homePage', '')
+	window.history.pushState({page : 'home'}, 'homePage', '/')
 	var ogHead = document.getElementById("ogB");
 	ogHead.style.display = "block";
 }

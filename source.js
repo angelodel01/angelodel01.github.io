@@ -162,34 +162,30 @@ function removeHome(){
 }
 
 function wipeWholePage(idLst){
-	var all = document.getElementsByTagName("*");
-
-	for (var i=0, max=all.length; i < max; i++) {
-			console.log(`all[${i}]`, all[i])
-			if (all[i] !== document.getElementById("ogB")){
-					all[i].parentNode.removeChild(all[i])
-					console.log("removing ...", all[i].id)
-			}
+	// var all = document.getElementsByTagName("*");
+	var currNode = document.getElementsByTagName("body").firstChild
+  while (currNode) {
+		if(currNode.id !== "ogB"){
+			console.log("Removing.....", currNode.id)
+		}
+		currNode = currNode.firstChild;
 	}
 
-
-	/*
-	var len = idLst.length;
-	var temp;
-	var i = 0;
-	temp = document.getElementById(idLst[i])
-	while (temp != null){
-		temp.parentNode.removeChild(temp);
-		console.log("rm-idx : ", i);
-		console.log("removing ...", idLst[i]);
-		i++;
-		temp = document.getElementById(idLst[i]);
-	}
-	err = document.getElementById("errorMess")
-	if (err != null){
-		err.parentNode.removeChild(err)
-	}
-	*/
+	// var len = idLst.length;
+	// var temp;
+	// var i = 0;
+	// temp = document.getElementById(idLst[i])
+	// while (temp != null){
+	// 	temp.parentNode.removeChild(temp);
+	// 	console.log("rm-idx : ", i);
+	// 	console.log("removing ...", idLst[i]);
+	// 	i++;
+	// 	temp = document.getElementById(idLst[i]);
+	// }
+	// err = document.getElementById("errorMess")
+	// if (err != null){
+	// 	err.parentNode.removeChild(err)
+	// }
 }
 
 

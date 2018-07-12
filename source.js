@@ -43,19 +43,19 @@ function render(state) {
 	to_render = state.page
 	switch(to_render.toUpperCase()) {
 		case "REPO":
-			repoClick()
-			break;
+		repoClick()
+		break;
 		case "STOCK":
-			searchClick();
-			break;
+		searchClick();
+		break;
 		case "PROTECTED":
-			protectedClick();
-			break;
+		protectedClick();
+		break;
 		case "HOME":
-			goHome();
-			break;
+		goHome();
+		break;
 		default:
-			break;
+		break;
 	}
 }
 ///////////////////////////////FUNCTIONS TRIGGERED BY CLICKS
@@ -70,7 +70,7 @@ function goHome(){
 
 function repoClick(){
 	window.history.pushState({page : 'repo'}, 'repoPage', './repo')
-  removeHome();
+	removeHome();
 
 	createDiv("contentItems", "text")
 	createInputBox("Input", "contentItems");
@@ -93,7 +93,7 @@ function searchClick(){
 
 function protectedClick(){
 	window.history.pushState({page : 'protected'}, 'protectedPage', './protected')
-  console.log("js var : ", keyUrl);
+	console.log("js var : ", keyUrl);
 	protectedContent();
 	removeHome();
 	window.location.hash = "";
@@ -102,9 +102,9 @@ function protectedClick(){
 
 function simpleSearchClick() {
 	window.history.pushState({page : 'simpleSearch'}, 'simpleSearchPage', './simpleSearch')
-  removeHome();
+	removeHome();
 
-  createDiv("contentItems", "text")
+	createDiv("contentItems", "text")
 	createInputBox("searchParam", "contentItems");
 	createButton("Search Person", "personSearch()", "bn", "contentItems");
 	createButton("Go Home", "goHome()", "h", "contentItems");
@@ -172,11 +172,11 @@ function removeHome(){
 
 function wipeWholePage(){
 	var currNode = document.body.childNodes
-  for (var i = 0; i < currNode.length; i++) {
-			if(currNode[i].id !== "ogB" && currNode[i].id !== undefined){
-				console.log("Removing.....", currNode[i].id)
-				currNode[i].parentNode.removeChild(currNode[i])
-			}
+	for (var i = 0; i < currNode.length; i++) {
+		if(currNode[i].id !== "ogB" && currNode[i].id !== undefined && currNode[i].nodeName !== "h"){
+			console.log("Removing.....", currNode[i].id)
+			currNode[i].parentNode.removeChild(currNode[i])
+		}
 	}
 }
 
@@ -316,7 +316,7 @@ function accessFunction(){
 	.then(function(repoJson){
 		let repoKeys = Object.keys(repoJson);
 		if(repoKeys.includes("message")) {
-	console.log(repoJson);
+			console.log(repoJson);
 			createDiv("errorMess", "error");
 			let erro = document.getElementById("errorMess")
 			erro.innerHTML = "<h2> Enter valid access token and try again </h2>"
@@ -337,48 +337,48 @@ function accessFunction(){
 
 
 function searchFunction(){
-   var error = document.getElementById("errorMess")
-   if (error != null){
-   		error.parentNode.removeChild(error)
-   }
-   var searchVal = document.getElementById("Input").value
-   var url = `https://api.iextrading.com/1.0/stock/${searchVal}/company`;
-console.log("MY URL", url);
+	var error = document.getElementById("errorMess")
+	if (error != null){
+		error.parentNode.removeChild(error)
+	}
+	var searchVal = document.getElementById("Input").value
+	var url = `https://api.iextrading.com/1.0/stock/${searchVal}/company`;
+	console.log("MY URL", url);
 	createTable("stockTable", "contentItems")
 	let dispStock = document.getElementById("stockTable")
 
-   var request = new XMLHttpRequest();
-   request.open('GET', url);
-   request.responseType = 'json';
+	var request = new XMLHttpRequest();
+	request.open('GET', url);
+	request.responseType = 'json';
 
-   request.onload = function() {
-      var resp = request.response;
-console.log("GOT", resp);
+	request.onload = function() {
+		var resp = request.response;
+		console.log("GOT", resp);
 
-	  if (resp == null){
-	  	var s_table = document.getElementById("stockTable")
-	  	if (s_table != null){
-	  		s_table.parentNode.removeChild(s_table);
-	  	}
-	  	createDiv("errorMess", "error")
-	  	document.getElementById("errorMess").innerHTML = "<h2> Invalid Corporation Symbol </h2>";
-	  }
-      var tblLen = dispStock.rows.length;
-      var respKeys = Object.keys(resp);
-      for(var i = 0; i < respKeys.length; i++) {
+		if (resp == null){
+			var s_table = document.getElementById("stockTable")
+			if (s_table != null){
+				s_table.parentNode.removeChild(s_table);
+			}
+			createDiv("errorMess", "error")
+			document.getElementById("errorMess").innerHTML = "<h2> Invalid Corporation Symbol </h2>";
+		}
+		var tblLen = dispStock.rows.length;
+		var respKeys = Object.keys(resp);
+		for(var i = 0; i < respKeys.length; i++) {
 
-         if(tblLen === 0) {
-            var row = dispStock.insertRow(i);
+			if(tblLen === 0) {
+				var row = dispStock.insertRow(i);
 				row.className = "tBodyRow"
-            row.insertCell(0).innerHTML = respKeys[i];
-            row.insertCell(1).innerHTML = resp[respKeys[i]];
-         } else if (tblLen === respKeys.length) {
-            dispStock.rows[i].cells[1].innerHTML = resp[respKeys[i]];
-         }
-      }
-   };
+				row.insertCell(0).innerHTML = respKeys[i];
+				row.insertCell(1).innerHTML = resp[respKeys[i]];
+			} else if (tblLen === respKeys.length) {
+				dispStock.rows[i].cells[1].innerHTML = resp[respKeys[i]];
+			}
+		}
+	};
 
-   request.send()
+	request.send()
 }
 
 function personSearch() {
@@ -410,7 +410,7 @@ function personSearch() {
 
 	fetch(url, {mode:'cors'}).then(function(response){
 		return response.json().then(function(myJson){
-		console.log(myJson)
+			console.log(myJson)
 			let keys = Object.keys(myJson)
 
 

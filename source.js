@@ -3,7 +3,7 @@
 var keyUrl = location.hash.substring(1);
 
 var stateObj = {
-	page : 'home'
+	page : ''
 }
 
 let initialize = function(){
@@ -53,6 +53,8 @@ function render(state) {
 			break;
 		case "HOME":
 			goHome();
+			break;
+		default:
 			break;
 	}
 }

@@ -46,7 +46,7 @@ console.log("LOADING PAGE");
       oldURL = newURL;
       oldHash = newHash;
     }
- }, 1);
+ }, 100);
 
 })(window);
 
@@ -79,6 +79,9 @@ function render(state) {
 			break;
 		case "#PROTECTED":
 			protectedClick();
+			break;
+		case "#SIMPLESEARCH":
+			simpleSearchClick();
 			break;
 		case "":
 			goHome();

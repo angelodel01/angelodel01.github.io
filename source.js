@@ -6,13 +6,20 @@ var keyUrl = location.hash.substring(1);
 // 	page : ''
 // }
 
-var stateObj ={
-	page : location.hash
-}
+
 
 let initialize = function(){
 	console.log("loading page... ")
-	window.history.replaceState(stateObj, null, "");
+	if (location.hash !== undefined){
+		var stateObj = {
+			page : location.hash
+		}
+	} else{
+		var stateObj = {
+			page : ''
+		}
+	}
+	window.history.replaceState(stateObj, null, stateObj[page]);
 	render(stateObj)
 }
 initialize()
@@ -39,7 +46,7 @@ function render(state) {
 		case "PROTECTED":
 			protectedClick();
 			break;
-		case "HOME":
+		case "":
 			goHome();
 			break;
 		default:
@@ -49,7 +56,7 @@ function render(state) {
 ///////////////////////////////FUNCTIONS TRIGGERED BY CLICKS
 
 function goHome(){
-	window.history.pushState({page : 'home'}, 'homePage', '#')
+	window.history.pushState({page : ''}, 'homePage', '')
 	wipeWholePage();
 
 	var ogHead = document.getElementById("ogB");

@@ -63,14 +63,14 @@ console.log("LOADING PAGE");
 // }
 ///////////////////////////////History popState
 
-window.onpopstate = function(event) {
+window.addEventListener('popstate', function (event) {
 	if(event.state) {
 		console.log(event.state)
 		stateObj = event.state
 	}
 
 	render(stateObj)
-}
+})
 //////////////////////////////// Renderer
 
 function render(state) {

@@ -2,22 +2,17 @@
 */
 var keyUrl = location.hash.substring(1);
 
-// var stateObj = {
-// 	page : ''
-// }
+var stateObj = {
+	page : ''
+}
 
 let initialize = function(){
 	console.log("loading page... ")
 	if (location.hash !== undefined){
-		var stateObj = {
-			page : location.hash
-		}
-	} else{
-		var stateObj = {
-			page : ''
-		}
+		stateObj.page = location.hash
 	}
-	window.history.replaceState(stateObj, null, stateObj[page]);
+
+	window.history.replaceState(stateObj, null, stateObj.page);
 	render(stateObj)
 }
 initialize()
@@ -25,7 +20,7 @@ initialize()
 
 window.onpopstate = function(event) {
 	if(event.state) {
-console.log(event.state)
+		console.log(event.state)
 		stateObj = event.state
 	}
 
@@ -37,8 +32,8 @@ function render(state) {
 	to_render = state.page
 	switch(to_render.toUpperCase()) {
 		case "REPO":
-			repoClick()
-			break;
+			 repoClick()
+			 break;
 		case "STOCK":
 			searchClick();
 			break;
@@ -89,7 +84,7 @@ function searchClick(){
 function protectedClick(){
 	window.history.pushState({page : 'protected'}, 'protectedPage', '#protected')
 	removeHome();
-console.log("js var : ", keyUrl);
+	console.log("js var : ", keyUrl);
 
 	protectedContent();
 	window.location.hash = "";
@@ -99,7 +94,7 @@ console.log("js var : ", keyUrl);
 
 function simpleSearchClick() {
 	window.history.pushState({page : 'simpleSearch'}, 'simpleSearchPage',
-	 '#simpleSearch')
+	'#simpleSearch')
 	removeHome();
 
 	createDiv("contentItems", "text")
@@ -116,14 +111,14 @@ function getToken() {
 	let client_id = "2fior6770hvto4u6kuq084j7fu";
 	let redirect_uri = "https://angelodel01.github.io";
 	let loginUrl = `https://cognito-dev.calpoly.edu/login?response_type=token&` +
-	 `client_id=${client_id}&redirect_uri=${redirect_uri}`;
+	`client_id=${client_id}&redirect_uri=${redirect_uri}`;
 	var xhr = new XMLHttpRequest();
 
 	xhr.open('GET', loginUrl, true);
 	xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
 	xhr.addEventListener('load', function() {
 		var responseObject = JSON.parse(this.response);
-console.log(responseObject);
+		console.log(responseObject);
 		if (responseObject.token) {
 			document.cookie = responseObject.token;
 		} else {
@@ -131,13 +126,13 @@ console.log(responseObject);
 		}
 	});
 
-console.log('going to send', sendObject);
+	console.log('going to send', sendObject);
 
 	xhr.send();
 }
 
 function getCookie(cname) {
-console.log("inside getCookie()");
+	console.log("inside getCookie()");
 	var name = cname + "=";
 	var decodedCookie = decodeURIComponent(document.cookie);
 	var ca = decodedCookie.split(';');
@@ -171,8 +166,8 @@ function wipeWholePage(){
 	var currNode = document.body.childNodes
 	for (var i = 0; i < currNode.length; i++) {
 		if(currNode[i].id !== "ogB" &&
-		 currNode[i].id !== undefined && currNode[i].nodeName !== "H"){
-console.log("Removing.....", currNode[i].id)
+		currNode[i].id !== undefined && currNode[i].nodeName !== "H"){
+			console.log("Removing.....", currNode[i].id)
 			currNode[i].parentNode.removeChild(currNode[i])
 		}
 	}
@@ -245,7 +240,7 @@ function protectedContent(){
 		let client_id = "2fior6770hvto4u6kuq084j7fu";
 		let redirect_uri = "https://angelodel01.github.io";
 		let loginUrl = `https://cognito-dev.calpoly.edu/login?response_type=token&` +
-		 `client_id=${client_id}&redirect_uri=${redirect_uri}`;
+		`client_id=${client_id}&redirect_uri=${redirect_uri}`;
 		// window.location = "https://cognito-dev.calpoly.edu/login?response_type=token&client_id=2fior6770hvto4u6kuq084j7fu&redirect_uri=https://angelodel01.github.io";
 		window.location = loginUrl
 		return;
@@ -258,7 +253,7 @@ function protectedContent(){
 
 	id_token = key
 	document.getElementById("display").innerHTML = "<h2>PROTECTED CONTENT " +
-	 "ACCESS GRANTED</h2><br><h4> You can now view and buy pets</h4>";
+	"ACCESS GRANTED</h2><br><h4> You can now view and buy pets</h4>";
 
 	let dispTblPet = document.getElementById("petsTable");
 	var url = "https://api-dev.calpoly.edu/pets";
@@ -362,7 +357,7 @@ function searchFunction(){
 			}
 			createDiv("errorMess", "error")
 			document.getElementById("errorMess").innerHTML = "<h2> Invalid " +
-			 "Corporation Symbol </h2>";
+			"Corporation Symbol </h2>";
 		}
 		var tblLen = dispStock.rows.length;
 		var respKeys = Object.keys(resp);
@@ -448,7 +443,7 @@ function personSearch() {
 				headerRow.className = "thRow"
 				for(cellVal in tblHeaderVal) {
 					headerRow.insertCell().innerHTML = '<b>' +
-					 tblHeaderVal[cellVal] + '</b>'
+					tblHeaderVal[cellVal] + '</b>'
 				}
 			}
 		})

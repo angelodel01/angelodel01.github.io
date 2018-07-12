@@ -15,7 +15,7 @@ let initialize = function(){
 	window.history.replaceState(stateObj, null, stateObj.page);
 	render(stateObj)
 }
-initialize()
+window.onload = initialize
 ///////////////////////////////History popState
 
 window.onpopstate = function(event) {

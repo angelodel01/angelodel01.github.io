@@ -71,7 +71,7 @@ window.addEventListener('popstate', function (event) {
 		stateObj = event.state
 	}
 
-	render(stateObj, false)
+	render(stateObj, false);
 })
 //////////////////////////////// Renderer
 
@@ -159,7 +159,7 @@ function protectedClick(click_flag){
 
 function simpleSearchClick(click_flag) {
 	if (click_flag){
-		window.history.pushState({page : 'simpleSearch'}, 'simpleSearchPage',
+		window.history.pushState({page : 'simpleSearch'}, 'simpleSearchPage')
 	}
 	'#simpleSearch')
 	removeHome();

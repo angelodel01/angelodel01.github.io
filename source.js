@@ -38,8 +38,6 @@ console.log("LOADING PAGE");
       newHash = location.hash;
 
     // if the hash has changed and a handler has been bound...
-	 console.log("new hash ", newURL)
-	 console.log("old hash ", oldURL)
     if (newHash != oldHash && typeof window.onhashchange === "function") {
       // execute the handler
       window.onhashchange({
@@ -58,6 +56,8 @@ console.log("LOADING PAGE");
 
 
 window.onhashchange = function(jsonResp) {
+	console.log("new hash ", jsonResp.newURL)
+	console.log("old hash ", jsonResp.oldURL)
 console.log("HASH changed", location.hash);
 	window.location = jsonResp.newURL
 	initialize()

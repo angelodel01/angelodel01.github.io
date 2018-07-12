@@ -159,9 +159,9 @@ function protectedClick(click_flag){
 
 function simpleSearchClick(click_flag) {
 	if (click_flag){
-		window.history.pushState({page : 'simpleSearch'}, 'simpleSearchPage')
+		window.history.pushState({page : 'simpleSearch'}, 'simpleSearchPage', '#simpleSearch')
 	}
-	'#simpleSearch')
+
 	removeHome();
 	wipeWholePage();
 

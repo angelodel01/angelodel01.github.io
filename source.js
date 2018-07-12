@@ -87,6 +87,7 @@ function render(state) {
 			goHome();
 			break;
 		default:
+			goHome();
 			break;
 	}
 }
@@ -140,9 +141,10 @@ function protectedClick(){
 }
 
 function simpleSearchClick() {
-	window.history.pushState({page : 'simpleSearch'}, 'simpleSearchPage',
+	window.history.pushState({page : '#simpleSearch'}, 'simpleSearchPage',
 	'#simpleSearch')
 	removeHome();
+	wipeWholePage();
 
 	createDiv("contentItems", "text")
 	createInputBox("searchParam", "contentItems");

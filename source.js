@@ -173,7 +173,7 @@ function removeHome(){
 function wipeWholePage(){
 	var currNode = document.body.childNodes
 	for (var i = 0; i < currNode.length; i++) {
-		if(currNode[i].id !== "ogB" && currNode[i].id !== undefined && currNode[i].nodeName !== "h"){
+		if(currNode[i].id !== "ogB" && currNode[i].id !== undefined && currNode[i].nodeName !== "H"){
 			console.log("Removing.....", currNode[i].id)
 			currNode[i].parentNode.removeChild(currNode[i])
 		}

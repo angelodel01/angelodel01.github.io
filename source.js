@@ -71,46 +71,49 @@ window.addEventListener('popstate', function (event) {
 		stateObj = event.state
 	}
 
-	render(stateObj)
+	render(stateObj, false)
 })
 //////////////////////////////// Renderer
 
-function render(state) {
-	to_render = state.page
+function render(state, click_flag) {
+
+	let to_render = state.page
 	console.log("rendering state .....", to_render);
 	switch(to_render.toUpperCase()) {
 		case "REPO":
-			 repoClick()
+			 repoClick(click_flag)
 			 break;
 		case "STOCK":
-			searchClick();
+			searchClick(click_flag);
 			break;
 		case "PROTECTED":
-			protectedClick();
+			protectedClick(click_flag);
 			break;
 		case "SIMPLESEARCH":
-			simpleSearchClick();
+			simpleSearchClick(click_flag);
 			break;
 		case "#":
-			goHome();
+			goHome(click_flag);
 			break;
 		default:
-			goHome();
+			goHome(click_flag);
 			break;
 	}
 }
 ///////////////////////////////FUNCTIONS TRIGGERED BY CLICKS
 
-function goHome(){
-	window.history.pushState({page : '#'}, 'homePage', '#')
+function goHome(click_flag){
+	if (click_flag)
+		window.history.pushState({page : '#'}, 'homePage', '#')
 	wipeWholePage();
 
 	var ogHead = document.getElementById("ogB");
 	ogHead.style.display = "block";
 }
 
-function repoClick(){
-	window.history.pushState({page : 'repo'}, 'repoPage', '#repo')
+function repoClick(click_flag){
+	if (click_flag)
+		window.history.pushState({page : 'repo'}, 'repoPage', '#repo')
 	removeHome();
 	wipeWholePage();
 
@@ -122,8 +125,9 @@ function repoClick(){
 	return;
 }
 
-function searchClick(){
-	window.history.pushState({page : 'stock'}, 'stockPage', '#stock')
+function searchClick(click_flag){
+	if (click_flag)
+		window.history.pushState({page : 'stock'}, 'stockPage', '#stock')
 	removeHome();
 	wipeWholePage();
 
@@ -135,8 +139,9 @@ function searchClick(){
 	return;
 }
 
-function protectedClick(){
-	window.history.pushState({page : 'protected'}, 'protectedPage', '#protected')
+function protectedClick(click_flag){
+	if (click_flag)
+		window.history.pushState({page : 'protected'}, 'protectedPage', '#protected')
 	removeHome();
 	wipeWholePage();
 
@@ -148,8 +153,9 @@ function protectedClick(){
 	return;
 }
 
-function simpleSearchClick() {
-	window.history.pushState({page : 'simpleSearch'}, 'simpleSearchPage',
+function simpleSearchClick(click_flag) {
+	if (click_flag)
+		window.history.pushState({page : 'simpleSearch'}, 'simpleSearchPage',
 	'#simpleSearch')
 	removeHome();
 	wipeWholePage();

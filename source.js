@@ -6,7 +6,7 @@ var keyUrl = location.hash.substring(1);
 // 	page : ''
 // }
 
-var stateObj ={
+var stateObj = {
 	page : location.hash
 }
 
@@ -20,6 +20,7 @@ initialize()
 
 window.onpopstate = function(event) {
 	if(event.state) {
+console.log(event.state)
 		stateObj = event.state
 	}
 

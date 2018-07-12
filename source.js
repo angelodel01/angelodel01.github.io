@@ -3,17 +3,17 @@
 var keyUrl = location.hash.substring(1);
 
 var stateObj = {
-	page : '/'
+	page : ''
 }
 
 let initialize = function(){
 	console.log("loading page... ", location.hash)
 	// let pg = location.hreflocation.origin
-	if (location.pathname !== undefined){
-		stateObj.page = location.pathname.substring(1)
+	if (location.hash !== undefined){
+		stateObj.page = location.hash.substring(1)
 	}
 
-	window.history.replaceState(stateObj, "", stateObj.page);
+	window.history.replaceState(stateObj, "home", stateObj.page);
 	render(stateObj)
 }
 window.onload = function () {
@@ -95,7 +95,7 @@ function render(state) {
 ///////////////////////////////FUNCTIONS TRIGGERED BY CLICKS
 
 function goHome(){
-	window.history.pushState({page : '/'}, 'homePage', '/')
+	window.history.pushState({page : '/'}, 'homePage', '#')
 	wipeWholePage();
 
 	var ogHead = document.getElementById("ogB");
@@ -103,7 +103,7 @@ function goHome(){
 }
 
 function repoClick(){
-	window.history.pushState({page : 'repo'}, 'repoPage', 'repo')
+	window.history.pushState({page : 'repo'}, 'repoPage', '#repo')
 	removeHome();
 	wipeWholePage();
 
@@ -116,7 +116,7 @@ function repoClick(){
 }
 
 function searchClick(){
-	window.history.pushState({page : 'stock'}, 'stockPage', 'stock')
+	window.history.pushState({page : 'stock'}, 'stockPage', '#stock')
 	removeHome();
 	wipeWholePage();
 
@@ -129,7 +129,7 @@ function searchClick(){
 }
 
 function protectedClick(){
-	window.history.pushState({page : 'protected'}, 'protectedPage', 'protected')
+	window.history.pushState({page : 'protected'}, 'protectedPage', '#protected')
 	removeHome();
 	wipeWholePage();
 
@@ -143,7 +143,7 @@ function protectedClick(){
 
 function simpleSearchClick() {
 	window.history.pushState({page : 'simpleSearch'}, 'simpleSearchPage',
-	'simpleSearch')
+	'#simpleSearch')
 	removeHome();
 	wipeWholePage();
 

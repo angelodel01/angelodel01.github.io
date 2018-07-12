@@ -13,24 +13,7 @@ let initialize = function(){
 }
 initialize()
 ///////////////////////////////History popState
-// window.addEventListener('popState', function(e){
-// 	let popped_page = e.state.page
-// 	console.log("EventListener added")
-// 	if(!popped_page)
-// 		return
-//
-// 	switch(popped_page.toUpperCase()) {
-// 		case "REPO":
-// 			repoClick()
-// 			break;
-// 		case "STOCK":
-// 			searchClick();
-// 			break;
-// 		case "PROTECTED":
-// 			protectedClick();
-// 			break;
-// 	}
-// }, false)
+
 window.onpopstate = function(event) {
 	if(event.state) {
 		stateObj = event.state
@@ -39,48 +22,50 @@ window.onpopstate = function(event) {
 	render(stateObj)
 }
 //////////////////////////////// Renderer
+
 function render(state) {
 	to_render = state.page
 	switch(to_render.toUpperCase()) {
 		case "REPO":
-		repoClick()
-		break;
+			repoClick()
+			break;
 		case "STOCK":
-		searchClick();
-		break;
+			searchClick();
+			break;
 		case "PROTECTED":
-		protectedClick();
-		break;
+			protectedClick();
+			break;
 		case "HOME":
-		goHome();
-		break;
+			goHome();
+			break;
 		default:
-		break;
+			break;
 	}
 }
 ///////////////////////////////FUNCTIONS TRIGGERED BY CLICKS
 
 function goHome(){
+	window.history.pushState({page : 'home'}, 'homePage', '')
 	wipeWholePage();
-	stateObj.page = 'home'
-	window.history.pushState({page : 'home'}, 'homePage', '/')
+
 	var ogHead = document.getElementById("ogB");
 	ogHead.style.display = "block";
 }
 
 function repoClick(){
-	window.history.pushState({page : 'repo'}, 'repoPage', './repo')
+	window.history.pushState({page : 'repo'}, 'repoPage', '#repo')
 	removeHome();
 
 	createDiv("contentItems", "text")
 	createInputBox("Input", "contentItems");
 	createButton("List Repos", "accessFunction()", "bn", "contentItems");
 	createButton("Go Home", "goHome()", "h", "contentItems");
+
 	return;
 }
 
 function searchClick(){
-	window.history.pushState({page : 'stock'}, 'stockPage', './stock')
+	window.history.pushState({page : 'stock'}, 'stockPage', '#stock')
 	removeHome();
 
 	createDiv("contentItems", "text")
@@ -92,37 +77,43 @@ function searchClick(){
 }
 
 function protectedClick(){
-	window.history.pushState({page : 'protected'}, 'protectedPage', './protected')
-	console.log("js var : ", keyUrl);
-	protectedContent();
+	window.history.pushState({page : 'protected'}, 'protectedPage', '#protected')
 	removeHome();
+console.log("js var : ", keyUrl);
+
+	protectedContent();
 	window.location.hash = "";
+
 	return;
 }
 
 function simpleSearchClick() {
-	window.history.pushState({page : 'simpleSearch'}, 'simpleSearchPage', './simpleSearch')
+	window.history.pushState({page : 'simpleSearch'}, 'simpleSearchPage',
+	 '#simpleSearch')
 	removeHome();
 
 	createDiv("contentItems", "text")
 	createInputBox("searchParam", "contentItems");
 	createButton("Search Person", "personSearch()", "bn", "contentItems");
 	createButton("Go Home", "goHome()", "h", "contentItems");
+
 	return;
 }
 /////////////////////////////MISCELLANEOUS FUNCTIONS
 
-
 // make the request to the login endpoint
 function getToken() {
-	var loginUrl = "https://cognito-dev.calpoly.edu/login?response_type=token&client_id=2fior6770hvto4u6kuq084j7fu&redirect_uri=https://angelodel01.github.io";
+	let client_id = "2fior6770hvto4u6kuq084j7fu";
+	let redirect_uri = "https://angelodel01.github.io";
+	let loginUrl = `https://cognito-dev.calpoly.edu/login?response_type=token&` +
+	 `client_id=${client_id}&redirect_uri=${redirect_uri}`;
 	var xhr = new XMLHttpRequest();
 
 	xhr.open('GET', loginUrl, true);
 	xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
 	xhr.addEventListener('load', function() {
 		var responseObject = JSON.parse(this.response);
-		console.log(responseObject);
+console.log(responseObject);
 		if (responseObject.token) {
 			document.cookie = responseObject.token;
 		} else {
@@ -130,13 +121,13 @@ function getToken() {
 		}
 	});
 
-	console.log('going to send', sendObject);
+console.log('going to send', sendObject);
 
 	xhr.send();
 }
 
 function getCookie(cname) {
-	console.log("inside getCookie()");
+console.log("inside getCookie()");
 	var name = cname + "=";
 	var decodedCookie = decodeURIComponent(document.cookie);
 	var ca = decodedCookie.split(';');
@@ -152,16 +143,12 @@ function getCookie(cname) {
 	return "";
 }
 
-function setCookie(cname, cvalue, exsecs) { //not used right now
+function setCookie(cname, cvalue, exsecs) {
 	var d = new Date();
-	//d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
 	d.setTime(d.getTime() + exsecs*1000)
 	var expires = "expires="+d.toUTCString();
 	document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
 }
-
-
-
 ////////////////////////////////////////FUNCTIONS FOR WIPING PAGE SECTIONS
 
 function removeHome(){
@@ -173,15 +160,13 @@ function removeHome(){
 function wipeWholePage(){
 	var currNode = document.body.childNodes
 	for (var i = 0; i < currNode.length; i++) {
-		if(currNode[i].id !== "ogB" && currNode[i].id !== undefined && currNode[i].nodeName !== "H"){
-			console.log("Removing.....", currNode[i].id)
+		if(currNode[i].id !== "ogB" &&
+		 currNode[i].id !== undefined && currNode[i].nodeName !== "H"){
+console.log("Removing.....", currNode[i].id)
 			currNode[i].parentNode.removeChild(currNode[i])
 		}
 	}
 }
-
-
-
 //////////////////////////////FUNCTIONS FOR CREATING ELEMENTS
 
 function createButton(message, func, id, parentId){
@@ -197,7 +182,6 @@ function createButton(message, func, id, parentId){
 	btn.setAttribute("class", "button");
 	parentNode.appendChild(btn);
 }
-
 
 function createInputBox(id, parentId){
 	var parentNode = document.getElementById(parentId)
@@ -231,7 +215,6 @@ function createDiv(id, clas){
 	d.setAttribute("class", clas);
 	document.body.appendChild(d);
 }
-
 /////////////////////////////////////////////CONTENT FUNCTIONS
 
 function protectedContent(){
@@ -249,16 +232,23 @@ function protectedContent(){
 	}
 	var key = getCookie("id_token");
 	if (key == ""){
-		window.location = "https://cognito-dev.calpoly.edu/login?response_type=token&client_id=2fior6770hvto4u6kuq084j7fu&redirect_uri=https://angelodel01.github.io";
+		let client_id = "2fior6770hvto4u6kuq084j7fu";
+		let redirect_uri = "https://angelodel01.github.io";
+		let loginUrl = `https://cognito-dev.calpoly.edu/login?response_type=token&` +
+		 `client_id=${client_id}&redirect_uri=${redirect_uri}`;
+		// window.location = "https://cognito-dev.calpoly.edu/login?response_type=token&client_id=2fior6770hvto4u6kuq084j7fu&redirect_uri=https://angelodel01.github.io";
+		window.location = loginUrl
 		return;
 	}
+
 	createDiv("contentItems", "text")
 	createParagraph("display", "contentItems");
 	createTable("petsTable", "contentItems");
 	createButton("Go Home", "goHome()", "h", "contentItems");
 
 	id_token = key
-	document.getElementById("display").innerHTML = "<h2>PROTECTED CONTENT ACCESS GRANTED</h2><br><h4> You can now view and buy pets</h4>";
+	document.getElementById("display").innerHTML = "<h2>PROTECTED CONTENT " +
+	 "ACCESS GRANTED</h2><br><h4> You can now view and buy pets</h4>";
 
 	let dispTblPet = document.getElementById("petsTable");
 	var url = "https://api-dev.calpoly.edu/pets";
@@ -361,7 +351,8 @@ function searchFunction(){
 				s_table.parentNode.removeChild(s_table);
 			}
 			createDiv("errorMess", "error")
-			document.getElementById("errorMess").innerHTML = "<h2> Invalid Corporation Symbol </h2>";
+			document.getElementById("errorMess").innerHTML = "<h2> Invalid " +
+			 "Corporation Symbol </h2>";
 		}
 		var tblLen = dispStock.rows.length;
 		var respKeys = Object.keys(resp);
@@ -446,7 +437,8 @@ function personSearch() {
 				let headerRow = entryTable.createTHead().insertRow(0)
 				headerRow.className = "thRow"
 				for(cellVal in tblHeaderVal) {
-					headerRow.insertCell().innerHTML = '<b>' + tblHeaderVal[cellVal] + '</b>'
+					headerRow.insertCell().innerHTML = '<b>' +
+					 tblHeaderVal[cellVal] + '</b>'
 				}
 			}
 		})

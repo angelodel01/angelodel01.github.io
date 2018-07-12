@@ -9,7 +9,7 @@ var stateObj = {
 let initialize = function(){
 	console.log("loading page... ", location.hash)
 	// let pg = location.hreflocation.origin
-	if (location.hash !== undefined){
+	if (location.hash){
 		stateObj.page = location.hash.substring(1)
 	}
 console.log("replacing history..... ", stateObj.page)

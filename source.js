@@ -12,7 +12,7 @@ let initialize = function(){
 	if (location.hash !== undefined){
 		stateObj.page = location.hash.substring(1)
 	}
-
+console.log("replacing history..... ", stateObj.page)
 	window.history.replaceState(stateObj, "home", stateObj.page);
 	render(stateObj)
 }

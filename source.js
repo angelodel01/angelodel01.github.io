@@ -3,7 +3,7 @@
 var keyUrl = location.hash.substring(1);
 
 var stateObj = {
-	page : '#'
+	page : ''
 }
 
 let initialize = function(){
@@ -13,8 +13,10 @@ let initialize = function(){
 		stateObj.page = location.hash.substring(1)
 	}
 console.log("replacing history..... ", stateObj.page)
-	window.history.replaceState(stateObj, "home", stateObj.page);
-	render(stateObj)
+	if(!window.history.state)
+		window.history.replaceState(stateObj, "home", stateObj.page);
+	else
+		render(stateObj)
 }
 window.onload = function () {
 console.log("LOADING PAGE");

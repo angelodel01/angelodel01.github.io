@@ -7,7 +7,7 @@ var stateObj = {
 }
 
 let initialize = function(){
-	console.log("loading page... ")
+	console.log("loading page... ", location.hash)
 	if (location.hash !== undefined){
 		stateObj.page = location.hash
 	}
@@ -30,14 +30,15 @@ window.onpopstate = function(event) {
 
 function render(state) {
 	to_render = state.page
+	console.log("rendering state .....", to_render);
 	switch(to_render.toUpperCase()) {
-		case "REPO":
+		case "#REPO":
 			 repoClick()
 			 break;
-		case "STOCK":
+		case "#STOCK":
 			searchClick();
 			break;
-		case "PROTECTED":
+		case "#PROTECTED":
 			protectedClick();
 			break;
 		case "":
@@ -58,7 +59,7 @@ function goHome(){
 }
 
 function repoClick(){
-	window.history.pushState({page : 'repo'}, 'repoPage', '#repo')
+	window.history.pushState({page : '#repo'}, 'repoPage', '#repo')
 	removeHome();
 
 	createDiv("contentItems", "text")
@@ -70,7 +71,7 @@ function repoClick(){
 }
 
 function searchClick(){
-	window.history.pushState({page : 'stock'}, 'stockPage', '#stock')
+	window.history.pushState({page : '#stock'}, 'stockPage', '#stock')
 	removeHome();
 
 	createDiv("contentItems", "text")
@@ -82,7 +83,7 @@ function searchClick(){
 }
 
 function protectedClick(){
-	window.history.pushState({page : 'protected'}, 'protectedPage', '#protected')
+	window.history.pushState({page : '#protected'}, 'protectedPage', '#protected')
 	removeHome();
 	console.log("js var : ", keyUrl);
 

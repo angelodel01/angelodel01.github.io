@@ -6,8 +6,6 @@ var keyUrl = location.hash.substring(1);
 // 	page : ''
 // }
 
-
-
 let initialize = function(){
 	console.log("loading page... ")
 	if (location.hash !== undefined){
@@ -27,6 +25,7 @@ initialize()
 
 window.onpopstate = function(event) {
 	if(event.state) {
+console.log(event.state)
 		stateObj = event.state
 	}
 

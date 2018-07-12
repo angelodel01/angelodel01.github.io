@@ -58,8 +58,8 @@ console.log("LOADING PAGE");
 window.onhashchange = function(jsonResp) {
 	console.log("new hash ", jsonResp.newURL)
 	console.log("old hash ", jsonResp.oldURL)
-console.log("HASH changed", location.hash);
-	render(location.hash.substring(1))
+console.log("HASH changed", location.hash.substring(1));
+	render({page : location.hash.substring(1)})
 }
 ///////////////////////////////History popState
 

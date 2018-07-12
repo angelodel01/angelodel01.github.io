@@ -15,7 +15,46 @@ let initialize = function(){
 	window.history.replaceState(stateObj, null, stateObj.page);
 	render(stateObj)
 }
-window.onload = initialize
+window.onload = function () {
+console.log("LOADING PAGE");
+	initialize()
+}
+
+;(function(window) {
+
+  // exit if the browser implements that event
+  if ("onhashchange" in window) { return; }
+
+  var location = window.location,
+    oldURL = location.href,
+    oldHash = location.hash;
+
+  // check the location hash on a 100ms interval
+  setInterval(function() {
+    var newURL = location.href,
+      newHash = location.hash;
+
+    // if the hash has changed and a handler has been bound...
+    if (newHash != oldHash && typeof window.onhashchange === "function") {
+      // execute the handler
+      window.onhashchange({
+        type: "hashchange",
+        oldURL: oldURL,
+        newURL: newURL
+      });
+
+      oldURL = newURL;
+      oldHash = newHash;
+    }
+ }, 1);
+
+})(window);
+
+window.onhashchange = function(jsonResp) {
+console.log("HASH chganged", location.hash);
+	window.location = jsonResp.newURL
+	initialize()
+}
 ///////////////////////////////History popState
 
 window.onpopstate = function(event) {
@@ -61,6 +100,7 @@ function goHome(){
 function repoClick(){
 	window.history.pushState({page : '#repo'}, 'repoPage', '#repo')
 	removeHome();
+	wipeWholePage();
 
 	createDiv("contentItems", "text")
 	createInputBox("Input", "contentItems");
@@ -73,6 +113,7 @@ function repoClick(){
 function searchClick(){
 	window.history.pushState({page : '#stock'}, 'stockPage', '#stock')
 	removeHome();
+	wipeWholePage();
 
 	createDiv("contentItems", "text")
 	createInputBox("Input", "contentItems");
@@ -85,6 +126,8 @@ function searchClick(){
 function protectedClick(){
 	window.history.pushState({page : '#protected'}, 'protectedPage', '#protected')
 	removeHome();
+	wipeWholePage();
+
 	console.log("js var : ", keyUrl);
 
 	protectedContent();

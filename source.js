@@ -2,8 +2,12 @@
 */
 var keyUrl = location.hash.substring(1);
 
-var stateObj = {
-	page : ''
+// var stateObj = {
+// 	page : ''
+// }
+
+var stateObj ={
+	page : location.hash
 }
 
 let initialize = function(){
@@ -45,7 +49,7 @@ function render(state) {
 ///////////////////////////////FUNCTIONS TRIGGERED BY CLICKS
 
 function goHome(){
-	window.history.pushState({page : 'home'}, 'homePage', '')
+	window.history.pushState({page : 'home'}, 'homePage', '#')
 	wipeWholePage();
 
 	var ogHead = document.getElementById("ogB");

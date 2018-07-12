@@ -84,7 +84,7 @@ function render(state) {
 		case "SIMPLESEARCH":
 			simpleSearchClick();
 			break;
-		case "/":
+		case "#":
 			goHome();
 			break;
 		default:

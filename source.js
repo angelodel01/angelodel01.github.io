@@ -21,6 +21,8 @@ console.log("LOADING PAGE");
 	initialize()
 }
 
+
+
 ;(function(window) {
 
   // exit if the browser implements that event
@@ -50,6 +52,8 @@ console.log("LOADING PAGE");
  }, 100);
 
 })(window);
+
+
 
 window.onhashchange = function(jsonResp) {
 console.log("HASH chganged", location.hash);
@@ -84,7 +88,7 @@ function render(state) {
 		case "SIMPLESEARCH":
 			simpleSearchClick();
 			break;
-		case "#":
+		case "":
 			goHome();
 			break;
 		default:
@@ -95,7 +99,7 @@ function render(state) {
 ///////////////////////////////FUNCTIONS TRIGGERED BY CLICKS
 
 function goHome(){
-	window.history.pushState({page : '#'}, 'homePage', '#')
+	window.history.pushState({page : ''}, 'homePage', '#')
 	wipeWholePage();
 
 	var ogHead = document.getElementById("ogB");

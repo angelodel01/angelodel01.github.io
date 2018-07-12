@@ -59,8 +59,7 @@ window.onhashchange = function(jsonResp) {
 	console.log("new hash ", jsonResp.newURL)
 	console.log("old hash ", jsonResp.oldURL)
 console.log("HASH changed", location.hash);
-	window.location = jsonResp.newURL
-	initialize()
+	render(location.hash.substring(1))
 }
 ///////////////////////////////History popState
 

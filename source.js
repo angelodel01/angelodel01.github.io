@@ -16,7 +16,7 @@ console.log("replacing history..... ", stateObj.page)
 	if(!window.history.state)
 		window.history.replaceState(stateObj, "home", stateObj.page);
 	else
-		render(stateObj)
+		render(stateObj, false)
 }
 window.onload = function () {
 console.log("LOADING PAGE");
@@ -103,8 +103,9 @@ function render(state, click_flag) {
 ///////////////////////////////FUNCTIONS TRIGGERED BY CLICKS
 
 function goHome(click_flag){
-	if (click_flag)
+	if (click_flag){
 		window.history.pushState({page : '#'}, 'homePage', '#')
+	}
 	wipeWholePage();
 
 	var ogHead = document.getElementById("ogB");
@@ -112,8 +113,9 @@ function goHome(click_flag){
 }
 
 function repoClick(click_flag){
-	if (click_flag)
+	if (click_flag){
 		window.history.pushState({page : 'repo'}, 'repoPage', '#repo')
+	}
 	removeHome();
 	wipeWholePage();
 
@@ -126,8 +128,9 @@ function repoClick(click_flag){
 }
 
 function searchClick(click_flag){
-	if (click_flag)
+	if (click_flag){
 		window.history.pushState({page : 'stock'}, 'stockPage', '#stock')
+	}
 	removeHome();
 	wipeWholePage();
 
@@ -140,8 +143,9 @@ function searchClick(click_flag){
 }
 
 function protectedClick(click_flag){
-	if (click_flag)
+	if (click_flag){
 		window.history.pushState({page : 'protected'}, 'protectedPage', '#protected')
+	}
 	removeHome();
 	wipeWholePage();
 
@@ -154,8 +158,9 @@ function protectedClick(click_flag){
 }
 
 function simpleSearchClick(click_flag) {
-	if (click_flag)
+	if (click_flag){
 		window.history.pushState({page : 'simpleSearch'}, 'simpleSearchPage',
+	}
 	'#simpleSearch')
 	removeHome();
 	wipeWholePage();

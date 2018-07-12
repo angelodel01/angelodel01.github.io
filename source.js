@@ -52,14 +52,14 @@ function render(state) {
 			protectedClick();
 			break;
 		case "HOME":
-			// searchClick()
+			goHome();
 			break;
 	}
 }
 ///////////////////////////////FUNCTIONS TRIGGERED BY CLICKS
 
-function goHome(idLst){
-	wipeWholePage(idLst);
+function goHome(){
+	wipeWholePage();
 	stateObj.page = 'home'
 	window.history.pushState({page : 'home'}, 'homePage', '/')
 	var ogHead = document.getElementById("ogB");
@@ -68,25 +68,30 @@ function goHome(idLst){
 
 function repoClick(){
 	window.history.pushState({page : 'repo'}, 'repoPage', './repo')
-	createInputBox("Input");
-	createButton("List Repos", "accessFunction()", "bn");
-	removeHome();
-	createButton("Go Home", "goHome(['h', 'bn', 'Input', 'gitRepos'])", "h");
+  removeHome();
+
+	createDiv("contentItems", "text")
+	createInputBox("Input", "contentItems");
+	createButton("List Repos", "accessFunction()", "bn", "contentItems");
+	createButton("Go Home", "goHome()", "h", "contentItems");
 	return;
 }
 
 function searchClick(){
 	window.history.pushState({page : 'stock'}, 'stockPage', './stock')
-	createInputBox("Input");
-	createButton("Search Stock", "searchFunctioßn()", "bn");
 	removeHome();
-	createButton("Go Home", "goHome(['h', 'bn', 'Input', 'stockTable'])", "h");
+
+	createDiv("contentItems", "text")
+	createInputBox("Input", "contentItems");
+	createButton("Search Stock", "searchFunction()", "bn", "contentItems");
+	createButton("Go Home", "goHome()", "h", "contentItems");
+
 	return;
 }
 
 function protectedClick(){
 	window.history.pushState({page : 'protected'}, 'protectedPage', './protected')
-console.log("js var : ", keyUrl);
+  console.log("js var : ", keyUrl);
 	protectedContent();
 	removeHome();
 	window.location.hash = "";
@@ -95,10 +100,12 @@ console.log("js var : ", keyUrl);
 
 function simpleSearchClick() {
 	window.history.pushState({page : 'simpleSearch'}, 'simpleSearchPage', './simpleSearch')
-	createInputBox("searchParam");
-	createButton("Search Person", "personSearch()", "bn");
-	removeHome();
-	createButton("Go Home", "goHome(['h', 'bn', 'searchParam', 'foundEntries', 'resultMessage'])", "h");
+  removeHome();
+
+  createDiv("contentItems", "text")
+	createInputBox("searchParam", "contentItems");
+	createButton("Search Person", "personSearch()", "bn", "contentItems");
+	createButton("Go Home", "goHome()", "h", "contentItems");
 	return;
 }
 /////////////////////////////MISCELLANEOUS FUNCTIONS
@@ -161,71 +168,59 @@ function removeHome(){
 	return;
 }
 
-function wipeWholePage(idLst){
-	// var all = document.getElementsByTagName("*");
-	var currNode = document.getElementsByTagName("body").firstChild
-  while (currNode) {
-		if(currNode.id !== "ogB"){
-			console.log("Removing.....", currNode.id)
-		}
-		currNode = currNode.firstChild;
+function wipeWholePage(){
+	var currNode = document.body.childNodes
+  for (var i = 0; i < currNode.length; i++) {
+			if(currNode[i].id !== "ogB" && currNode[i].id !== undefined){
+				console.log("Removing.....", currNode[i].id)
+				currNode[i].parentNode.removeChild(currNode[i])
+			}
 	}
-
-	// var len = idLst.length;
-	// var temp;
-	// var i = 0;
-	// temp = document.getElementById(idLst[i])
-	// while (temp != null){
-	// 	temp.parentNode.removeChild(temp);
-	// 	console.log("rm-idx : ", i);
-	// 	console.log("removing ...", idLst[i]);
-	// 	i++;
-	// 	temp = document.getElementById(idLst[i]);
-	// }
-	// err = document.getElementById("errorMess")
-	// if (err != null){
-	// 	err.parentNode.removeChild(err)
-	// }
 }
 
 
 
 //////////////////////////////FUNCTIONS FOR CREATING ELEMENTS
 
-function createButton(message, func, id){
+function createButton(message, func, id, parentId){
 	var mess;
 	var btn;
+	var parentNode = document.getElementById(parentId)
+
 	btn = document.createElement("BUTTON");
 	mess = document.createTextNode(message);
 	btn.appendChild(mess);
 	btn.setAttribute("id", id);
 	btn.setAttribute("onClick", func);
 	btn.setAttribute("class", "button");
-	document.body.appendChild(btn);
+	parentNode.appendChild(btn);
 }
 
 
-function createInputBox(id){
+function createInputBox(id, parentId){
+	var parentNode = document.getElementById(parentId)
 	var box = document.createElement("INPUT");
 	box.setAttribute("type", "text");
 	box.setAttribute("placeholder", "Type here...");
 	box.setAttribute("id", id);
 	box.setAttribute("class", "textBox");
-	document.body.appendChild(box);
+	parentNode.appendChild(box);
 }
 
-function createParagraph(id){
+function createParagraph(id, parentId){
+	var parentNode = document.getElementById(parentId)
 	var p = document.createElement("P");
 	p.setAttribute("type", "text");
 	p.setAttribute("id", id);
-	document.body.appendChild(p);
+	parentNode.appendChild(p);
 }
 
-function createTable(id){
+function createTable(id, parentId){
+	var parentNode = document.getElementById(parentId)
 	var t = document.createElement("TABLE");
 	t.setAttribute("type", "text");
 	t.setAttribute("id", id);
-	document.body.appendChild(t);
+	parentNode.appendChild(t);
 }
 
 function createDiv(id, clas){
@@ -255,10 +250,10 @@ function protectedContent(){
 		window.location = "https://cognito-dev.calpoly.edu/login?response_type=token&client_id=2fior6770hvto4u6kuq084j7fu&redirect_uri=https://angelodel01.github.io";
 		return;
 	}
-
-	createParagraph("display");
-	createTable("petsTable");
-	createButton("Go Home", "goHome(['h', 'display', 'petsTable'])", "h");
+	createDiv("contentItems", "text")
+	createParagraph("display", "contentItems");
+	createTable("petsTable", "contentItems");
+	createButton("Go Home", "goHome()", "h", "contentItems");
 
 	id_token = key
 	document.getElementById("display").innerHTML = "<h2>PROTECTED CONTENT ACCESS GRANTED</h2><br><h4> You can now view and buy pets</h4>";
@@ -326,7 +321,7 @@ function accessFunction(){
 			return
 		}
 
-		createTable("gitRepos");
+		createTable("gitRepos", "contentItems");
 		dispTblGit = document.getElementById("gitRepos");
 
 		for(repo in repoJson) {
@@ -347,7 +342,7 @@ function searchFunction(){
    var searchVal = document.getElementById("Input").value
    var url = `https://api.iextrading.com/1.0/stock/${searchVal}/company`;
 console.log("MY URL", url);
-	createTable("stockTable")
+	createTable("stockTable", "contentItems")
 	let dispStock = document.getElementById("stockTable")
 
    var request = new XMLHttpRequest();
@@ -421,8 +416,8 @@ function personSearch() {
 			loadIcon.parentNode.removeChild(loadIcon);
 			homeBtn.disabled = false;
 
-			createParagraph("resultMessage")
-			createTable("foundEntries")
+			createParagraph("resultMessage", "contentItems")
+			createTable("foundEntries", "contentItems")
 
 			let resMsg = document.getElementById("resultMessage")
 			let entryTable = document.getElementById("foundEntries")

@@ -103,6 +103,7 @@ function render(state, click_flag) {
 ///////////////////////////////FUNCTIONS TRIGGERED BY CLICKS
 
 function goHome(click_flag){
+console.log("ADDING HOME TO HISTORY 0", click_flag);
 	if (click_flag){
 		console.log("ADDING HOME TO HISTORY", click_flag);
 		window.history.pushState({page : '#'}, 'homePage', '#')
@@ -114,6 +115,7 @@ function goHome(click_flag){
 }
 
 function repoClick(click_flag){
+console.log("ADDING REPO TO HISTORY 0", click_flag);
 	if (click_flag){
 		console.log("ADDING REPO TO HISTORY", click_flag);
 		window.history.pushState({page : 'repo'}, 'repoPage', '#repo')
@@ -130,6 +132,7 @@ function repoClick(click_flag){
 }
 
 function searchClick(click_flag){
+	console.log("ADDING STOCK TO HISTORY 0", click_flag);
 	if (click_flag){
 		console.log("ADDING STOCK TO HISTORY", click_flag);
 		window.history.pushState({page : 'stock'}, 'stockPage', '#stock')

@@ -166,9 +166,10 @@ function protectedClick(click_flag){
 
 	if (click_flag && (getCookie("id_token") != "")){
 		window.history.pushState({page : 'protected'}, 'protectedPage', '#protected')
-	} else if (click_flag && (getCookie("id_token") == "")) {
-		window.history.pushState({page : '#'}, 'homePage', '#')
 	}
+	// else if (click_flag && (getCookie("id_token") == "")) {
+	// 	window.history.pushState({page : '#'}, 'homePage', '#')
+	// }
 	removeHome();
 	wipeWholePage();
 	protectedContent();

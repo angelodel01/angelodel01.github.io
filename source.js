@@ -186,6 +186,7 @@ function getToken() {
 	let redirect_uri = "https://angelodel01.github.io";
 	let loginUrl = `https://cognito-dev.calpoly.edu/login?response_type=token&` +
 	`client_id=${client_id}&redirect_uri=${redirect_uri}`;
+	console.log("url :", loginUrl)
 	var xhr = new XMLHttpRequest();
 
 	xhr.open('GET', loginUrl, true);

@@ -11,7 +11,7 @@ let initialize = function(){
 	console.log("loading page... ", location.hash)
 	if (location.hash){
 		let keyUrl = location.hash.substring(1);
-		window.location.hash = ""
+		// window.location.hash = ""
 		if (keyUrl.includes("id_token")){
 			var id_tokenVal = keyUrl.substring("id_token=".length, keyUrl.indexOf("&"))
 	      var exprIndex = keyUrl.indexOf("expires_in") + "expires_in=".length
@@ -155,7 +155,7 @@ function searchClick(click_flag){
 
 function protectedClick(click_flag){
 	console.log("click_flag && cookie", click_flag, getCookie("id_token"));
-	if (click_flag && getCookie("id_token")){
+	if (click_flag && (getCookie("id_token") != "")){
 		window.history.pushState({page : 'protected'}, 'protectedPage', '#protected')
 	}
 	removeHome();

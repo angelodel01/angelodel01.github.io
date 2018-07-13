@@ -163,9 +163,11 @@ function searchClick(click_flag){
 }
 
 function protectedClick(click_flag){
-	console.log("click_flag && cookie", click_flag, getCookie("id_token"));
+
 	if (click_flag && (getCookie("id_token") != "")){
 		window.history.pushState({page : 'protected'}, 'protectedPage', '#protected')
+	} else if (click_flag && (getCookie("id_token") == "")) {
+		window.history.pushState({page : '#'}, 'homePage', '#')
 	}
 	removeHome();
 	wipeWholePage();

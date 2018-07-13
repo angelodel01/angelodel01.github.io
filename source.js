@@ -1,6 +1,12 @@
 /*pw: Bcde@345
 */
+
 var keyUrl = location.hash.substring(1);
+
+
+
+//////////////////////////INTIALIZATION FUNCTIONS
+
 
 var stateObj = {
 	page : '#'
@@ -8,7 +14,6 @@ var stateObj = {
 
 let initialize = function(){
 	console.log("loading page... ", location.hash)
-	// let pg = location.hreflocation.origin
 	if (location.hash){
 		stateObj.page = location.hash.substring(1)
 	}
@@ -87,8 +92,8 @@ function render(state, click_flag) {
 		case "PROTECTED":
 			protectedClick(click_flag);
 			break;
-		case "SIMPLESEARCH":
-			simpleSearchClick(click_flag);
+		case "PERSONSEARCH":
+			personSearchClick(click_flag);
 			break;
 		case "#":
 			goHome(click_flag);
@@ -157,10 +162,10 @@ function protectedClick(click_flag){
 	return;
 }
 
-function simpleSearchClick(click_flag) {
+function personSearchClick(click_flag) {
 	if (click_flag){
-		window.history.pushState({page : 'simpleSearch'}, 'simpleSearchPage',
-		 '#simpleSearch')
+		window.history.pushState({page : 'personSearch'}, 'personSearchPage',
+		 '#personSearch')
 	}
 
 	removeHome();
@@ -223,72 +228,7 @@ function setCookie(cname, cvalue, exsecs) {
 	var expires = "expires="+d.toUTCString();
 	document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
 }
-////////////////////////////////////////FUNCTIONS FOR WIPING PAGE SECTIONS
 
-function removeHome(){
-	var ogHead = document.getElementById("ogB");
-	ogHead.style.display = "none";
-	return;
-}
-
-function wipeWholePage(){
-	var currNode = document.body.childNodes
-	for (var i = 0; i < currNode.length; i++) {
-		if(currNode[i].id !== "ogB" &&
-		currNode[i].id !== undefined && currNode[i].nodeName !== "H"){
-			console.log("Removing.....", currNode[i].id)
-			currNode[i].parentNode.removeChild(currNode[i])
-		}
-	}
-}
-//////////////////////////////FUNCTIONS FOR CREATING ELEMENTS
-
-function createButton(message, func, id, parentId){
-	var mess;
-	var btn;
-	var parentNode = document.getElementById(parentId)
-
-	btn = document.createElement("BUTTON");
-	mess = document.createTextNode(message);
-	btn.appendChild(mess);
-	btn.setAttribute("id", id);
-	btn.setAttribute("onClick", func);
-	btn.setAttribute("class", "button");
-	parentNode.appendChild(btn);
-}
-
-function createInputBox(id, parentId){
-	var parentNode = document.getElementById(parentId)
-	var box = document.createElement("INPUT");
-	box.setAttribute("type", "text");
-	box.setAttribute("placeholder", "Type here...");
-	box.setAttribute("id", id);
-	box.setAttribute("class", "textBox");
-	parentNode.appendChild(box);
-}
-
-function createParagraph(id, parentId){
-	var parentNode = document.getElementById(parentId)
-	var p = document.createElement("P");
-	p.setAttribute("type", "text");
-	p.setAttribute("id", id);
-	parentNode.appendChild(p);
-}
-
-function createTable(id, parentId){
-	var parentNode = document.getElementById(parentId)
-	var t = document.createElement("TABLE");
-	t.setAttribute("type", "text");
-	t.setAttribute("id", id);
-	parentNode.appendChild(t);
-}
-
-function createDiv(id, clas){
-	var d = document.createElement("DIV");
-	d.setAttribute("id", id);
-	d.setAttribute("class", clas);
-	document.body.appendChild(d);
-}
 /////////////////////////////////////////////CONTENT FUNCTIONS
 
 function protectedContent(){
@@ -355,166 +295,4 @@ function protectedContent(){
 		}
 	})
 	return;
-}
-
-
-
-function accessFunction(){
-	var input = document.getElementById("Input").value;
-
-	var url = `https://api.github.com/user/repos?access_token=${input}`
-
-	var dispTblGit = document.getElementById("gitRepos");
-	var erro = document.getElementById("errorMess");
-
-	if(dispTblGit) {
-		dispTblGit.parentNode.removeChild(dispTblGit);
-	}
-	if(erro) {
-		erro.parentNode.removeChild(erro)
-	}
-
-	fetch(url).then(function(response){
-		return response.json();
-	})
-	.then(function(repoJson){
-		let repoKeys = Object.keys(repoJson);
-		if(repoKeys.includes("message")) {
-			console.log(repoJson);
-			createDiv("errorMess", "error");
-			let erro = document.getElementById("errorMess")
-			erro.innerHTML = "<h2> Enter valid access token and try again </h2>"
-			return
-		}
-
-		createTable("gitRepos", "contentItems");
-		dispTblGit = document.getElementById("gitRepos");
-
-		for(repo in repoJson) {
-			var row = dispTblGit.insertRow(repo);
-			row.className = "tBodyRow"
-			row.insertCell(0).innerHTML = repoJson[repo].name;
-		}
-	})
-}
-
-
-
-function searchFunction(){
-	var error = document.getElementById("errorMess")
-	if (error != null){
-		error.parentNode.removeChild(error)
-	}
-	var searchVal = document.getElementById("Input").value
-	var url = `https://api.iextrading.com/1.0/stock/${searchVal}/company`;
-	console.log("MY URL", url);
-	createTable("stockTable", "contentItems")
-	let dispStock = document.getElementById("stockTable")
-
-	var request = new XMLHttpRequest();
-	request.open('GET', url);
-	request.responseType = 'json';
-
-	request.onload = function() {
-		var resp = request.response;
-		console.log("GOT", resp);
-
-		if (resp == null){
-			var s_table = document.getElementById("stockTable")
-			if (s_table != null){
-				s_table.parentNode.removeChild(s_table);
-			}
-			createDiv("errorMess", "error")
-			document.getElementById("errorMess").innerHTML = "<h2> Invalid " +
-			"Corporation Symbol </h2>";
-		}
-		var tblLen = dispStock.rows.length;
-		var respKeys = Object.keys(resp);
-		for(var i = 0; i < respKeys.length; i++) {
-
-			if(tblLen === 0) {
-				var row = dispStock.insertRow(i);
-				row.className = "tBodyRow"
-				row.insertCell(0).innerHTML = respKeys[i];
-				row.insertCell(1).innerHTML = resp[respKeys[i]];
-			} else if (tblLen === respKeys.length) {
-				dispStock.rows[i].cells[1].innerHTML = resp[respKeys[i]];
-			}
-		}
-	};
-
-	request.send()
-}
-
-function personSearch() {
-	// Setup to remove table and paragraph if exists
-	var resTbl = document.getElementById("foundEntries")
-	var resMsg = document.getElementById("resultMessage")
-	var loadingIcon = document.getElementById("loadIcon")
-	var homeBtn = document.getElementById("h")
-
-	if(resTbl) {
-		resTbl.parentNode.removeChild(resTbl);
-	}
-
-	if(resMsg) {
-		resMsg.parentNode.removeChild(resMsg);
-	}
-
-	if(loadingIcon) {
-		loadingIcon.parentNode.removeChild(loadingIcon);
-	}
-
-	homeBtn.disabled = true;
-
-	var input = document.getElementById("searchParam").value;
-	var url = `http://localhost:3000/personSearch?searchParam=${input}`
-	url = encodeURI(url)
-
-	createDiv("loadIcon", "loader");
-
-	fetch(url, {mode:'cors'}).then(function(response){
-		return response.json().then(function(myJson){
-			console.log(myJson)
-			let keys = Object.keys(myJson)
-
-
-			var loadIcon = document.getElementById("loadIcon");
-			loadIcon.parentNode.removeChild(loadIcon);
-			homeBtn.disabled = false;
-
-			createParagraph("resultMessage", "contentItems")
-			createTable("foundEntries", "contentItems")
-
-			let resMsg = document.getElementById("resultMessage")
-			let entryTable = document.getElementById("foundEntries")
-			let tblHeaderVal = ["Name", "Phone", "Dept", "Username", "Email"]
-			if(!keys.length) {
-				resMsg.innerHTML = "No entries found"
-			} else {
-
-				resMsg.innerHTML = `Found ${keys.length} entries`
-
-				for(key in keys) {
-
-					var entry = myJson[keys[key]]
-
-					let entryKeys = Object.keys(entry)
-
-					var row = entryTable.insertRow()
-					row.className = "tBodyRow"
-					for(entryKey in entryKeys) {
-						row.insertCell().innerHTML = entry[entryKeys[entryKey]]
-					}
-				}
-
-				let headerRow = entryTable.createTHead().insertRow(0)
-				headerRow.className = "thRow"
-				for(cellVal in tblHeaderVal) {
-					headerRow.insertCell().innerHTML = '<b>' +
-					tblHeaderVal[cellVal] + '</b>'
-				}
-			}
-		})
-	})
 }

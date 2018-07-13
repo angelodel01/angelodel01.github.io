@@ -62,7 +62,7 @@ window.onhashchange = function(jsonResp) {
 	console.log("old hash ", jsonResp.oldURL)
 console.log("HASH changed", location.hash.substring(1));
 	window.location = jsonResp.newURL
-	render({page : location.hash.substring(1)}, true)
+	render({page : location.hash.substring(1)}, false)
 }
 ///////////////////////////////History popState
 

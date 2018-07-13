@@ -11,20 +11,8 @@ var stateObj = {
 let initialize = function(){
 	console.log("loading page... ", location.hash)
 	if (location.hash){
-		let keyUrl = location.hash.substring(1);
-		_ignorehashchange = true;
-		window.location.hash = ""
-		_ignorehashchange = false;
-		if (keyUrl.includes("id_token")){
-			var id_tokenVal = keyUrl.substring("id_token=".length, keyUrl.indexOf("&"))
-	      var exprIndex = keyUrl.indexOf("expires_in") + "expires_in=".length
-	      var exprVal = keyUrl.substring(exprIndex, keyUrl.indexOf("&", exprIndex))
-
-			console.log("expiration time : ", exprVal);
-
-			setCookie("id_token", id_tokenVal, exprVal);
-		}
-		stateObj.page = keyUrl
+		console.log("location.hash != ''")
+		stateObj.page = location.hash.substring(1)
 	}
 	if(!window.history.state){
 		console.log("replacing history..... ", stateObj.page);
@@ -33,39 +21,54 @@ let initialize = function(){
 	render(stateObj, false)
 }
 window.onload = function () {
-console.log("LOADING PAGE");
-	initialize()
+	console.log("LOADING PAGE");
+	let keyUrl = location.hash.substring(1);
+	// _ignorehashchange = true;
+	// window.location.hash = ""
+	//_ignorehashchange = false;
+	if (keyUrl.includes("id_token")){
+		var id_tokenVal = keyUrl.substring("id_token=".length, keyUrl.indexOf("&"))
+		var exprIndex = keyUrl.indexOf("expires_in") + "expires_in=".length
+		var exprVal = keyUrl.substring(exprIndex, keyUrl.indexOf("&", exprIndex))
+
+		console.log("expiration time : ", exprVal);
+
+		setCookie("id_token", id_tokenVal, exprVal);
+		window.location = "https://angelodel01.github.io/"
+	} else {
+		initialize()
+	}
 }
 
 
 
 ;(function(window) {
 
-  // exit if the browser implements that event
-  if ("onhashchange" in window) { return; }
+	// exit if the browser implements that event
+	if ("onhashchange" in window) { return; }
 
-  var location = window.location,
-    oldURL = location.href,
-    oldHash = location.hash;
+	var location = window.location,
+	oldURL = location.href,
+	oldHash = location.hash;
 
-  // check the location hash on a 100ms interval
-  setInterval(function() {
-    var newURL = location.href,
-      newHash = location.hash;
+	// check the location hash on a 100ms interval
+	setInterval(function() {
+		var newURL = location.href,
+		newHash = location.hash;
 
-    // if the hash has changed and a handler has been bound...
-    if (newHash != oldHash && typeof window.onhashchange === "function") {
-      // execute the handler
-      window.onhashchange({
-        type: "hashchange",
-        oldURL: oldURL,
-        newURL: newURL
-      });
+		// if the hash has changed and a handler has been bound...
+		if (newHash != oldHash && typeof window.onhashchange === "function") {
+			// execute the handler
+			window.onhashchange({
+				type: "hashchange",
+				oldURL: oldURL,
+				newURL: newURL
+			});
 
-      oldURL = newURL;
-      oldHash = newHash;
-    }
- }, 1000);
+			oldURL = newURL;
+			oldHash = newHash;
+		}
+	}, 1000);
 
 })(window);
 
@@ -76,7 +79,7 @@ window.onhashchange = function(jsonResp) {
 		window.location = jsonResp.newURL
 		render({page : location.hash.substring(1)}, false)
 	}
-	
+
 }
 ///////////////////////////////History popState
 
@@ -96,29 +99,29 @@ function render(state, click_flag) {
 	console.log("rendering state .....", to_render);
 	switch(to_render.toUpperCase()) {
 		case "REPO":
-			 repoClick(click_flag)
-			 break;
+		repoClick(click_flag)
+		break;
 		case "STOCK":
-			searchClick(click_flag);
-			break;
+		searchClick(click_flag);
+		break;
 		case "PROTECTED":
-			protectedClick(click_flag);
-			break;
+		protectedClick(click_flag);
+		break;
 		case "PERSONSEARCH":
-			personSearchClick(click_flag);
-			break;
+		personSearchClick(click_flag);
+		break;
 		case "#":
-			goHome(click_flag);
-			break;
+		goHome(click_flag);
+		break;
 		default:
-			goHome(click_flag);
-			break;
+		goHome(click_flag);
+		break;
 	}
 }
 ///////////////////////////////FUNCTIONS TRIGGERED BY CLICKS
 
 function goHome(click_flag){
-console.log("ADDING HOME TO HISTORY 0", click_flag);
+	console.log("ADDING HOME TO HISTORY 0", click_flag);
 	if (click_flag){
 		console.log("ADDING HOME TO HISTORY", click_flag);
 		window.history.pushState({page : '#'}, 'homePage', '#')
@@ -167,7 +170,7 @@ function protectedClick(click_flag){
 	removeHome();
 	wipeWholePage();
 	protectedContent();
-	window.location.hash = "";
+	// window.location.hash = "";
 
 	return;
 }
@@ -175,7 +178,7 @@ function protectedClick(click_flag){
 function personSearchClick(click_flag) {
 	if (click_flag){
 		window.history.pushState({page : 'personSearch'}, 'personSearchPage',
-		 '#personSearch')
+		'#personSearch')
 	}
 
 	removeHome();
@@ -247,16 +250,16 @@ function protectedContent(){
 
 	// check cookie
 	// if (keyUrl != ""){
-		// var realUrl = keyUrl.split("&");
-		// var id_token = realUrl[0].slice(9);
-		// console.log("realUrl[2] : ", realUrl[2]);
-		// var exptime = realUrl[2].slice(11);
-		// setCookie("id_token", id_token, exptime);
-		// console.log("expiration time : ", exptime);
-		// console.log("pulled from cookie : ", key);
+	// var realUrl = keyUrl.split("&");
+	// var id_token = realUrl[0].slice(9);
+	// console.log("realUrl[2] : ", realUrl[2]);
+	// var exptime = realUrl[2].slice(11);
+	// setCookie("id_token", id_token, exptime);
+	// console.log("expiration time : ", exptime);
+	// console.log("pulled from cookie : ", key);
 	// 	var id_tokenVal = keyUrl.substring("id_token=".length, keyUrl.indexOf("&"))
-   //    var exprIndex = keyUrl.indexOf("expires_in") + "expires_in=".length
-   //    var exprVal = keyUrl.substring(exprIndex, keyUrl.indexOf("&", exprIndex))
+	//    var exprIndex = keyUrl.indexOf("expires_in") + "expires_in=".length
+	//    var exprVal = keyUrl.substring(exprIndex, keyUrl.indexOf("&", exprIndex))
 	//
 	// 	console.log("expiration time : ", exprVal);
 	//
@@ -264,7 +267,7 @@ function protectedContent(){
 	// }
 
 	var key = getCookie("id_token");
-console.log("key : ", key);
+	console.log("key : ", key);
 	if (key == ""){
 		let client_id = "2fior6770hvto4u6kuq084j7fu";
 		let redirect_uri = "https://angelodel01.github.io";
@@ -275,7 +278,7 @@ console.log("key : ", key);
 		return;
 	}
 	// var key = getCookie("id_token");
-console.log("key exists..... :", key)
+	console.log("key exists..... :", key)
 	createDiv("contentItems", "text")
 	createParagraph("display", "contentItems");
 	createTable("petsTable", "contentItems");

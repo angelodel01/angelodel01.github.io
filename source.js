@@ -1,8 +1,6 @@
 /*pw: Bcde@345
 */
 
-var _ignorehashchange = false;
-
 var stateObj = {
 	page : '#'
 }
@@ -23,9 +21,6 @@ let initialize = function(){
 window.onload = function () {
 	console.log("LOADING PAGE");
 	let keyUrl = location.hash.substring(1);
-	// _ignorehashchange = true;
-	// window.location.hash = ""
-	//_ignorehashchange = false;
 	if (keyUrl.includes("id_token")){
 		var id_tokenVal = keyUrl.substring("id_token=".length, keyUrl.indexOf("&"))
 		var exprIndex = keyUrl.indexOf("expires_in") + "expires_in=".length
@@ -75,10 +70,8 @@ window.onload = function () {
 
 
 window.onhashchange = function(jsonResp) {
-	if (!_ignorehashchange){
 		window.location = jsonResp.newURL
 		render({page : location.hash.substring(1)}, false)
-	}
 
 }
 ///////////////////////////////History popState
@@ -247,79 +240,61 @@ function setCookie(cname, cvalue, exsecs) {
 }
 
 /////////////////////////////////////////////CONTENT FUNCTIONS
-
-function protectedContent(){
-	console.log("inside protectedContent()");
-
-	// check cookie
-	// if (keyUrl != ""){
-	// var realUrl = keyUrl.split("&");
-	// var id_token = realUrl[0].slice(9);
-	// console.log("realUrl[2] : ", realUrl[2]);
-	// var exptime = realUrl[2].slice(11);
-	// setCookie("id_token", id_token, exptime);
-	// console.log("expiration time : ", exptime);
-	// console.log("pulled from cookie : ", key);
-	// 	var id_tokenVal = keyUrl.substring("id_token=".length, keyUrl.indexOf("&"))
-	//    var exprIndex = keyUrl.indexOf("expires_in") + "expires_in=".length
-	//    var exprVal = keyUrl.substring(exprIndex, keyUrl.indexOf("&", exprIndex))
-	//
-	// 	console.log("expiration time : ", exprVal);
-	//
-	// 	setCookie("id_token", id_tokenVal, exprVal)
-	// }
-
-	var key = getCookie("id_token");
-	console.log("key : ", key);
-	if (key == ""){
-		let client_id = "2fior6770hvto4u6kuq084j7fu";
-		let redirect_uri = "https://angelodel01.github.io";
-		let loginUrl = `https://cognito-dev.calpoly.edu/login?response_type=token&` +
-		`client_id=${client_id}&redirect_uri=${redirect_uri}`;
-		// window.location = "https://cognito-dev.calpoly.edu/login?response_type=token&client_id=2fior6770hvto4u6kuq084j7fu&redirect_uri=https://angelodel01.github.io";
-		window.location = loginUrl
-		return;
-	}
-	// var key = getCookie("id_token");
-	console.log("key exists..... :", key)
-	createDiv("contentItems", "text")
-	createParagraph("display", "contentItems");
-	createTable("petsTable", "contentItems");
-	createButton("Go Home", "goHome(true)", "h", "contentItems");
-
-	let id_token = key
-	document.getElementById("display").innerHTML = "<h2>PROTECTED CONTENT " +
-	"ACCESS GRANTED</h2><br><h4> You can now view and buy pets</h4>";
-
-	let dispTblPet = document.getElementById("petsTable");
-	var url = "https://api-dev.calpoly.edu/pets";
-	const headers = new Headers();
-	headers.append('Content-Type', 'application/json');
-	headers.append('Authorization', `Bearer ${id_token}`);
-
-	fetch(url, {headers: headers, mode : "cors"}).then(function(response){
-		return response.json();
-	})
-	.then(function(petsJson){
-
-		var keys = Object.keys(petsJson);
-		var petKeys = Object.keys(petsJson[0]);
-		for(key in keys) {
-			var petJson = petsJson[key]
-
-			var row = dispTblPet.insertRow();
-			row.className = "tBodyRow"
-			for(petKey in petKeys) {
-				var keyName = petKeys[petKey]
-				row.insertCell().innerHTML = petJson[keyName]
-			}
-		}
-
-		row = dispTblPet.createTHead().insertRow(0);
-		row.className = "thRow"
-		for (petKey in petKeys) {
-			row.insertCell().innerHTML = '<b>' + petKeys[petKey] + '</b>'
-		}
-	})
-	return;
-}
+//
+// function protectedContent(){
+// 	console.log("inside protectedContent()");
+//
+// 	var key = getCookie("id_token");
+// 	// console.log("key : ", key);
+// 	if (key == ""){
+// 		let client_id = "2fior6770hvto4u6kuq084j7fu";
+// 		let redirect_uri = "https://angelodel01.github.io";
+// 		let loginUrl = `https://cognito-dev.calpoly.edu/login?response_type=token&` +
+// 		`client_id=${client_id}&redirect_uri=${redirect_uri}`;
+//
+// 		window.location = loginUrl
+// 		return;
+// 	}
+// 	// var key = getCookie("id_token");
+// 	// console.log("key exists..... :", key)
+// 	createDiv("contentItems", "text")
+// 	createParagraph("display", "contentItems");
+// 	createTable("petsTable", "contentItems");
+// 	createButton("Go Home", "goHome(true)", "h", "contentItems");
+//
+// 	let id_token = key
+// 	document.getElementById("display").innerHTML = "<h2>PROTECTED CONTENT " +
+// 	"ACCESS GRANTED</h2><br><h4> You can now view and buy pets</h4>";
+//
+// 	let dispTblPet = document.getElementById("petsTable");
+// 	var url = "https://api-dev.calpoly.edu/pets";
+// 	const headers = new Headers();
+// 	headers.append('Content-Type', 'application/json');
+// 	headers.append('Authorization', `Bearer ${id_token}`);
+//
+// 	fetch(url, {headers: headers, mode : "cors"}).then(function(response){
+// 		return response.json();
+// 	})
+// 	.then(function(petsJson){
+//
+// 		var keys = Object.keys(petsJson);
+// 		var petKeys = Object.keys(petsJson[0]);
+// 		for(key in keys) {
+// 			var petJson = petsJson[key]
+//
+// 			var row = dispTblPet.insertRow();
+// 			row.className = "tBodyRow"
+// 			for(petKey in petKeys) {
+// 				var keyName = petKeys[petKey]
+// 				row.insertCell().innerHTML = petJson[keyName]
+// 			}
+// 		}
+//
+// 		row = dispTblPet.createTHead().insertRow(0);
+// 		row.className = "thRow"
+// 		for (petKey in petKeys) {
+// 			row.insertCell().innerHTML = '<b>' + petKeys[petKey] + '</b>'
+// 		}
+// 	})
+// 	return;
+// }

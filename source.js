@@ -248,7 +248,6 @@ function protectedContent(){
 	var key = getCookie("id_token");
 console.log("key : ", key);
 	if (key == ""){
-
 		let client_id = "2fior6770hvto4u6kuq084j7fu";
 		let redirect_uri = "https://angelodel01.github.io";
 		let loginUrl = `https://cognito-dev.calpoly.edu/login?response_type=token&` +
@@ -257,7 +256,8 @@ console.log("key : ", key);
 		window.location = loginUrl
 		return;
 	}
-
+	var key = getCookie("id_token");
+console.log("key exists..... :", key)
 	createDiv("contentItems", "text")
 	createParagraph("display", "contentItems");
 	createTable("petsTable", "contentItems");

@@ -14,7 +14,7 @@ let initialize = function(){
 	}
 console.log("replacing history..... ", stateObj.page)
 	if(!window.history.state)
-		window.history.replaceState(stateObj, "home", stateObj.page);
+		window.history.replaceState(stateObj, "home", location.hash);
 	else
 		render(stateObj, false)
 }
@@ -115,9 +115,7 @@ console.log("ADDING HOME TO HISTORY 0", click_flag);
 }
 
 function repoClick(click_flag){
-console.log("ADDING REPO TO HISTORY 0", click_flag);
 	if (click_flag){
-		console.log("ADDING REPO TO HISTORY", click_flag);
 		window.history.pushState({page : 'repo'}, 'repoPage', '#repo')
 	}
 	removeHome();
@@ -132,9 +130,7 @@ console.log("ADDING REPO TO HISTORY 0", click_flag);
 }
 
 function searchClick(click_flag){
-	console.log("ADDING STOCK TO HISTORY 0", click_flag);
 	if (click_flag){
-		console.log("ADDING STOCK TO HISTORY", click_flag);
 		window.history.pushState({page : 'stock'}, 'stockPage', '#stock')
 	}
 	removeHome();
@@ -165,8 +161,8 @@ function protectedClick(click_flag){
 
 function simpleSearchClick(click_flag) {
 	if (click_flag){
-		console.log("ADDING SIMPLE SEARCH TO HISTORY", click_flag);
-		window.history.pushState({page : 'simpleSearch'}, 'simpleSearchPage', '#simpleSearch')
+		window.history.pushState({page : 'simpleSearch'}, 'simpleSearchPage',
+		 '#simpleSearch')
 	}
 
 	removeHome();

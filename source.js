@@ -148,7 +148,7 @@ function searchClick(click_flag){
 }
 
 function protectedClick(click_flag){
-	if (click_flag){
+	if (click_flag && getCookie()){
 		window.history.pushState({page : 'protected'}, 'protectedPage', '#protected')
 	}
 	removeHome();
@@ -186,7 +186,7 @@ function getToken() {
 	let redirect_uri = "https://angelodel01.github.io";
 	let loginUrl = `https://cognito-dev.calpoly.edu/login?response_type=token&` +
 	`client_id=${client_id}&redirect_uri=${redirect_uri}`;
-	console.log("url :", loginUrl)
+
 	var xhr = new XMLHttpRequest();
 
 	xhr.open('GET', loginUrl, true);
@@ -234,7 +234,7 @@ function setCookie(cname, cvalue, exsecs) {
 
 function protectedContent(){
 	console.log("inside protectedContent()");
-	console.log("id_token : ", id_token);
+
 	// check cookie
 	if (keyUrl != ""){
 		var realUrl = keyUrl.split("&");
@@ -246,7 +246,9 @@ function protectedContent(){
 		console.log("pulled from cookie : ", key);
 	}
 	var key = getCookie("id_token");
+console.log("key : ", key);
 	if (key == ""){
+
 		let client_id = "2fior6770hvto4u6kuq084j7fu";
 		let redirect_uri = "https://angelodel01.github.io";
 		let loginUrl = `https://cognito-dev.calpoly.edu/login?response_type=token&` +

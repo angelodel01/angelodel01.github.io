@@ -160,7 +160,7 @@ function protectedClick(click_flag){
 	removeHome();
 	wipeWholePage();
 
-	console.log("js var : ", keyUrl);
+	//console.log("js var : ", keyUrl);
 
 	protectedContent();
 	window.location.hash = "";

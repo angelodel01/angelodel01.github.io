@@ -104,6 +104,7 @@ function render(state, click_flag) {
 
 function goHome(click_flag){
 	if (click_flag){
+		console.log("ADDING HOME TO HISTORY", click_flag);
 		window.history.pushState({page : '#'}, 'homePage', '#')
 	}
 	wipeWholePage();
@@ -114,6 +115,7 @@ function goHome(click_flag){
 
 function repoClick(click_flag){
 	if (click_flag){
+		console.log("ADDING REPO TO HISTORY", click_flag);
 		window.history.pushState({page : 'repo'}, 'repoPage', '#repo')
 	}
 	removeHome();
@@ -129,6 +131,7 @@ function repoClick(click_flag){
 
 function searchClick(click_flag){
 	if (click_flag){
+		console.log("ADDING STOCK TO HISTORY", click_flag);
 		window.history.pushState({page : 'stock'}, 'stockPage', '#stock')
 	}
 	removeHome();
@@ -159,6 +162,7 @@ function protectedClick(click_flag){
 
 function simpleSearchClick(click_flag) {
 	if (click_flag){
+		console.log("ADDING SIMPLE SEARCH TO HISTORY", click_flag);
 		window.history.pushState({page : 'simpleSearch'}, 'simpleSearchPage', '#simpleSearch')
 	}
 

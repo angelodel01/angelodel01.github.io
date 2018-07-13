@@ -88,7 +88,7 @@ window.addEventListener('popstate', function (event) {
 		console.log(event.state)
 		stateObj = event.state
 	}
-
+console.log("stateObj.page :", stateObj.page);
 	render(stateObj, false);
 })
 //////////////////////////////// Renderer

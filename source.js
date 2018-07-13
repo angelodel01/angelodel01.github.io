@@ -34,7 +34,7 @@ window.onload = function () {
 		console.log("expiration time : ", exprVal);
 
 		setCookie("id_token", id_tokenVal, exprVal);
-		window.location = "https://angelodel01.github.io/"
+		window.location = window.location.origin
 	} else {
 		initialize()
 	}

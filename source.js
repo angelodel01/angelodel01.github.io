@@ -15,8 +15,8 @@ let initialize = function(){
 console.log("replacing history..... ", stateObj.page)
 	if(!window.history.state)
 		window.history.replaceState(stateObj, "home", location.hash);
-	else
-		render(stateObj, false)
+
+	render(stateObj, false)
 }
 window.onload = function () {
 console.log("LOADING PAGE");

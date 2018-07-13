@@ -1,6 +1,7 @@
 /*pw: Bcde@345
 */
 
+var _ignorehashchange = false;
 
 var stateObj = {
 	page : '#'
@@ -11,7 +12,9 @@ let initialize = function(){
 	console.log("loading page... ", location.hash)
 	if (location.hash){
 		let keyUrl = location.hash.substring(1);
-		// window.location.hash = ""
+		_ignorehashchange = true;
+		window.location.hash = ""
+		_ignorehashchange = false;
 		if (keyUrl.includes("id_token")){
 			var id_tokenVal = keyUrl.substring("id_token=".length, keyUrl.indexOf("&"))
 	      var exprIndex = keyUrl.indexOf("expires_in") + "expires_in=".length
@@ -23,10 +26,10 @@ let initialize = function(){
 		}
 		stateObj.page = keyUrl
 	}
-console.log("replacing history..... ", stateObj.page)
-	if(!window.history.state)
+	if(!window.history.state){
+		console.log("replacing history..... ", stateObj.page);
 		window.history.replaceState(stateObj, "home", location.hash ? location.hash : "#");
-
+	}
 	render(stateObj, false)
 }
 window.onload = function () {
@@ -69,8 +72,11 @@ console.log("LOADING PAGE");
 
 
 window.onhashchange = function(jsonResp) {
-	window.location = jsonResp.newURL
-	render({page : location.hash.substring(1)}, false)
+	if (!_ignorehashchange){
+		window.location = jsonResp.newURL
+		render({page : location.hash.substring(1)}, false)
+	}
+	
 }
 ///////////////////////////////History popState
 
@@ -160,9 +166,6 @@ function protectedClick(click_flag){
 	}
 	removeHome();
 	wipeWholePage();
-
-	//console.log("js var : ", keyUrl);
-
 	protectedContent();
 	window.location.hash = "";
 

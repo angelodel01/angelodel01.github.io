@@ -2,15 +2,10 @@
 */
 
 var keyUrl = location.hash.substring(1);
-
-
-
-//////////////////////////INTIALIZATION FUNCTIONS
-
-
 var stateObj = {
 	page : '#'
 }
+//////////////////////////INTIALIZATION FUNCTIONS
 
 let initialize = function(){
 	console.log("loading page... ", location.hash)
@@ -237,14 +232,22 @@ function protectedContent(){
 
 	// check cookie
 	if (keyUrl != ""){
-		var realUrl = keyUrl.split("&");
-		var id_token = realUrl[0].slice(9);
-		console.log("realUrl[2] : ", realUrl[2]);
-		var exptime = realUrl[2].slice(11);
-		setCookie("id_token", id_token, exptime);
-		console.log("expiration time : ", exptime);
-		console.log("pulled from cookie : ", key);
+		// var realUrl = keyUrl.split("&");
+		// var id_token = realUrl[0].slice(9);
+		// console.log("realUrl[2] : ", realUrl[2]);
+		// var exptime = realUrl[2].slice(11);
+		// setCookie("id_token", id_token, exptime);
+		// console.log("expiration time : ", exptime);
+		// console.log("pulled from cookie : ", key);
+		var id_tokenVal = keyUrl.substring("id_token=".length, keyUrl.indexOf("&"))
+      var exprIndex = keyUrl.indexOf("expires_in") + "expires_in=".length
+      var exprVal = keyUrl.substring(exprIndex, keyUrl.indexOf("&", exprIndex))
+
+		console.log("expiration time : ", exprVal);
+
+		setCookie("id_token", id_tokenVal, exprVal)
 	}
+
 	var key = getCookie("id_token");
 console.log("key : ", key);
 	if (key == ""){
@@ -256,14 +259,14 @@ console.log("key : ", key);
 		window.location = loginUrl
 		return;
 	}
-	var key = getCookie("id_token");
+	// var key = getCookie("id_token");
 console.log("key exists..... :", key)
 	createDiv("contentItems", "text")
 	createParagraph("display", "contentItems");
 	createTable("petsTable", "contentItems");
 	createButton("Go Home", "goHome(true)", "h", "contentItems");
 
-	id_token = key
+	let id_token = key
 	document.getElementById("display").innerHTML = "<h2>PROTECTED CONTENT " +
 	"ACCESS GRANTED</h2><br><h4> You can now view and buy pets</h4>";
 

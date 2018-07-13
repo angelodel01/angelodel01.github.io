@@ -1,7 +1,7 @@
 /*pw: Bcde@345
 */
 
-var keyUrl = location.hash.substring(1);
+
 var stateObj = {
 	page : '#'
 }
@@ -10,7 +10,18 @@ var stateObj = {
 let initialize = function(){
 	console.log("loading page... ", location.hash)
 	if (location.hash){
-		stateObj.page = location.hash.substring(1)
+		let keyUrl = location.hash.substring(1);
+		window.location.hash = ""
+		if (keyUrl.includes("id_token")){
+			var id_tokenVal = keyUrl.substring("id_token=".length, keyUrl.indexOf("&"))
+	      var exprIndex = keyUrl.indexOf("expires_in") + "expires_in=".length
+	      var exprVal = keyUrl.substring(exprIndex, keyUrl.indexOf("&", exprIndex))
+
+			console.log("expiration time : ", exprVal);
+
+			setCookie("id_token", id_tokenVal, exprVal);
+		}
+		stateObj.page = keyUrl
 	}
 console.log("replacing history..... ", stateObj.page)
 	if(!window.history.state)
@@ -143,7 +154,7 @@ function searchClick(click_flag){
 }
 
 function protectedClick(click_flag){
-	if (click_flag && getCookie()){
+	if (click_flag && getCookie("id_token")){
 		window.history.pushState({page : 'protected'}, 'protectedPage', '#protected')
 	}
 	removeHome();
@@ -231,7 +242,7 @@ function protectedContent(){
 	console.log("inside protectedContent()");
 
 	// check cookie
-	if (keyUrl != ""){
+	// if (keyUrl != ""){
 		// var realUrl = keyUrl.split("&");
 		// var id_token = realUrl[0].slice(9);
 		// console.log("realUrl[2] : ", realUrl[2]);
@@ -239,14 +250,14 @@ function protectedContent(){
 		// setCookie("id_token", id_token, exptime);
 		// console.log("expiration time : ", exptime);
 		// console.log("pulled from cookie : ", key);
-		var id_tokenVal = keyUrl.substring("id_token=".length, keyUrl.indexOf("&"))
-      var exprIndex = keyUrl.indexOf("expires_in") + "expires_in=".length
-      var exprVal = keyUrl.substring(exprIndex, keyUrl.indexOf("&", exprIndex))
-
-		console.log("expiration time : ", exprVal);
-
-		setCookie("id_token", id_tokenVal, exprVal)
-	}
+	// 	var id_tokenVal = keyUrl.substring("id_token=".length, keyUrl.indexOf("&"))
+   //    var exprIndex = keyUrl.indexOf("expires_in") + "expires_in=".length
+   //    var exprVal = keyUrl.substring(exprIndex, keyUrl.indexOf("&", exprIndex))
+	//
+	// 	console.log("expiration time : ", exprVal);
+	//
+	// 	setCookie("id_token", id_tokenVal, exprVal)
+	// }
 
 	var key = getCookie("id_token");
 console.log("key : ", key);

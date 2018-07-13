@@ -126,7 +126,7 @@ console.log("ADDING REPO TO HISTORY 0", click_flag);
 	createDiv("contentItems", "text")
 	createInputBox("Input", "contentItems");
 	createButton("List Repos", "accessFunction()", "bn", "contentItems");
-	createButton("Go Home", "goHome()", "h", "contentItems");
+	createButton("Go Home", "goHome(true)", "h", "contentItems");
 
 	return;
 }
@@ -143,7 +143,7 @@ function searchClick(click_flag){
 	createDiv("contentItems", "text")
 	createInputBox("Input", "contentItems");
 	createButton("Search Stock", "searchFunction()", "bn", "contentItems");
-	createButton("Go Home", "goHome()", "h", "contentItems");
+	createButton("Go Home", "goHome(true)", "h", "contentItems");
 
 	return;
 }
@@ -175,7 +175,7 @@ function simpleSearchClick(click_flag) {
 	createDiv("contentItems", "text")
 	createInputBox("searchParam", "contentItems");
 	createButton("Search Person", "personSearch()", "bn", "contentItems");
-	createButton("Go Home", "goHome()", "h", "contentItems");
+	createButton("Go Home", "goHome(true)", "h", "contentItems");
 
 	return;
 }
@@ -324,7 +324,7 @@ function protectedContent(){
 	createDiv("contentItems", "text")
 	createParagraph("display", "contentItems");
 	createTable("petsTable", "contentItems");
-	createButton("Go Home", "goHome()", "h", "contentItems");
+	createButton("Go Home", "goHome(true)", "h", "contentItems");
 
 	id_token = key
 	document.getElementById("display").innerHTML = "<h2>PROTECTED CONTENT " +

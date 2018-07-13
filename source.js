@@ -14,7 +14,7 @@ let initialize = function(){
 	}
 console.log("replacing history..... ", stateObj.page)
 	if(!window.history.state)
-		window.history.replaceState(stateObj, "home", location.hash);
+		window.history.replaceState(stateObj, "home", location.hash ? location.hash : "#");
 
 	render(stateObj, false)
 }
@@ -58,9 +58,6 @@ console.log("LOADING PAGE");
 
 
 window.onhashchange = function(jsonResp) {
-	console.log("new hash ", jsonResp.newURL)
-	console.log("old hash ", jsonResp.oldURL)
-console.log("HASH changed", location.hash.substring(1));
 	window.location = jsonResp.newURL
 	render({page : location.hash.substring(1)}, false)
 }

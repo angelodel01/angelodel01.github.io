@@ -1,11 +1,9 @@
-/*pw: Bcde@345
-*/
-
 var stateObj = {
 	page : '#'
 }
-//////////////////////////INTIALIZATION FUNCTIONS
 
+//////////////////////////INTIALIZATION FUNCTIONS
+// Initializes history state
 let initialize = function(){
 	console.log("loading page... ", location.hash)
 	if (location.hash){
@@ -18,6 +16,8 @@ let initialize = function(){
 	}
 	render(stateObj, false)
 }
+
+// Renders page based on the history state when window loads
 window.onload = function () {
 	console.log("LOADING PAGE");
 	let keyUrl = location.hash.substring(1);
@@ -35,8 +35,8 @@ window.onload = function () {
 	}
 }
 
-
-
+// Polls for hash changes(mostly for deep link page loads)
+// src: https://developer.mozilla.org/en-US/docs/Web/Events/hashchange
 ;(function(window) {
 
 	// exit if the browser implements that event
@@ -67,15 +67,13 @@ window.onload = function () {
 
 })(window);
 
-
-
+// Triggered by a change in hashfrag that causes the page to re-render
 window.onhashchange = function(jsonResp) {
 		window.location = jsonResp.newURL
 		render({page : location.hash.substring(1)}, false)
-
 }
-///////////////////////////////History popState
 
+// Event listener for use of back or front button
 window.addEventListener('popstate', function (event) {
 	if(event.state) {
 		console.log(event.state)
@@ -84,8 +82,8 @@ window.addEventListener('popstate', function (event) {
 console.log("stateObj.page :", stateObj.page);
 	render(stateObj, false);
 })
-//////////////////////////////// Renderer
 
+// Renders the page based on the page attribute of the history state
 function render(state, click_flag) {
 
 	let to_render = state.page
@@ -111,8 +109,9 @@ function render(state, click_flag) {
 		break;
 	}
 }
-///////////////////////////////FUNCTIONS TRIGGERED BY CLICKS
 
+///////////////////////////////BUTTON CLICK FUNCTIONS 
+// Navigates back home to the homepage
 function goHome(click_flag){
 	console.log("ADDING HOME TO HISTORY 0", click_flag);
 	if (click_flag){
@@ -125,6 +124,7 @@ function goHome(click_flag){
 	ogHead.style.display = "block";
 }
 
+// Navigates to repo page
 function repoClick(click_flag){
 	if (click_flag){
 		window.history.pushState({page : 'repo'}, 'repoPage', '#repo')
@@ -140,6 +140,7 @@ function repoClick(click_flag){
 	return;
 }
 
+// Navigates to stock page
 function searchClick(click_flag){
 	if (click_flag){
 		window.history.pushState({page : 'stock'}, 'stockPage', '#stock')
@@ -155,22 +156,19 @@ function searchClick(click_flag){
 	return;
 }
 
+// Handles redirection and verification for protected page
 function protectedClick(click_flag){
 
 	if (click_flag && (getCookie("id_token") != "")){
 		window.history.pushState({page : 'protected'}, 'protectedPage', '#protected')
 	}
-	// else if (click_flag && (getCookie("id_token") == "")) {
-	// 	window.history.pushState({page : '#'}, 'homePage', '#')
-	// }
 	removeHome();
 	wipeWholePage();
 	protectedContent();
-	// window.location.hash = "";
-
 	return;
 }
 
+// Navigates to personSearch page
 function personSearchClick(click_flag) {
 	if (click_flag){
 		window.history.pushState({page : 'personSearch'}, 'personSearchPage',
@@ -187,34 +185,10 @@ function personSearchClick(click_flag) {
 
 	return;
 }
-/////////////////////////////MISCELLANEOUS FUNCTIONS
+/////////////////////////////COOKIE FUNCTIONS
+// src: https://www.w3schools.com/js/js_cookies.asp
 
-// make the request to the login endpoint
-function getToken() {
-	let client_id = "2fior6770hvto4u6kuq084j7fu";
-	let redirect_uri = "https://angelodel01.github.io";
-	let loginUrl = `https://cognito-dev.calpoly.edu/login?response_type=token&` +
-	`client_id=${client_id}&redirect_uri=${redirect_uri}`;
-
-	var xhr = new XMLHttpRequest();
-
-	xhr.open('GET', loginUrl, true);
-	xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
-	xhr.addEventListener('load', function() {
-		var responseObject = JSON.parse(this.response);
-		console.log(responseObject);
-		if (responseObject.token) {
-			document.cookie = responseObject.token;
-		} else {
-			console.log("No token received");
-		}
-	});
-
-	console.log('going to send', sendObject);
-
-	xhr.send();
-}
-
+// Gets the value of a cookie where cname is the key
 function getCookie(cname) {
 	console.log("inside getCookie()");
 	var name = cname + "=";
@@ -232,6 +206,8 @@ function getCookie(cname) {
 	return "";
 }
 
+
+// Sets cookie where cvalue is the value. cname is the key and exsecs are the seconds till expiration
 function setCookie(cname, cvalue, exsecs) {
 	var d = new Date();
 	d.setTime(d.getTime() + exsecs*1000)

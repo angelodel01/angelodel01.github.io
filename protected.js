@@ -3,7 +3,6 @@ function protectedContent(){
 	console.log("inside protectedContent()");
 
 	var key = getCookie("id_token");
-	// console.log("key : ", key);
 	if (key == ""){
 		let client_id = "2fior6770hvto4u6kuq084j7fu";
 		let redirect_uri = "https://angelodel01.github.io";
@@ -13,14 +12,12 @@ function protectedContent(){
 		window.location = loginUrl
 		return;
 	}
-	// var key = getCookie("id_token");
-	// console.log("key exists..... :", key)
+
 	createDiv("contentItems", "text")
 	createParagraph("display", "contentItems");
 	createTable("petsTable", "contentItems");
 	createButton("Go Home", "goHome(true)", "h", "contentItems");
 
-	let id_token = key
 	document.getElementById("display").innerHTML = "<h2>PROTECTED CONTENT " +
 	"ACCESS GRANTED</h2><br><h4> You can now view and buy pets</h4>";
 
@@ -28,7 +25,7 @@ function protectedContent(){
 	var url = "https://api-dev.calpoly.edu/pets";
 	const headers = new Headers();
 	headers.append('Content-Type', 'application/json');
-	headers.append('Authorization', `Bearer ${id_token}`);
+	headers.append('Authorization', `Bearer ${key}`);
 
 	fetch(url, {headers: headers, mode : "cors"}).then(function(response){
 		return response.json();

@@ -1,11 +1,14 @@
 
-
+// Hides the home page elements
 function removeHome(){
 	var ogHead = document.getElementById("ogB");
 	ogHead.style.display = "none";
 	return;
 }
 
+
+// Loops through the childNodes of the body and removes the appropriate elements.
+// (mostly for wiping child page elements while not effecting home page elements)
 function wipeWholePage(){
 	var currNode = document.body.childNodes
 	for (var i = 0; i < currNode.length; i++) {
@@ -18,6 +21,13 @@ function wipeWholePage(){
 	}
 }
 
+
+// CREATE FUNCTIONS
+// These functions are each responsible for creating a different elements
+// Appends them to the parentNode designated by the given parentId.
+//
+
+// Creates html "Button"
 function createButton(message, func, id, parentId){
 	var mess;
 	var btn;
@@ -32,6 +42,7 @@ function createButton(message, func, id, parentId){
 	parentNode.appendChild(btn);
 }
 
+// Creates html "input"
 function createInputBox(id, parentId){
 	var parentNode = document.getElementById(parentId)
 	var box = document.createElement("INPUT");
@@ -42,6 +53,7 @@ function createInputBox(id, parentId){
 	parentNode.appendChild(box);
 }
 
+// Creates html "p" elements
 function createParagraph(id, parentId){
 	var parentNode = document.getElementById(parentId)
 	var p = document.createElement("P");
@@ -50,6 +62,7 @@ function createParagraph(id, parentId){
 	parentNode.appendChild(p);
 }
 
+// Creates html "Table" elements
 function createTable(id, parentId){
 	var parentNode = document.getElementById(parentId)
 	var t = document.createElement("TABLE");
@@ -58,6 +71,8 @@ function createTable(id, parentId){
 	parentNode.appendChild(t);
 }
 
+
+// Creates html "div" elements
 function createDiv(id, clas, parentId){
 	var parentNode;
 	if(!parentId)

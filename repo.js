@@ -21,7 +21,7 @@ function accessFunction(){
 		let repoKeys = Object.keys(repoJson);
 		if(repoKeys.includes("message")) {
 			console.log(repoJson);
-			createDiv("errorMess", "error");
+			createDiv("errorMess", "error", "contentItems");
 			let erro = document.getElementById("errorMess")
 			erro.innerHTML = "<h2> Enter valid access token and try again </h2>"
 			return

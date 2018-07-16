@@ -23,7 +23,7 @@ function searchFunction(){
 			if (s_table != null){
 				s_table.parentNode.removeChild(s_table);
 			}
-			createDiv("errorMess", "error")
+			createDiv("errorMess", "error", "contentItems")
 			document.getElementById("errorMess").innerHTML = "<h2> Invalid " +
 			"Corporation Symbol </h2>";
 		}

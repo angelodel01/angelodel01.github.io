@@ -9,6 +9,7 @@ function removeHome(){
 function wipeWholePage(){
 	var currNode = document.body.childNodes
 	for (var i = 0; i < currNode.length; i++) {
+		console.log("curr id", currNode[i].id);
 		if(currNode[i].id !== "ogB" &&
 		currNode[i].id !== undefined && currNode[i].nodeName !== "H"){
 			console.log("Removing.....", currNode[i].id)
@@ -57,9 +58,15 @@ function createTable(id, parentId){
 	parentNode.appendChild(t);
 }
 
-function createDiv(id, clas){
+function createDiv(id, clas, parentId){
+	var parentNode;
+	if(!parentId)
+		parentNode = document.body
+	else
+		parentNode = document.getElementById(parentId)
+
 	var d = document.createElement("DIV");
 	d.setAttribute("id", id);
 	d.setAttribute("class", clas);
-	document.body.appendChild(d);
+	parentNode.appendChild(d);
 }

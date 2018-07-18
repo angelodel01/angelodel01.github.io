@@ -1,9 +1,9 @@
-import React from "react";
-import { BrowserRouter as Router, Route, Link, Redirect, withRouter} from 'react-router-dom'
-
-import { searchFunction } from './stock.js'
-import { accessFunction } from './repo.js'
-import { personSearch } from './personSearch.js'
+// import React from "react";
+// import { BrowserRouter as Router, Route, Link, Redirect, withRouter} from 'react-router-dom'
+//
+// import { searchFunction } from './stock.js'
+// import { accessFunction } from './repo.js'
+// import { personSearch } from './personSearch.js'
 
 
 const App = React.createClass({
@@ -11,7 +11,7 @@ const App = React.createClass({
      return (
         <div>
         <header>Cal Poly</header><br></br>
-        <Router>
+        <BrowserRouter>
           <div id ="ogB">
 
             <hr />
@@ -22,7 +22,7 @@ const App = React.createClass({
             <Route path="/protected" component={Protected} />
             <Route path="/personSearch" component={PersonSearch} />
           </div>
-        </Router>
+        </BrowserRouter>
        </div>
     )}
 });

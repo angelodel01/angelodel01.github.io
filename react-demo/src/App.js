@@ -1,9 +1,9 @@
-// import React from "react";
-// import { BrowserRouter as Router, Route, Link, Redirect, withRouter} from 'react-router-dom'
-//
-// import { searchFunction } from './stock.js'
-// import { accessFunction } from './repo.js'
-// import { personSearch } from './personSearch.js'
+import React from "react";
+import { BrowserRouter as Router, Route, Link, Redirect, withRouter} from 'react-router-dom'
+
+import { searchFunction } from './stock.js'
+import { accessFunction } from './repo.js'
+import { personSearch } from './personSearch.js'
 
 
 const App = React.createClass({

@@ -68,8 +68,8 @@ const Protected = () => (
   </div>
 );
 
-//
-// export default App;
+
+export default App;
 
 
 

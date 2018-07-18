@@ -1,5 +1,5 @@
-// import React from "react";
-// import { BrowserRouter as Router, Route, Link, Redirect, withRouter} from 'react-router-dom'
+import React from "react";
+import { BrowserRouter as Router, Route, Link, Redirect, withRouter} from 'react-router-dom'
 
 import { searchFunction } from './stock.js'
 import { accessFunction } from './repo.js'

@@ -48,7 +48,7 @@ const Stock = React.createClass({
             <button id="bn" onClick={searchFunction} className="button">Search Stock</button>
             <Link to="/"><button className= "button">Home</button></Link>
         </div>
-     })
+     )}
 });
 
 const Repo = React.createClass({
@@ -61,7 +61,7 @@ const Repo = React.createClass({
             </div>
           <Link to="/"><button className= "button">Home</button></Link>
         </div>
-     })
+     )}
 });
 
 const PersonSearch = React.createClass({
@@ -74,7 +74,7 @@ const PersonSearch = React.createClass({
             </div>
           <Link to="/"><button className= "button">Home</button></Link>
         </div>
-     })
+     )}
 });
 
 const Protected = React.createClass({
@@ -83,7 +83,7 @@ const Protected = React.createClass({
         <div>
           <Link to="/"><button className= "button">Home</button></Link>
         </div>
-     })
+     )}
 });
 
 ReactDOM.render(<App />, document.getElementById('root'));

@@ -4,6 +4,9 @@
 // import { searchFunction } from './stock.js'
 // import { accessFunction } from './repo.js'
 // import { personSearch } from './personSearch.js'
+
+console.log(window.ReactRouterDOM);
+
 var BrowserRouter = window.ReactRouterDOM.BrowserRouter;
 var Route = window.ReactRouterDOM.Route;
 var Link = window.ReactRouterDOM.Link;

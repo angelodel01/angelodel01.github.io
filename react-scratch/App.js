@@ -5,7 +5,7 @@
 // import { accessFunction } from './repo.js'
 // import { personSearch } from './personSearch.js'
 
-console.log(window.ReactRouterDOM);
+// console.log(window.ReactRouterDOM);
 
 const BrowserRouter = window.ReactRouterDOM.BrowserRouter;
 const Route = window.ReactRouterDOM.Route;
@@ -27,6 +27,14 @@ class App extends React.Component{
           <div id ="ogB">
 
             <hr />
+
+            <div>
+              <h2 id= "title">HTML Buttons</h2>
+                <Link to="/repo"><button className= "button">Display Repos</button></Link>
+                <Link to="/stock"><button className= "button">Check Stock Info</button></Link>
+                <Link to="/protected"><button className= "button">Protected Resource</button></Link>
+                <Link to="/personSearch"><button className= "button">Search Directory</button></Link>
+            </div>
 
             <Route exact path="/" component={Home} />
             <Route path="/stock" component={Stock} />

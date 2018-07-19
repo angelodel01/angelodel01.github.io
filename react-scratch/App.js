@@ -7,11 +7,11 @@
 
 console.log(window.ReactRouterDOM);
 
-var BrowserRouter = window.ReactRouterDOM.BrowserRouter;
-var Route = window.ReactRouterDOM.Route;
-var Link = window.ReactRouterDOM.Link;
-var Redirect = window.ReactRouterDOM.Redirect;
-var withRouter = window.ReactRouterDOM.withRouter;
+const BrowserRouter = window.ReactRouterDOM.BrowserRouter;
+const Route = window.ReactRouterDOM.Route;
+const Link = window.ReactRouterDOM.Link;
+const Redirect = window.ReactRouterDOM.Redirect;
+const withRouter = window.ReactRouterDOM.withRouter;
 
 
 

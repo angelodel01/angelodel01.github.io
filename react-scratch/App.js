@@ -4,11 +4,11 @@
 // import { searchFunction } from './stock.js'
 // import { accessFunction } from './repo.js'
 // import { personSearch } from './personSearch.js'
-var BrowserRouter = ReactRouter.BrowserRouter;
-var Route = ReactRouter.Route;
-// var Link = ReactRouter.Link;
-var Redirect = ReactRouter.Redirect;
-var withRouter = ReactRouter.withRouter;
+var BrowserRouter = window.ReactRouterDOM.BrowserRouter;
+var Route = window.ReactRouterDOM.Route;
+var Link = window.ReactRouterDOM.Link;
+var Redirect = window.ReactRouterDOM.Redirect;
+var withRouter = window.ReactRouterDOM.withRouter;
 
 
 

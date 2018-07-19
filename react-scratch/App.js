@@ -18,7 +18,7 @@ const withRouter = window.ReactRouterDOM.withRouter;
 // const App = React.createClass({
 //   render: function()  {
 
-default class App extends React.Component{
+class App extends React.Component{
    render(){
      return (
         <div>
@@ -39,7 +39,7 @@ default class App extends React.Component{
     )}
 }
 
-default class Home extends React.Component {
+class Home extends React.Component {
   render(){
      return (
         <div>
@@ -52,7 +52,7 @@ default class Home extends React.Component {
      )}
 }
 
-default class Stock extends React.Component {
+class Stock extends React.Component {
   render(){
      return (
          <div id="contentItems" className="text">
@@ -63,7 +63,7 @@ default class Stock extends React.Component {
      )}
 }
 
-default class Repo extends React.Component {
+class Repo extends React.Component {
   render(){
      return (
         <div>
@@ -76,7 +76,7 @@ default class Repo extends React.Component {
      )}
 }
 
-default class PersonSearch extends React.Component {
+class PersonSearch extends React.Component {
   render(){
      return (
         <div>
@@ -89,7 +89,7 @@ default class PersonSearch extends React.Component {
      )}
 }
 
-default class Protected extends React.Component {
+class Protected extends React.Component {
   render(){
      return (
         <div>

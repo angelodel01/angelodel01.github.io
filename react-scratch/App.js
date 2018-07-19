@@ -15,8 +15,11 @@ const withRouter = window.ReactRouterDOM.withRouter;
 
 
 
-const App = React.createClass({
-  render: function()  {
+// const App = React.createClass({
+//   render: function()  {
+
+default class App extends React.Component{
+   render(){
      return (
         <div>
         <header>Cal Poly</header><br></br>
@@ -34,10 +37,10 @@ const App = React.createClass({
         </BrowserRouter>
        </div>
     )}
-});
+}
 
-const Home = React.createClass({
-  render: function()  {
+default class Home extends React.Component {
+  render(){
      return (
         <div>
           <h2 id= "title">HTML Buttons</h2>
@@ -47,10 +50,10 @@ const Home = React.createClass({
             <Link to="/personSearch"><button className= "button">Search Directory</button></Link>
         </div>
      )}
-});
+}
 
-const Stock = React.createClass({
-  render: function()  {
+default class Stock extends React.Component {
+  render(){
      return (
          <div id="contentItems" className="text">
             <input type="text" placeholder="Type here..." id="Input" className="textBox"></input>
@@ -58,10 +61,10 @@ const Stock = React.createClass({
             <Link to="/"><button className= "button">Home</button></Link>
         </div>
      )}
-});
+}
 
-const Repo = React.createClass({
-  render: function()  {
+default class Repo extends React.Component {
+  render(){
      return (
         <div>
             <div id="contentItems" className="text">
@@ -71,10 +74,10 @@ const Repo = React.createClass({
           <Link to="/"><button className= "button">Home</button></Link>
         </div>
      )}
-});
+}
 
-const PersonSearch = React.createClass({
-  render: function()  {
+default class PersonSearch extends React.Component {
+  render(){
      return (
         <div>
             <div id="contentItems" className="text">
@@ -84,16 +87,16 @@ const PersonSearch = React.createClass({
           <Link to="/"><button className= "button">Home</button></Link>
         </div>
      )}
-});
+}
 
-const Protected = React.createClass({
-  render: function()  {
+default class Protected extends React.Component {
+  render(){
      return (
         <div>
           <Link to="/"><button className= "button">Home</button></Link>
         </div>
      )}
-});
+}
 
 ReactDOM.render(<App />, document.getElementById('root'));
 // export default App;

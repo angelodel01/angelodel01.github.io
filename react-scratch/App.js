@@ -13,11 +13,6 @@ const Link = window.ReactRouterDOM.Link;
 const Redirect = window.ReactRouterDOM.Redirect;
 const withRouter = window.ReactRouterDOM.withRouter;
 
-const Button = withRouter(({ history }) => (
-    type='button'
-    onClick={() => { history.push('/new-location') }}
-))
-
 // const App = React.createClass({
 //   render: function()  {
 

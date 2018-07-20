@@ -30,8 +30,7 @@ class App extends React.Component{
             <Route exact path="/react-scratch/" component={Home} />
             <Route path="/react-scratch/stock" component={Stock} />
             <Route path="/react-scratch/repo" component={Repo} />
-            <Route path="/react-scratch/login" component={Login} />
-            <PrivateRoute path="/react-scratch/protected" component={Protected} />
+            <Route path="/react-scratch/protected" component={Protected} />
             <Route path="/react-scratch/personSearch" component={PersonSearch} />
           </div>
         </BrowserRouter>
@@ -98,75 +97,72 @@ class Protected extends React.Component {
      )}
 }
 
-
-const PrivateRoute = ({ component: Component, ...rest }) => (
-  <Route
-    {...rest}
-    render={props =>
-      fakeAuth.isAuthenticated ? (
-        <Component {...props} />
-      ) : (
-        <Redirect
-          to={{
-            pathname: "/login",
-            state: { from: props.location }
-          }}
-        />
-      )
-    }
-  />
-);
-
-
-const fakeAuth = {
-  isAuthenticated: false,
-  authenticate(cb) {
-    this.isAuthenticated = true;
-    setTimeout(cb, 100); // fake async
-  },
-  signout(cb) {
-    this.isAuthenticated = false;
-    setTimeout(cb, 100);
-  }
-};
+//
+// const PrivateRoute = ({ component: Component, ...rest }) => (
+//   <Route
+//     {...rest}
+//     render={props =>
+//       fakeAuth.isAuthenticated ? (
+//         <Component {...props} />
+//       ) : (
+//         <Redirect
+//           to={{
+//             pathname: "/login",
+//             state: { from: props.location }
+//           }}
+//         />
+//       )
+//     }
+//   />
+// );
 
 
-class Login extends React.Component {
-  this.state = {
-    redirectToReferrer: false
-  };
+// const fakeAuth = {
+//   isAuthenticated: false,
+//   authenticate(cb) {
+//     this.isAuthenticated = true;
+//     setTimeout(cb, 100); // fake async
+//   },
+//   signout(cb) {
+//     this.isAuthenticated = false;
+//     setTimeout(cb, 100);
+//   }
+// };
 
-  // login = () => {
-  //   fakeAuth.authenticate(() => {
-  //     this.setState({ redirectToReferrer: true });
-  //   });
-  // };
-  login = () => {
-     let client_id = "2fior6770hvto4u6kuq084j7fu";
-     let redirect_uri = "https://angelodel01.github.io/react-scratch/";
-     let loginUrl = `https://cognito-dev.calpoly.edu/login?response_type=token&` +
-     `client_id=${client_id}&redirect_uri=${redirect_uri}`;
-     window.location = loginUrl;
-
- }
-
-
-  render() {
-    const { from } = this.props.location.state || { from: { pathname: "/" } };
-    const { redirectToReferrer } = this.state;
-
-    if (redirectToReferrer) {
-      return <Redirect to={from} />;
-    }
-
-    return (
-      <div>
-        <p>You must log in to view the page at {from.pathname}</p>
-        <button className="button" onClick={this.login}>Log in</button>
-      </div>
-    );
-  }
-}
+//
+// class Login extends React.Component {
+//   this.setState({redirectToReferrer: false});
+//   // login = () => {
+//   //   fakeAuth.authenticate(() => {
+//   //     this.setState({ redirectToReferrer: true });
+//   //   });
+//   // };
+//   login = () => {
+//      let client_id = "2fior6770hvto4u6kuq084j7fu";
+//      let redirect_uri = "https://angelodel01.github.io/react-scratch/";
+//      let loginUrl = `https://cognito-dev.calpoly.edu/login?response_type=token&` +
+//      `client_id=${client_id}&redirect_uri=${redirect_uri}`;
+//      window.location = loginUrl;
+//
+//  }
+//
+//
+//   render() {
+//     const { from } = this.props.location.state || { from: { pathname: "/" } };
+//     const { redirectToReferrer } = this.state;
+//
+//     if (redirectToReferrer) {
+//       return <Redirect to={from} />;
+//     }
+//
+//     return (
+//       <div>
+//         <p>You must log in to view the page at {from.pathname}</p>
+//         <button className="button" onClick={this.login}>Log in</button>
+//       </div>
+//     );
+//   }
+// }
 
 
 

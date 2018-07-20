@@ -132,7 +132,9 @@ const fakeAuth = {
 
 
 class Login extends React.Component {
-  this.setState({redirectToReferrer: false});
+  state : {
+    redirectToReferrer: false
+  };
   // login = () => {
   //   fakeAuth.authenticate(() => {
   //     this.setState({ redirectToReferrer: true });

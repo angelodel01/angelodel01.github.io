@@ -28,15 +28,8 @@ class App extends React.Component{
 
             <hr />
 
-            <div>
-              <h2 id= "title">HTML Buttons</h2>
-                <Link to="/repo"><button className= "button">Display Repos</button></Link>
-                <Link to="/stock"><button className= "button">Check Stock Info</button></Link>
-                <Link to="/protected"><button className= "button">Protected Resource</button></Link>
-                <Link to="/personSearch"><button className= "button">Search Directory</button></Link>
-            </div>
 
-            <Route exact path="/" component={Home} />
+            <Route exact path="/react-scratch/" component={Home} />
             <Route path="/stock" component={Stock} />
             <Route path="/repo" component={Repo} />
             <Route path="/protected" component={Protected} />

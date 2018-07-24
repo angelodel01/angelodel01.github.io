@@ -16,9 +16,7 @@ function personSearch() {
 	if(loadingIcon) {
 		loadingIcon.parentNode.removeChild(loadingIcon);
 	}
-
 	homeBtn.disabled = true;
-
 	var input = document.getElementById("searchParam").value;
 	var url = `http://localhost:8080/personSearch?searchParam=${input}`
 	url = encodeURI(url)

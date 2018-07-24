@@ -160,20 +160,15 @@ class Login extends React.Component {
     const { from } = this.props.location.state || { from: { pathname: "/react-scratch/" } };
     const { redirectToReferrer } = this.state;
 
-    // if (redirectToReferrer) {
-    //   return <Redirect to={from} />;
-    // }
-    // <div>
-    //   <p>You must log in to view the page at {from.pathname}</p>
-    //   <button className="button" onClick={this.login}>Log in</button>
-    // </div>
+    if (redirectToReferrer) {
+      return <Redirect to={from} />;
+    }
 
     return (
-      if (redirectToReferrer) {
-        return <Redirect to={from} />;
-      }
-
-
+      <div>
+        <p>You must log in to view the page at {from.pathname}</p>
+        <button className="button" onClick={this.login}>Log in</button>
+      </div>
     );
   }
 }

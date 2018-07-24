@@ -140,7 +140,7 @@ class Login extends React.Component {
   //     this.setState({ redirectToReferrer: true });
   //   });
   // };
-  login = () => {
+  login() {
      let client_id = "2fior6770hvto4u6kuq084j7fu";
      let redirect_uri = "https://angelodel01.github.io/react-scratch/";
      let loginUrl = `https://cognito-dev.calpoly.edu/login?response_type=token&` +

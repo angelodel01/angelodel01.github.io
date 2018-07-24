@@ -22,6 +22,26 @@ function personSearch() {
 	homeBtn.disabled = true;
 
 	var input = document.getElementById("searchParam").value;
+
+
+	const parsers = '!@#$%^*()_="\'\':;?,.<>[]\{\}'
+	for (var i in parsers){
+			for (var j in input){
+				if (input[j] == parsers[i]){
+					let resMsg = document.getElementById("resultMessage");
+					if (resMsg === null){
+						createParagraph("resultMessage", "contentItems")
+						resMsg = document.getElementById("resultMessage")
+					}
+					console.log(resMsg)
+					resMsg.innerHTML = "Must only contain characters: a-z, 0-9, -, /, &, ', and spaces"
+					return;
+				}
+			}
+	}
+
+
+
 	var url = `http://localhost:3000/personSearch?searchParam=${input}`
 	url = encodeURI(url)
 

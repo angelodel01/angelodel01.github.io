@@ -103,7 +103,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
   <Route
     {...rest}
     render={props =>
-      fakeAuth.isAuthenticated ? (
+      Auth.isAuthenticated ? (
         <Component {...props} />
       ) : (
         <Redirect
@@ -118,7 +118,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
 );
 
 
-const fakeAuth = {
+const Auth = {
   isAuthenticated: false,
   authenticate(cb) {
     this.isAuthenticated = true;
@@ -132,21 +132,22 @@ const fakeAuth = {
 
 
 class Login extends React.Component {
-  state : {
+  state = {
     redirectToReferrer: false
   };
+
   // login = () => {
   //   fakeAuth.authenticate(() => {
   //     this.setState({ redirectToReferrer: true });
   //   });
   // };
+
   login() {
      let client_id = "2fior6770hvto4u6kuq084j7fu";
      let redirect_uri = "https://angelodel01.github.io/react-scratch/";
      let loginUrl = `https://cognito-dev.calpoly.edu/login?response_type=token&` +
      `client_id=${client_id}&redirect_uri=${redirect_uri}`;
      window.location = loginUrl;
-
  }
 
 
@@ -167,6 +168,27 @@ class Login extends React.Component {
   }
 }
 
+
+function checkFunction(){
+  console.log("window.location.hash :", window.location.hash)
+  let keyUrl = window.location.hash.substring(1);
+  if (keyUrl.includes("id_token")){
+    var id_tokenVal = keyUrl.substring("id_token=".length, keyUrl.indexOf("&"))
+    var exprIndex = keyUrl.indexOf("expires_in") + "expires_in=".length
+    var exprVal = keyUrl.substring(exprIndex, keyUrl.indexOf("&", exprIndex))
+    console.log("expiration time : ", exprVal);
+    setCookie("id_token", id_tokenVal, exprVal);
+    window.location = window.location.origin
+  }
+
+  const key = getCookie("id_token");
+  if (key !== ""){
+    Auth.authenticate(() => {
+         Login.State = { redirectToReferrer: true };
+       });
+  }
+  return;
+}
 
 
 ReactDOM.render(<App />, document.getElementById('root'));

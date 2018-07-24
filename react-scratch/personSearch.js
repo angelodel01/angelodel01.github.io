@@ -19,7 +19,7 @@ function personSearch() {
 		loadingIcon.parentNode.removeChild(loadingIcon);
 	}
 
-	homeBtn.disabled = true;
+	// homeBtn.disabled = true;
 
 	var input = document.getElementById("searchParam").value;
 
@@ -55,7 +55,7 @@ function personSearch() {
 
 			var loadIcon = document.getElementById("loadIcon");
 			loadIcon.parentNode.removeChild(loadIcon);
-			homeBtn.disabled = false;
+			// homeBtn.disabled = false;
 
 			createParagraph("resultMessage", "contentItems")
 			createTable("foundEntries", "contentItems")

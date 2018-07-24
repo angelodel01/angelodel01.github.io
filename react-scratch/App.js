@@ -23,10 +23,7 @@ class App extends React.Component{
         <header>Cal Poly</header><br></br>
         <BrowserRouter>
           <div id ="ogB">
-
             <hr />
-
-
             <Route exact path="/react-scratch/" component={Home} />
             <Route path="/react-scratch/stock" component={Stock} />
             <Route path="/react-scratch/repo" component={Repo} />
@@ -41,6 +38,8 @@ class App extends React.Component{
 
 class Home extends React.Component {
   render(){
+    checkFunction();
+    removeProtected();
      return (
         <div>
           <h2 id= "title">HTML Buttons</h2>

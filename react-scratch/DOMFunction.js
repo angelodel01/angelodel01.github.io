@@ -21,6 +21,12 @@ function wipeWholePage(){
 	}
 }
 
+function removeProtected(){
+  const temp = document.getElementById("temp");
+  if (temp != undefined){
+    temp.parentNode.removeChild(temp);
+  }
+}
 
 // CREATE FUNCTIONS
 // These functions are each responsible for creating a different elements

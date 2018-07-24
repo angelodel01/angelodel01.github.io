@@ -148,13 +148,12 @@ class Login extends React.Component {
      let loginUrl = `https://cognito-dev.calpoly.edu/login?response_type=token&` +
      `client_id=${client_id}&redirect_uri=${redirect_uri}`;
      window.location = loginUrl;
- }
+   }
 
 
   render() {
-    const { from } = this.props.location.state || { from: { pathname: "/" } };
-    // const { redirectToReferrer } = this.state;
-    const redirectToReferrer = this.state.redirectToReferrer;
+    const { from } = this.props.location.state || { from: { pathname: "/react-scratch/" } };
+    const { redirectToReferrer } = this.state;
 
     if (redirectToReferrer) {
       return <Redirect to={from} />;

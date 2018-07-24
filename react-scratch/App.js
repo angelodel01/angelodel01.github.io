@@ -77,7 +77,6 @@ class Repo extends React.Component {
 
 class PersonSearch extends React.Component {
   render(){
-     protectedContent()
      return (
         <div>
             <div id="contentItems" className="text">
@@ -91,6 +90,7 @@ class PersonSearch extends React.Component {
 
 class Protected extends React.Component {
   render(){
+    protectedContent()
      return (
         <div>
           <Link to="/react-scratch/"><button className= "button">Home</button></Link>

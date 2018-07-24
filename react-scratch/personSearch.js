@@ -42,7 +42,7 @@ function personSearch() {
 
 
 
-	var url = `http://localhost:3000/personSearch?searchParam=${input}`
+	var url = `http://localhost:8080/personSearch?searchParam=${input}`
 	url = encodeURI(url)
 
 	createDiv("loadIcon", "loader");

@@ -1,11 +1,3 @@
-// import React from "react";
-// import { BrowserRouter as Router, Route, Link, Redirect, withRouter} from 'react-router-dom'
-//
-// import { searchFunction } from './stock.js'
-// import { accessFunction } from './repo.js'
-// import { personSearch } from './personSearch.js'
-
-// console.log(window.ReactRouterDOM);
 
 const BrowserRouter = window.ReactRouterDOM.BrowserRouter;
 const Route = window.ReactRouterDOM.Route;
@@ -13,9 +5,8 @@ const Link = window.ReactRouterDOM.Link;
 const Redirect = window.ReactRouterDOM.Redirect;
 const withRouter = window.ReactRouterDOM.withRouter;
 
-// const App = React.createClass({
-//   render: function()  {
 
+// Router definition
 class App extends React.Component{
    render(){
      return (
@@ -24,6 +15,7 @@ class App extends React.Component{
         <BrowserRouter>
           <div id ="ogB">
             <hr />
+            // linking classes to urls
             <Route exact path="/react-scratch/" component={Home} />
             <Route path="/react-scratch/stock" component={Stock} />
             <Route path="/react-scratch/repo" component={Repo} />
@@ -36,8 +28,11 @@ class App extends React.Component{
     )}
 }
 
+
+// Home page : "https://angelodel01.github.io/react-scratch/"
 class Home extends React.Component {
   render(){
+    // handle returning from the cognito redirect in the "Login" class
     checkFunction();
     removeProtected();
      return (
@@ -51,6 +46,7 @@ class Home extends React.Component {
      )}
 }
 
+// stock page : "https://angelodel01.github.io/react-scratch/stock"
 class Stock extends React.Component {
   render(){
      return (
@@ -62,6 +58,7 @@ class Stock extends React.Component {
      )}
 }
 
+// repo page : "https://angelodel01.github.io/react-scratch/repo"
 class Repo extends React.Component {
   render(){
      return (
@@ -75,6 +72,8 @@ class Repo extends React.Component {
      )}
 }
 
+// This page mimics the functionality of the "simple search" widget on the portal
+// PersonSearch page : "https://angelodel01.github.io/react-scratch/personSearch"
 class PersonSearch extends React.Component {
   render(){
      return (
@@ -88,6 +87,7 @@ class PersonSearch extends React.Component {
      )}
 }
 
+// protected page : "https://angelodel01.github.io/react-scratch/protected"
 class Protected extends React.Component {
   render(){
     protectedContent()
@@ -99,6 +99,7 @@ class Protected extends React.Component {
 }
 
 
+// definition for redirection of a secure page
 const PrivateRoute = ({ component: Component, ...rest }) => (
   <Route
     {...rest}
@@ -117,7 +118,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
   />
 );
 
-
+// constant for keeping track of Authentication state
 const Auth = {
   isAuthenticated: false,
   authenticate(cb) {
@@ -130,23 +131,15 @@ const Auth = {
   }
 };
 
-
+// class definition for the login component
 class Login extends React.Component {
+  // initialize that locks the user out on first navigation
   constructor(props){
     super(props);
     this.state = {redirectToReferrer: false};
   }
 
-  // state : {
-  //   redirectToReferrer: false
-  // };
-
-  // login = () => {
-  //   fakeAuth.authenticate(() => {
-  //     this.setState({ redirectToReferrer: true });
-  //   });
-  // };
-
+  // redirects to the cognito login
   login() {
      let client_id = "2fior6770hvto4u6kuq084j7fu";
      let redirect_uri = "https://angelodel01.github.io/react-scratch/";
@@ -164,19 +157,13 @@ class Login extends React.Component {
       return <Redirect to={from} />;
     }
 
-    // <div>
-    //   <p>You must log in to view the page at {from.pathname}</p>
-    //   <button className="button" onClick={this.login}>Log in</button>
-    // </div>
-
-
     return (
       this.login()
     );
   }
 }
 
-
+// handles an "id_token" in the url from cognito  
 function checkFunction(){
   console.log("window.location.hash :", window.location.hash)
   let keyUrl = window.location.hash.substring(1);

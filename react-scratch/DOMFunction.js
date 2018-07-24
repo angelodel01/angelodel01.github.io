@@ -29,26 +29,26 @@ function setCookie(cname, cvalue, exsecs) {
 
 
 // Hides the home page elements
-function removeHome(){
-	var ogHead = document.getElementById("ogB");
-	ogHead.style.display = "none";
-	return;
-}
-
-
-// Loops through the childNodes of the body and removes the appropriate elements.
-// (mostly for wiping child page elements while not effecting home page elements)
-function wipeWholePage(){
-	var currNode = document.body.childNodes
-	for (var i = 0; i < currNode.length; i++) {
-		console.log("curr id", currNode[i].id);
-		if(currNode[i].id !== "ogB" &&
-		currNode[i].id !== undefined && currNode[i].nodeName !== "H"){
-			console.log("Removing.....", currNode[i].id)
-			currNode[i].parentNode.removeChild(currNode[i])
-		}
-	}
-}
+// function removeHome(){
+// 	var ogHead = document.getElementById("ogB");
+// 	ogHead.style.display = "none";
+// 	return;
+// }
+//
+//
+// // Loops through the childNodes of the body and removes the appropriate elements.
+// // (mostly for wiping child page elements while not effecting home page elements)
+// function wipeWholePage(){
+// 	var currNode = document.body.childNodes
+// 	for (var i = 0; i < currNode.length; i++) {
+// 		console.log("curr id", currNode[i].id);
+// 		if(currNode[i].id !== "ogB" &&
+// 		currNode[i].id !== undefined && currNode[i].nodeName !== "H"){
+// 			console.log("Removing.....", currNode[i].id)
+// 			currNode[i].parentNode.removeChild(currNode[i])
+// 		}
+// 	}
+// }
 
 function removeProtected(){
   const temp = document.getElementById("temp");
@@ -63,19 +63,19 @@ function removeProtected(){
 //
 
 // Creates html "Button"
-function createButton(message, func, id, parentId){
-	var mess;
-	var btn;
-	var parentNode = document.getElementById(parentId)
-
-	btn = document.createElement("BUTTON");
-	mess = document.createTextNode(message);
-	btn.appendChild(mess);
-	btn.setAttribute("id", id);
-	btn.setAttribute("onClick", func);
-	btn.setAttribute("class", "button");
-	parentNode.appendChild(btn);
-}
+// function createButton(message, func, id, parentId){
+// 	var mess;
+// 	var btn;
+// 	var parentNode = document.getElementById(parentId)
+//
+// 	btn = document.createElement("BUTTON");
+// 	mess = document.createTextNode(message);
+// 	btn.appendChild(mess);
+// 	btn.setAttribute("id", id);
+// 	btn.setAttribute("onClick", func);
+// 	btn.setAttribute("class", "button");
+// 	parentNode.appendChild(btn);
+// }
 
 // Creates html "input"
 function createInputBox(id, parentId){

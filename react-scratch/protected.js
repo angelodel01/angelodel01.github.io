@@ -1,5 +1,5 @@
 
-export function protectedContent(){
+function protectedContent(){
 	console.log("inside protectedContent()");
 
 	// var key = getCookie("id_token");

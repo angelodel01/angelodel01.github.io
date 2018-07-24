@@ -183,7 +183,7 @@ function checkFunction(){
     var exprVal = keyUrl.substring(exprIndex, keyUrl.indexOf("&", exprIndex))
     console.log("expiration time : ", exprVal);
     setCookie("id_token", id_tokenVal, exprVal);
-    window.location = window.location.origin
+    window.location = "https://angelodel01.github.io/react-scratch/"
   }
 
   const key = getCookie("id_token");

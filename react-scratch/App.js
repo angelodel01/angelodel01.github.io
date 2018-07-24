@@ -108,7 +108,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
       ) : (
         <Redirect
           to={{
-            pathname: "/login",
+            pathname: "/react-scratch/login",
             state: { from: props.location }
           }}
         />

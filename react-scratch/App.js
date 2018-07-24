@@ -78,6 +78,7 @@ class Repo extends React.Component {
 
 class PersonSearch extends React.Component {
   render(){
+     protectedContent()
      return (
         <div>
             <div id="contentItems" className="text">

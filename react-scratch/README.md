@@ -3,7 +3,7 @@ Angelo De Laurentis under John Morton for Cal Poly ITS
 
 Website location:"https://angelodel01.github.io/react-scratch/"
 
-This website is a re-implementation of the vanilla javascript version that can be found at : "https://angelodel01.github.io/"
+This website is a re-implementation of the vanilla javascript version that can be found at : "https://angelodel01.github.io/" (the root of this project)
 
 The difference between this "react-scratch" version and the original version is that this version uses the react framework.
 

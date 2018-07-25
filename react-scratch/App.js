@@ -15,7 +15,6 @@ class App extends React.Component{
         <BrowserRouter>
           <div id ="ogB">
             <hr />
-            // linking classes to urls
             <Route exact path="/react-scratch/" component={Home} />
             <Route path="/react-scratch/stock" component={Stock} />
             <Route path="/react-scratch/repo" component={Repo} />
@@ -163,7 +162,7 @@ class Login extends React.Component {
   }
 }
 
-// handles an "id_token" in the url from cognito  
+// handles an "id_token" in the url from cognito
 function checkFunction(){
   console.log("window.location.hash :", window.location.hash)
   let keyUrl = window.location.hash.substring(1);

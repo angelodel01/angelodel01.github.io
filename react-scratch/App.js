@@ -21,11 +21,11 @@ class App extends React.Component{
           <div id ="ogB">
             <hr />
             <Route exact path="/react-scratch/" component={Home} />
-            <Route path="/react-scratch/#stock" component={Stock} />
-            <Route path="/react-scratch/#repo" component={Repo} />
-            <Route path="/react-scratch/#login" component={Login} />
-            <PrivateRoute path="/react-scratch/#protected" component={Protected} />
-            <Route path="/react-scratch/#personSearch" component={PersonSearch} />
+            <Route path="/react-scratch/#/stock" component={Stock} />
+            <Route path="/react-scratch/#/repo" component={Repo} />
+            <Route path="/react-scratch/#/login" component={Login} />
+            <PrivateRoute path="/react-scratch/#/protected" component={Protected} />
+            <Route path="/react-scratch/#/personSearch" component={PersonSearch} />
           </div>
         </BrowserRouter>
        </div>
@@ -42,10 +42,10 @@ class Home extends React.Component {
      return (
         <div>
           <h2 id= "title">HTML Buttons</h2>
-            <Link to="/react-scratch/#repo"><button className= "button">Display Repos</button></Link>
-            <Link to="/react-scratch/#stock"><button className= "button">Check Stock Info</button></Link>
-            <Link to="/react-scratch/#protected"><button className= "button">Protected Resource</button></Link>
-            <Link to="/react-scratch/#personSearch"><button className= "button">Search Directory</button></Link>
+            <Link to="/react-scratch/#/repo"><button className= "button">Display Repos</button></Link>
+            <Link to="/react-scratch/#/stock"><button className= "button">Check Stock Info</button></Link>
+            <Link to="/react-scratch/#/protected"><button className= "button">Protected Resource</button></Link>
+            <Link to="/react-scratch/#/personSearch"><button className= "button">Search Directory</button></Link>
         </div>
      )}
 }
@@ -124,7 +124,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
       ) : (
         <Redirect
           to={{
-            pathname: "/react-scratch/#login",
+            pathname: "/react-scratch/#/login",
             state: { from: props.location }
           }}
         />

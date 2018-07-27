@@ -6,11 +6,6 @@ const Redirect = window.ReactRouterDOM.Redirect;
 const withRouter = window.ReactRouterDOM.withRouter;
 
 
-
-
-// 2018-07-27T18:06:50.000Z
-
-
 // Router definition
 class App extends React.Component{
    render(){
@@ -94,12 +89,12 @@ class PersonSearch extends React.Component {
 // protected page : "https://angelodel01.github.io/react-scratch/protected"
 class Protected extends React.Component {
   render(){
-     protectedContent()
-        return (
-           <div>
-             <Link to="/react-scratch/"><button className= "button">Home</button></Link>
-           </div>
-        )}
+    protectedContent()
+     return (
+        <div>
+          <Link to="/react-scratch/"><button className= "button">Home</button></Link>
+        </div>
+     )}
 }
 
 
@@ -170,15 +165,14 @@ class Login extends React.Component {
 // handles an "id_token" in the url from cognito
 function checkFunction(){
   console.log("window.location.hash :", window.location.hash)
-  let keyUrl = window.location.hash.substring(1) + '&';
+  let keyUrl = window.location.hash.substring(1);
   if (keyUrl.includes("id_token")){
-      var id_tokenIndex = keyUrl.indexOf("id_token=")
-      var id_tokenVal = keyUrl.substring(id_tokenIndex + "id_token=".length, keyUrl.indexOf("&", id_tokenIndex))
-      var exprIndex = keyUrl.indexOf("expires_in") + "expires_in=".length
-      var exprVal = keyUrl.substring(exprIndex, keyUrl.indexOf("&", exprIndex))
-      console.log("expiration time : ", exprVal);
-      setCookie("id_token", id_tokenVal, exprVal);
-      window.location = "https://angelodel01.github.io/react-scratch/"
+    var id_tokenVal = keyUrl.substring("id_token=".length, keyUrl.indexOf("&"))
+    var exprIndex = keyUrl.indexOf("expires_in") + "expires_in=".length
+    var exprVal = keyUrl.substring(exprIndex, keyUrl.indexOf("&", exprIndex))
+    console.log("expiration time : ", exprVal);
+    setCookie("id_token", id_tokenVal, exprVal);
+    window.location = "https://angelodel01.github.io/react-scratch/"
   }
 
   const key = getCookie("id_token");
@@ -189,9 +183,6 @@ function checkFunction(){
   }
   return;
 }
-
-
-
 
 
 ReactDOM.render(<App />, document.getElementById('root'));

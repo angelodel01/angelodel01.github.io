@@ -22,17 +22,33 @@ function setCookie(cname, cvalue, exsecs) {
 	var d = new Date();
 	d.setTime(d.getTime() + exsecs*1000)
 	var expires = "expires="+d.toUTCString();
-
-	let cookieObj = {
-		"value" : cvalue,
-		"expDate" : expires
-	}
-	document.cookie = cname + "=" + JSON.stringify(cookieObj) + ";" + expires + ";path=/";
+	document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
 }
 
 
 
 
+// Hides the home page elements
+// function removeHome(){
+// 	var ogHead = document.getElementById("ogB");
+// 	ogHead.style.display = "none";
+// 	return;
+// }
+//
+//
+// // Loops through the childNodes of the body and removes the appropriate elements.
+// // (mostly for wiping child page elements while not effecting home page elements)
+// function wipeWholePage(){
+// 	var currNode = document.body.childNodes
+// 	for (var i = 0; i < currNode.length; i++) {
+// 		console.log("curr id", currNode[i].id);
+// 		if(currNode[i].id !== "ogB" &&
+// 		currNode[i].id !== undefined && currNode[i].nodeName !== "H"){
+// 			console.log("Removing.....", currNode[i].id)
+// 			currNode[i].parentNode.removeChild(currNode[i])
+// 		}
+// 	}
+// }
 
 function removeProtected(){
   const temp = document.getElementById("temp");

@@ -100,6 +100,7 @@ class Protected extends React.Component {
       if ( (id_token != "") && ((new Date(id_token.expDate) - new Date())/60000 < 30) ) {
          console.log("update_url")
          window.location = update_url;
+         return;
       }
    }
   render(){
@@ -189,7 +190,7 @@ function checkFunction(){
       console.log("expiration time : ", exprVal);
 
       setCookie("id_token", id_tokenVal, 1830);
-    window.location = "https://angelodel01.github.io/react-scratch/"
+      window.location = "https://angelodel01.github.io/react-scratch/"
   }
 
   const key = getCookie("id_token");

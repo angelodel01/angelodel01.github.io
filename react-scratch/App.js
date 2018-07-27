@@ -6,6 +6,11 @@ const Redirect = window.ReactRouterDOM.Redirect;
 const withRouter = window.ReactRouterDOM.withRouter;
 
 
+https://cognito-dev.calpoly.edu/oauth2/authorize?response_type=token&client_id=2fior6770hvto4u6kuq084j7fu&redirect_uri=https://angelodel01.github.io/react-scratch/
+
+// 2018-07-27T18:06:50.000Z
+
+
 // Router definition
 class App extends React.Component{
    render(){
@@ -165,9 +170,9 @@ class Login extends React.Component {
 // handles an "id_token" in the url from cognito
 function checkFunction(){
   console.log("window.location.hash :", window.location.hash)
-  let keyUrl = window.location.hash.substring(1);
+  let keyUrl = window.location.hash.substring(1) + '&';
   if (keyUrl.includes("id_token")){
-    var id_tokenVal = keyUrl.substring("id_token=".length, keyUrl.indexOf("&"))
+    var id_tokenVal = keyUrl.substring(keyUrl.indexOf("id_token=") + "id_token=".length, keyUrl.indexOf("&"))
     var exprIndex = keyUrl.indexOf("expires_in") + "expires_in=".length
     var exprVal = keyUrl.substring(exprIndex, keyUrl.indexOf("&", exprIndex))
     console.log("expiration time : ", exprVal);
@@ -183,6 +188,9 @@ function checkFunction(){
   }
   return;
 }
+
+
+
 
 
 ReactDOM.render(<App />, document.getElementById('root'));

@@ -20,7 +20,7 @@ class App extends React.Component{
         <BrowserRouter>
           <div id ="ogB">
             <hr />
-            <Route exact path="/react-scratch/#" component={Home} />
+            <Route exact path="/react-scratch/" component={Home} />
             <Route path="/react-scratch/#stock" component={Stock} />
             <Route path="/react-scratch/#repo" component={Repo} />
             <Route path="/react-scratch/#login" component={Login} />
@@ -57,7 +57,7 @@ class Stock extends React.Component {
          <div id="contentItems" className="text">
             <input type="text" placeholder="Type here..." id="Input" className="textBox"></input>
             <button id="bn" onClick={searchFunction} className="button">Search Stock</button>
-            <Link to="/react-scratch/#"><button className= "button">Home</button></Link>
+            <Link to="/react-scratch/"><button className= "button">Home</button></Link>
         </div>
      )}
 }
@@ -71,7 +71,7 @@ class Repo extends React.Component {
                <input type="text" placeholder="Type here..." id="Input" className="textBox"></input>
                <button id="bn" onClick={accessFunction} className="button">List Repos</button>
             </div>
-          <Link to="/react-scratch/#"><button className= "button">Home</button></Link>
+          <Link to="/react-scratch/"><button className= "button">Home</button></Link>
         </div>
      )}
 }
@@ -86,7 +86,7 @@ class PersonSearch extends React.Component {
                <input type="text" placeholder="Type here..." id="searchParam" className="textBox"></input>
                <button id="bn" onClick={personSearch} className="button">Search Person</button>
             </div>
-          <Link to="/react-scratch/#"><button className= "button">Home</button></Link>
+          <Link to="/react-scratch/"><button className= "button">Home</button></Link>
         </div>
      )}
 }
@@ -108,7 +108,7 @@ class Protected extends React.Component {
      protectedContent()
         return (
            <div>
-             <Link to="/react-scratch/#"><button className= "button">Home</button></Link>
+             <Link to="/react-scratch/"><button className= "button">Home</button></Link>
            </div>
         )}
 }
@@ -124,7 +124,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
       ) : (
         <Redirect
           to={{
-            pathname: "/react-scratch/login",
+            pathname: "/react-scratch/#login",
             state: { from: props.location }
           }}
         />
@@ -165,7 +165,7 @@ class Login extends React.Component {
 
 
   render() {
-    const { from } = this.props.location.state || { from: { pathname: "/react-scratch/#" } };
+    const { from } = this.props.location.state || { from: { pathname: "/react-scratch/" } };
     const { redirectToReferrer } = this.state;
 
     if (redirectToReferrer) {

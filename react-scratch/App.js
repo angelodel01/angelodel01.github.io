@@ -94,9 +94,11 @@ class PersonSearch extends React.Component {
 // protected page : "https://angelodel01.github.io/react-scratch/protected"
 class Protected extends React.Component {
    update(){
+      console.log("inside this.update()")
       const id_token = getCookie("id_token");
       const update_url =  "https://cognito-dev.calpoly.edu/oauth2/authorize?response_type=token&client_id=2fior6770hvto4u6kuq084j7fu&redirect_uri=https://angelodel01.github.io/react-scratch/";
       if ( (id_token != "") && ((new Date(id_token.expDate) - new Date())*60000 < 30) ) {
+         console.log("update_url")
          window.location = update_url;
       }
    }

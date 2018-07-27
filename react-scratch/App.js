@@ -6,7 +6,7 @@ const Redirect = window.ReactRouterDOM.Redirect;
 const withRouter = window.ReactRouterDOM.withRouter;
 
 
-https://cognito-dev.calpoly.edu/oauth2/authorize?response_type=token&client_id=2fior6770hvto4u6kuq084j7fu&redirect_uri=https://angelodel01.github.io/react-scratch/
+
 
 // 2018-07-27T18:06:50.000Z
 
@@ -93,6 +93,11 @@ class PersonSearch extends React.Component {
 
 // protected page : "https://angelodel01.github.io/react-scratch/protected"
 class Protected extends React.Component {
+   const id_token = getCookie("id_token");
+   const update_url =  "https://cognito-dev.calpoly.edu/oauth2/authorize?response_type=token&client_id=2fior6770hvto4u6kuq084j7fu&redirect_uri=https://angelodel01.github.io/react-scratch/";
+   if ( (id_token != "") && ((new Date(id_token.expDate) - new Date())*60000 < 30) ) {
+      window.location = update_url;
+   }
   render(){
     protectedContent()
      return (
@@ -172,16 +177,17 @@ function checkFunction(){
   console.log("window.location.hash :", window.location.hash)
   let keyUrl = window.location.hash.substring(1) + '&';
   if (keyUrl.includes("id_token")){
-     var id_tokenIndex = keyUrl.indexOf("id_token=")
-    var id_tokenVal = keyUrl.substring(id_tokenIndex + "id_token=".length, keyUrl.indexOf("&", id_tokenIndex))
-    var exprIndex = keyUrl.indexOf("expires_in") + "expires_in=".length
-    var exprVal = keyUrl.substring(exprIndex, keyUrl.indexOf("&", exprIndex))
-    console.log("expiration time : ", exprVal);
-    setCookie("id_token", id_tokenVal, exprVal);
+      var id_tokenIndex = keyUrl.indexOf("id_token=")
+      var id_tokenVal = keyUrl.substring(id_tokenIndex + "id_token=".length, keyUrl.indexOf("&", id_tokenIndex))
+      var exprIndex = keyUrl.indexOf("expires_in") + "expires_in=".length
+      var exprVal = keyUrl.substring(exprIndex, keyUrl.indexOf("&", exprIndex))
+      console.log("expiration time : ", exprVal);
+
+      setCookie("id_token", id_tokenVal, 1830);
     window.location = "https://angelodel01.github.io/react-scratch/"
   }
 
-  const key = getCookie("id_token");
+  const key = getCookie("id_token").value;
   if (key !== ""){
     Auth.authenticate(() => {
          Login.State = { redirectToReferrer: true };

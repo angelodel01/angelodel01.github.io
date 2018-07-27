@@ -103,7 +103,7 @@ class Protected extends React.Component {
       }
    }
   render(){
-     // this.update()
+     this.update()
      protectedContent()
         return (
            <div>
@@ -192,7 +192,7 @@ function checkFunction(){
     window.location = "https://angelodel01.github.io/react-scratch/"
   }
 
-  const key = getCookie("id_token").value;
+  const key = getCookie("id_token");
   if (key !== ""){
     Auth.authenticate(() => {
          Login.State = { redirectToReferrer: true };

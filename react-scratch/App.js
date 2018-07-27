@@ -20,12 +20,12 @@ class App extends React.Component{
         <BrowserRouter>
           <div id ="ogB">
             <hr />
-            <Route exact path="/react-scratch/" component={Home} />
-            <Route path="/react-scratch/stock" component={Stock} />
-            <Route path="/react-scratch/repo" component={Repo} />
-            <Route path="/react-scratch/login" component={Login} />
-            <PrivateRoute path="/react-scratch/protected" component={Protected} />
-            <Route path="/react-scratch/personSearch" component={PersonSearch} />
+            <Route exact path="/react-scratch/#" component={Home} />
+            <Route path="/react-scratch/#stock" component={Stock} />
+            <Route path="/react-scratch/#repo" component={Repo} />
+            <Route path="/react-scratch/#login" component={Login} />
+            <PrivateRoute path="/react-scratch/#protected" component={Protected} />
+            <Route path="/react-scratch/#personSearch" component={PersonSearch} />
           </div>
         </BrowserRouter>
        </div>
@@ -42,10 +42,10 @@ class Home extends React.Component {
      return (
         <div>
           <h2 id= "title">HTML Buttons</h2>
-            <Link to="/react-scratch/repo"><button className= "button">Display Repos</button></Link>
-            <Link to="/react-scratch/stock"><button className= "button">Check Stock Info</button></Link>
-            <Link to="/react-scratch/protected"><button className= "button">Protected Resource</button></Link>
-            <Link to="/react-scratch/personSearch"><button className= "button">Search Directory</button></Link>
+            <Link to="/react-scratch/#repo"><button className= "button">Display Repos</button></Link>
+            <Link to="/react-scratch/#stock"><button className= "button">Check Stock Info</button></Link>
+            <Link to="/react-scratch/#protected"><button className= "button">Protected Resource</button></Link>
+            <Link to="/react-scratch/#personSearch"><button className= "button">Search Directory</button></Link>
         </div>
      )}
 }
@@ -57,7 +57,7 @@ class Stock extends React.Component {
          <div id="contentItems" className="text">
             <input type="text" placeholder="Type here..." id="Input" className="textBox"></input>
             <button id="bn" onClick={searchFunction} className="button">Search Stock</button>
-            <Link to="/react-scratch/"><button className= "button">Home</button></Link>
+            <Link to="/react-scratch/#"><button className= "button">Home</button></Link>
         </div>
      )}
 }
@@ -71,7 +71,7 @@ class Repo extends React.Component {
                <input type="text" placeholder="Type here..." id="Input" className="textBox"></input>
                <button id="bn" onClick={accessFunction} className="button">List Repos</button>
             </div>
-          <Link to="/react-scratch/"><button className= "button">Home</button></Link>
+          <Link to="/react-scratch/#"><button className= "button">Home</button></Link>
         </div>
      )}
 }
@@ -86,7 +86,7 @@ class PersonSearch extends React.Component {
                <input type="text" placeholder="Type here..." id="searchParam" className="textBox"></input>
                <button id="bn" onClick={personSearch} className="button">Search Person</button>
             </div>
-          <Link to="/react-scratch/"><button className= "button">Home</button></Link>
+          <Link to="/react-scratch/#"><button className= "button">Home</button></Link>
         </div>
      )}
 }
@@ -100,7 +100,7 @@ class Protected extends React.Component {
       if ( (id_token != "") && ((new Date(id_token.expDate) - new Date())/60000 < 30) ) {
          console.log("update_url")
          window.location = update_url;
-         return;
+
       }
    }
   render(){
@@ -108,7 +108,7 @@ class Protected extends React.Component {
      protectedContent()
         return (
            <div>
-             <Link to="/react-scratch/"><button className= "button">Home</button></Link>
+             <Link to="/react-scratch/#"><button className= "button">Home</button></Link>
            </div>
         )}
 }
@@ -165,7 +165,7 @@ class Login extends React.Component {
 
 
   render() {
-    const { from } = this.props.location.state || { from: { pathname: "/react-scratch/" } };
+    const { from } = this.props.location.state || { from: { pathname: "/react-scratch/#" } };
     const { redirectToReferrer } = this.state;
 
     if (redirectToReferrer) {

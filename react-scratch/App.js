@@ -93,18 +93,21 @@ class PersonSearch extends React.Component {
 
 // protected page : "https://angelodel01.github.io/react-scratch/protected"
 class Protected extends React.Component {
-   const id_token = getCookie("id_token");
-   const update_url =  "https://cognito-dev.calpoly.edu/oauth2/authorize?response_type=token&client_id=2fior6770hvto4u6kuq084j7fu&redirect_uri=https://angelodel01.github.io/react-scratch/";
-   if ( (id_token != "") && ((new Date(id_token.expDate) - new Date())*60000 < 30) ) {
-      window.location = update_url;
+   update(){
+      const id_token = getCookie("id_token");
+      const update_url =  "https://cognito-dev.calpoly.edu/oauth2/authorize?response_type=token&client_id=2fior6770hvto4u6kuq084j7fu&redirect_uri=https://angelodel01.github.io/react-scratch/";
+      if ( (id_token != "") && ((new Date(id_token.expDate) - new Date())*60000 < 30) ) {
+         window.location = update_url;
+      }
    }
   render(){
-    protectedContent()
-     return (
-        <div>
-          <Link to="/react-scratch/"><button className= "button">Home</button></Link>
-        </div>
-     )}
+     this.update()
+     protectedContent()
+        return (
+           <div>
+             <Link to="/react-scratch/"><button className= "button">Home</button></Link>
+           </div>
+        )}
 }
 
 

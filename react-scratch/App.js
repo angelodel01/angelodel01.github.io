@@ -20,8 +20,8 @@ class App extends React.Component{
             <Route path="/react-scratch/stock" component={Stock} />
             <Route path="/react-scratch/repo" component={Repo} />
             <Route path="/react-scratch/login" component={Login} />
-            <PrivateRoute path="/react-scratch/protected" component={Protected} />
             <Route path="/react-scratch/personSearch" component={PersonSearch} />
+            <Route path="/react-scratch/PetStore" component={PersonSearch} />
           </div>
         </BrowserRouter>
        </div>

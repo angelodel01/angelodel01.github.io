@@ -210,7 +210,7 @@ const Auth = {
 //   }
 // }
 class Login extends React.Component {
-     login = () => {
+    login(){
         let client_id = "2fior6770hvto4u6kuq084j7fu";
         let redirect_uri = "http://localhost:3000/react-scratch";
         let loginUrl = `https://cognito-dev.calpoly.edu/login?response_type=token&` +

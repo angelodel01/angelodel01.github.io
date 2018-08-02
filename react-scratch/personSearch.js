@@ -66,14 +66,14 @@ function personSearch() {
 				resMsg.innerHTML = "No entries found"
 			} else {
 
-				resMsg.innerHTML = `Found ${keys.length} entries`
-
+				if (keys.length == 100){
+						resMsg.innerHTML = "Search returned more than 100 results..."
+				}else{
+						resMsg.innerHTML = `Found ${keys.length} entries`
+				}
 				for(var key in keys) {
-
 					var entry = myJson[keys[key]]
-
 					let entryKeys = Object.keys(entry)
-
 					var row = entryTable.insertRow()
 					row.className = "tBodyRow"
 					for(var entryKey in entryKeys) {

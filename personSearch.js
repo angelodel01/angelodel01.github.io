@@ -1,3 +1,4 @@
+
 function personSearch() {
 	// Setup to remove table and paragraph if exists
 	var resTbl = document.getElementById("foundEntries")
@@ -16,8 +17,30 @@ function personSearch() {
 	if(loadingIcon) {
 		loadingIcon.parentNode.removeChild(loadingIcon);
 	}
-	homeBtn.disabled = true;
+
+	// homeBtn.disabled = true;
+
 	var input = document.getElementById("searchParam").value;
+
+
+	const parsers = '!@#$%^*()_="\'\':;?,.<>[]\{\}'
+	for (var i in parsers){
+			for (var j in input){
+				if (input[j] == parsers[i]){
+					let resMsg = document.getElementById("resultMessage");
+					if (resMsg === null){
+						createParagraph("resultMessage", "contentItems")
+						resMsg = document.getElementById("resultMessage")
+					}
+					console.log(resMsg)
+					resMsg.innerHTML = "Must only contain characters: a-z, 0-9, -, /, &, ', and spaces"
+					return;
+				}
+			}
+	}
+
+
+
 	var url = `http://localhost:8080/personSearch?searchParam=${input}`
 	url = encodeURI(url)
 
@@ -31,7 +54,7 @@ function personSearch() {
 
 			var loadIcon = document.getElementById("loadIcon");
 			loadIcon.parentNode.removeChild(loadIcon);
-			homeBtn.disabled = false;
+			// homeBtn.disabled = false;
 
 			createParagraph("resultMessage", "contentItems")
 			createTable("foundEntries", "contentItems")
@@ -45,7 +68,7 @@ function personSearch() {
 
 				resMsg.innerHTML = `Found ${keys.length} entries`
 
-				for(key in keys) {
+				for(var key in keys) {
 
 					var entry = myJson[keys[key]]
 
@@ -53,14 +76,14 @@ function personSearch() {
 
 					var row = entryTable.insertRow()
 					row.className = "tBodyRow"
-					for(entryKey in entryKeys) {
+					for(var entryKey in entryKeys) {
 						row.insertCell().innerHTML = entry[entryKeys[entryKey]]
 					}
 				}
 
 				let headerRow = entryTable.createTHead().insertRow(0)
 				headerRow.className = "thRow"
-				for(cellVal in tblHeaderVal) {
+				for(var cellVal in tblHeaderVal) {
 					headerRow.insertCell().innerHTML = '<b>' +
 					tblHeaderVal[cellVal] + '</b>'
 				}

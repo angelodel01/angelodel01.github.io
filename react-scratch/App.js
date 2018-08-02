@@ -116,7 +116,7 @@ class PetStore extends React.Component {
       protectedContent();
       return (
            <div id="contentItems" className="text">
-           <Link to="/"><button className="button">Home</button></Link>
+           <Link to="/react-scratch/"><button className="button">Home</button></Link>
         </div>
       )
    }

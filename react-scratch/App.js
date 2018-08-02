@@ -30,12 +30,6 @@ class App extends React.Component{
 
 
 class Home extends React.Component {
-   constructor(props){
-      super(props);
-      this.state = {
-         "Authenticated": false,
-      }
-   }
   render(){
     checkFunction();
     removeProtected();

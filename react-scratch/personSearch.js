@@ -1,4 +1,3 @@
-// import { createTable, createDiv, createParagraph } from "./DOMFunction.js"
 
 function personSearch() {
 	// Setup to remove table and paragraph if exists

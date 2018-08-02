@@ -1,4 +1,3 @@
-// import { createTable, createDiv } from "./DOMFunction.js"
 
 function accessFunction(){
 	var input = document.getElementById("Input").value;

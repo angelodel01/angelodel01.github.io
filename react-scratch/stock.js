@@ -1,6 +1,3 @@
-// import { createTable, createDiv } from "./DOMFunction.js"
-
-
 
 function searchFunction(){
 	var error = document.getElementById("errorMess")

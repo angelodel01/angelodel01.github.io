@@ -29,24 +29,6 @@ class App extends React.Component{
 }
 
 
-// Home page : "https://angelodel01.github.io/react-scratch/"
-// class Home extends React.Component {
-//   render(){
-//     // handle returning from the cognito redirect in the "Login" class
-//     checkFunction();
-//     removeProtected();
-//      return (
-//         <div>
-//           <h2 id= "title">HTML Buttons</h2>
-//             <Link to="/react-scratch/repo"><button className= "button">Display Repos</button></Link>
-//             <Link to="/react-scratch/stock"><button className= "button">Check Stock Info</button></Link>
-//             <Link to="/react-scratch/protected"><button className= "button">Protected Resource</button></Link>
-//             <Link to="/react-scratch/personSearch"><button className= "button">Search Directory</button></Link>
-//         </div>
-//      )}
-// }
-
-
 class Home extends React.Component {
    constructor(props){
       super(props);
@@ -124,16 +106,6 @@ class PersonSearch extends React.Component {
      )}
 }
 
-// protected page : "https://angelodel01.github.io/react-scratch/protected"
-// class Protected extends React.Component {
-//   render(){
-//     protectedContent()
-//      return (
-//         <div>
-//           <Link to="/react-scratch/"><button className= "button">Home</button></Link>
-//         </div>
-//      )}
-// }
 
 class PetStore extends React.Component {
    render() {
@@ -179,36 +151,6 @@ const Auth = {
 
 // class definition for the login component
 
-// class Login extends React.Component {
-//   // initialize that locks the user out on first navigation
-//   constructor(props){
-//     super(props);
-//     this.state = {redirectToReferrer: false};
-//   }
-//
-//   // redirects to the cognito login
-//   login() {
-//      let client_id = "2fior6770hvto4u6kuq084j7fu";
-//      let redirect_uri = "https://angelodel01.github.io/react-scratch/";
-//      let loginUrl = `https://cognito-dev.calpoly.edu/login?response_type=token&` +
-//      `client_id=${client_id}&redirect_uri=${redirect_uri}`;
-//      window.location = loginUrl;
-//    }
-//
-//
-//   render() {
-//     const { from } = this.props.location.state || { from: { pathname: "/react-scratch/" } };
-//     const { redirectToReferrer } = this.state;
-//
-//     if (redirectToReferrer) {
-//       return <Redirect to={from} />;
-//     }
-//
-//     return (
-//       this.login()
-//     );
-//   }
-// }
 class Login extends React.Component {
     login(){
         let client_id = "2fior6770hvto4u6kuq084j7fu";

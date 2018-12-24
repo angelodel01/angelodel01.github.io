@@ -1,14 +1,21 @@
 <html>
-   <link rel="stylesheet" href="index.css">
-   <body>
+	<link rel="stylesheet" href="format.css">
+	<body>
+		<script src="DOMFunction.js"></script>
+		<script src="repo.js"></script>
+		<script src="personSearch.js"></script>
+		<script src="protected.js"></script>
+		<script src="stock.js"></script>
+		<script src="source.js"></script>
 
-      <div id="root"></div>
-      <script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
-      <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
-      <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.34/browser.min.js"></script>
-      <script src="https://unpkg.com/react-router/umd/react-router.min.js"></script>
-      <script src="https://unpkg.com/react-router-dom/umd/react-router-dom.min.js"></script>
-      <script src="app.js"></script>
-   </body>
+		<h>Cal Poly</h><br>
 
+		<divb id="ogB">
+			<h2 >HTML Buttons</h2>
+			<button class = "button" onclick="repoClick(true)">Display Repos</button>
+			<button class = "button" onclick="searchClick(true)">Check Stock Info</button>
+			<button class = "button" onclick="protectedClick(true)">Protected Resource</button>
+			<button class = "button" onclick="personSearchClick(true)">Search Directory</button>
+		</divb>
+	</body>
 </html>
